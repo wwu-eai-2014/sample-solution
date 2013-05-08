@@ -11,7 +11,12 @@
       <f:viewParam name="search" value="#{drugList.searchTerm}"></f:viewParam>
     </f:metadata>
   </ui:define>
-  <strong>Search: #{drugList.searchTerm}</strong>
+  <h:form>
+    <h:inputText value="#{drugList.searchTerm}">
+      <f:ajax render="search-button" />
+    </h:inputText>
+    <h:button id="search-button" value="search" outcome="drugs.xhtml?search=#{drugList.searchTerm}"/>
+  </h:form>
   <h:dataTable value="#{drugList.drugs}" var="drug">
     <h:column>
       <f:facet name="header">PZN</f:facet>
