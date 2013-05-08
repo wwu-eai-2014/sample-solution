@@ -25,7 +25,7 @@ public class DrugServiceBean implements DrugService {
       return getAllDrugs();
     }
 
-    String query = "SELECT d FROM Drug d WHERE d.pzn = :pzn OR lower(d.name) LIKE :searchTerm";
+    final String query = "SELECT d FROM Drug d WHERE d.pzn = :pzn OR lower(d.name) LIKE :searchTerm";
     return em.createQuery(query, Drug.class)
         .setParameter("searchTerm", prepareUniversalMatch(searchTerm))
         .setParameter("pzn", parseIntOrDefaultToZero(searchTerm))
