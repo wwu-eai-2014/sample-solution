@@ -13,7 +13,7 @@ public class DrugList {
 
   @EJB
   private DrugService drugService;
-  
+
   private String searchTerm;
 
   public Collection<Drug> getDrugs() {
@@ -27,5 +27,5 @@ public class DrugList {
   public void setSearchTerm(String searchTerm) {
     this.searchTerm = searchTerm;
   }
-  
+
 }
