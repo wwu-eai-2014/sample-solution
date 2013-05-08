@@ -11,4 +11,6 @@ public interface DrugService {
 
   Collection<Drug> getAllDrugs();
 
+  Collection<Drug> getAllDrugsLike(String searchTerm);
+
 }

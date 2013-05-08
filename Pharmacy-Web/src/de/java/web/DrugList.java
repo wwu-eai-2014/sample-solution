@@ -14,9 +14,18 @@ public class DrugList {
   @EJB
   private DrugService drugService;
   
+  private String searchTerm;
 
   public Collection<Drug> getDrugs() {
-    return drugService.getAllDrugs();
+    return drugService.getAllDrugsLike(searchTerm);
+  }
+
+  public String getSearchTerm() {
+    return searchTerm;
+  }
+
+  public void setSearchTerm(String searchTerm) {
+    this.searchTerm = searchTerm;
   }
   
 }

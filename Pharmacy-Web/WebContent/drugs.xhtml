@@ -6,9 +6,15 @@
 
 <h:head></h:head>
 <body>
-	<h:dataTable value="#{drugList.drugs}" var="drug">
-		<h:column>
-			<f:facet name="header">PZN</f:facet>
+  <ui:define name="metadata">
+    <f:metadata>
+      <f:viewParam name="search" value="#{drugList.searchTerm}"></f:viewParam>
+    </f:metadata>
+  </ui:define>
+  <strong>Search: #{drugList.searchTerm}</strong>
+  <h:dataTable value="#{drugList.drugs}" var="drug">
+    <h:column>
+      <f:facet name="header">PZN</f:facet>
       #{drug.pzn}
     </h:column>
     <h:column>
