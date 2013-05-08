@@ -2,20 +2,21 @@ package de.java.web;
 
 import java.util.Collection;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
+import de.java.ejb.DrugService;
 
 @ManagedBean
 public class DrugList {
+
+  @EJB
+  private DrugService drugService;
   
-  @PersistenceContext
-  private EntityManager em;
 
   public Collection<Drug> getDrugs() {
-    return em.createQuery("FROM Drug", Drug.class).getResultList();
+    return drugService.getAllDrugs();
   }
   
 }

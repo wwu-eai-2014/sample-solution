@@ -1,10 +1,14 @@
 package de.java.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Drug {
+public class Drug implements Serializable {
+
+  private static final long serialVersionUID = -9007410528310411219L;
 
   @Id
   private int pzn;
