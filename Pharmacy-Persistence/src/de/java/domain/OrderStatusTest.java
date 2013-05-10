@@ -18,7 +18,7 @@ public class OrderStatusTest {
 
   @Test public void
   postingIsPreceededByOrdered() {
-    assertThat(POSTING, is(preceededBy(OrderStatus.ORDERED)));
+    assertThat(POSTING, is(preceededBy(ORDERED)));
   }
  
   @Test public void
