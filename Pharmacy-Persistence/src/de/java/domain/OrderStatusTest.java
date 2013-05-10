@@ -36,7 +36,7 @@ public class OrderStatusTest {
 
       @Override
       public void describeTo(Description description) {
-        description.appendText("preceeded by" + status);
+        description.appendText("preceeded by " + status);
       }
 
       @Override
