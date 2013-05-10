@@ -29,5 +29,9 @@ public class ApplicationInitialiser {
   private void populateAppWithSampleDrugs() {
     em.persist(new Drug(8456716, "ASPIRIN PLUS C ORANGE 10St"));
     em.persist(new Drug(1715965, "ASPIRIN PLUS C ORANGE 20St"));
+    em.persist(new Drug(451122, "ACC 200 TABS 20St"));
+    em.persist(new Drug(451139, "ACC 200 TABS 50St"));
+    em.persist(new Drug(451145, "ACC 200 TABS 100St"));
+    em.persist(new Drug(451151, "ACC 200 TABS 100St"));
   }
 }
