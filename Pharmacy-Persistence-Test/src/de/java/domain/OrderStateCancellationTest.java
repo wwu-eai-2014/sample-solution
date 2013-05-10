@@ -1,12 +1,12 @@
 package de.java.domain;
 
-import static de.java.domain.OrderStatus.*;
+import static de.java.domain.OrderState.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class OrderStatusCancellationTest {
+public class OrderStateCancellationTest {
   @Test public void
   postingCancellingLeadsToCancelled() {
     assertThat(POSTING.cancel(), is(CANCELLED));

@@ -1,6 +1,6 @@
 package de.java.domain;
 
-import static de.java.domain.OrderStatus.*;
+import static de.java.domain.OrderState.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -12,10 +12,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class ParameterizedOrderStatusTest {
+public class ParameterizedOrderStateTest {
   
-  private OrderStatus status;
-  private boolean preceedable;
+  private OrderState state;
+  private boolean canProceed;
   private boolean mayBeCancelled;
 
   @Parameters
@@ -29,21 +29,21 @@ public class ParameterizedOrderStatusTest {
     });
   }
 
-  public ParameterizedOrderStatusTest(OrderStatus status,
-      boolean preceedable, boolean mayBeCancelled) {
-        this.status = status;
-        this.preceedable = preceedable;
+  public ParameterizedOrderStateTest(OrderState state,
+      boolean canProceed, boolean mayBeCancelled) {
+        this.state = state;
+        this.canProceed = canProceed;
         this.mayBeCancelled = mayBeCancelled;
   }
 
   @Test public void
   preceedability() {
-    assertEquals(status.isPreceedable(), preceedable);
+    assertEquals(state.isProceedable(), canProceed);
   }
 
   @Test public void
   cancelbility() {
-    assertEquals(status.mayBeCancelled(), mayBeCancelled);
+    assertEquals(state.mayBeCancelled(), mayBeCancelled);
   }
  
 }

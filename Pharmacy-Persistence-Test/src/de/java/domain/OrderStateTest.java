@@ -1,6 +1,6 @@
 package de.java.domain;
 
-import static de.java.domain.OrderStatus.*;
+import static de.java.domain.OrderState.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -9,44 +9,44 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.internal.matchers.TypeSafeMatcher;
 
-public class OrderStatusTest {
+public class OrderStateTest {
 
   @Test public void
   openIsPreceededByPosting() {
-    assertThat(OPEN, is(preceededBy(POSTING)));
+    assertThat(OPEN, is(succeededBy(POSTING)));
   }
 
   @Test public void
   postingIsPreceededByOrdered() {
-    assertThat(POSTING, is(preceededBy(ORDERED)));
+    assertThat(POSTING, is(succeededBy(ORDERED)));
   }
  
   @Test public void
   orderedIsPreceedByFinished() {
-    assertThat(ORDERED, is(preceededBy(FINISHED)));
+    assertThat(ORDERED, is(succeededBy(FINISHED)));
   }
  
   @Test(expected=IllegalOrderStatusTransitionException.class) public void
-  finishedCannotProceedIntoOtherStatus() {
+  finishedCannotProceedIntoOtherState() {
     FINISHED.next();
   }
 
   @Test(expected=IllegalOrderStatusTransitionException.class) public void
-  cancelledCannotProceedIntoOtherStatus() {
+  cancelledCannotProceedIntoOtherState() {
     CANCELLED.next();
   }
 
-  private Matcher<OrderStatus> preceededBy(final OrderStatus status) {
-    return new TypeSafeMatcher<OrderStatus>() {
+  private Matcher<OrderState> succeededBy(final OrderState state) {
+    return new TypeSafeMatcher<OrderState>() {
 
       @Override
       public void describeTo(Description description) {
-        description.appendText("preceeded by " + status);
+        description.appendText("succeeded by " + state);
       }
 
       @Override
-      public boolean matchesSafely(OrderStatus initialStatus) {
-        return initialStatus.next() == status;
+      public boolean matchesSafely(OrderState initialState) {
+        return initialState.next() == state;
       }
     };
   }
