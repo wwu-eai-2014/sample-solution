@@ -2,6 +2,7 @@ package de.java.domain;
 
 import static de.java.domain.OrderState.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -10,7 +11,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class ReplenishmentOrder {
+public class ReplenishmentOrder implements Serializable {
+
+  private static final long serialVersionUID = -5482259735269999562L;
 
   @Id
   @GeneratedValue
