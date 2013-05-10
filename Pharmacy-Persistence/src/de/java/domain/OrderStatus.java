@@ -4,16 +4,20 @@ public enum OrderStatus {
   OPEN {
     public OrderStatus next() { return POSTING; }
     public OrderStatus cancel() { throw new IllegalOrderStatusTransitionException(); }
-  }, POSTING {
+  },
+  POSTING {
     public OrderStatus next() { return ORDERED; }
     public boolean mayBeCancelled() { return true; }
     public OrderStatus cancel() { return CANCELLED; }
-  }, ORDERED {
+  },
+  ORDERED {
     public OrderStatus next() { return FINISHED; }
-  }, FINISHED {
+  },
+  FINISHED {
     public OrderStatus next() { throw new IllegalOrderStatusTransitionException(); }
     public boolean isPreceedable() { return false; }
-  }, CANCELLED {
+  },
+  CANCELLED {
     public OrderStatus next() { throw new IllegalOrderStatusTransitionException(); }
     public boolean isPreceedable() { return false; }
   };
