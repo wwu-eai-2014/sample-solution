@@ -21,9 +21,10 @@ public class ParameterizedOrderStatusTest {
   @Parameters
   public static List<Object[]> data() {
     return Arrays.asList(new Object[][] {
-        {
-          OPEN, true, false
-        }
+        { OPEN, true, false },
+        { POSTING, true, true },
+        { ORDERED, true, false },
+        { FINISHED, false, false }
     });
   }
 

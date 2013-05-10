@@ -12,26 +12,6 @@ import org.junit.internal.matchers.TypeSafeMatcher;
 public class OrderStatusTest {
 
   @Test public void
-  openCanBePreceeded() {
-    assertTrue(OPEN.isPreceedable());
-  }
-
-  @Test public void
-  postingCanBePreceeded() {
-    assertTrue(POSTING.isPreceedable());
-  }
-
-  @Test public void
-  orderedCanBePreceeded() {
-    assertTrue(ORDERED.isPreceedable());
-  }
-
-  @Test public void
-  finishedCanNotBePreceeded() {
-    assertFalse(FINISHED.isPreceedable());
-  }
-
-  @Test public void
   openIsPreceededByPosting() {
     assertThat(OPEN, is(preceededBy(POSTING)));
   }

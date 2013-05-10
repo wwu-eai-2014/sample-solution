@@ -11,6 +11,11 @@ public enum OrderStatus {
     public OrderStatus next() {
       return ORDERED;
     }
+
+    @Override
+    public boolean mayBeCancelled() {
+      return true;
+    }
   }, ORDERED {
     @Override
     public OrderStatus next() {
@@ -21,7 +26,7 @@ public enum OrderStatus {
     public OrderStatus next() {
       throw new IllegalOrderStatusTransitionException();
     }
- 
+
     @Override
     public boolean isPreceedable() {
       return false;
