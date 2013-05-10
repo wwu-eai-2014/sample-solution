@@ -12,12 +12,12 @@
     </f:metadata>
   </ui:define>
   Filter: 
-  <h:link outcome="replenishmentOrders.xhtml?filter=" value="ALL" />&nbsp;
-  <h:link outcome="replenishmentOrders.xhtml?filter=OPEN" value="OPEN" />&nbsp;
-  <h:link outcome="replenishmentOrders.xhtml?filter=POSTING" value="POSTING" />&nbsp;
-  <h:link outcome="replenishmentOrders.xhtml?filter=ORDERED" value="ORDERED" />&nbsp;
-  <h:link outcome="replenishmentOrders.xhtml?filter=FINISHED" value="FINISHED" />&nbsp;
-  <h:link outcome="replenishmentOrders.xhtml?filter=CANCELLED" value="CANCELLED" />
+  <h:link outcome="list.xhtml?filter=" value="ALL" />&nbsp;
+  <h:link outcome="list.xhtml?filter=OPEN" value="OPEN" />&nbsp;
+  <h:link outcome="list.xhtml?filter=POSTING" value="POSTING" />&nbsp;
+  <h:link outcome="list.xhtml?filter=ORDERED" value="ORDERED" />&nbsp;
+  <h:link outcome="list.xhtml?filter=FINISHED" value="FINISHED" />&nbsp;
+  <h:link outcome="list.xhtml?filter=CANCELLED" value="CANCELLED" />
   <h:dataTable value="#{replenishmentOrderList.orders}" var="cur">
     <h:column>
       <f:facet name="header">ID</f:facet>
