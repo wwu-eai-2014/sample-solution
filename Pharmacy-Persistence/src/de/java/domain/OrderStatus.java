@@ -3,7 +3,6 @@ package de.java.domain;
 public enum OrderStatus {
   OPEN {
     public OrderStatus next() { return POSTING; }
-    public OrderStatus cancel() { throw new IllegalOrderStatusTransitionException(); }
   },
   POSTING {
     public OrderStatus next() { return ORDERED; }
