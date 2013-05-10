@@ -24,7 +24,8 @@ public class ParameterizedOrderStatusTest {
         { OPEN, true, false },
         { POSTING, true, true },
         { ORDERED, true, false },
-        { FINISHED, false, false }
+        { FINISHED, false, false },
+        { CANCELLED, false, false }
     });
   }
 

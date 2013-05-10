@@ -31,6 +31,11 @@ public class OrderStatusTest {
     FINISHED.next();
   }
 
+  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  cancelledCannotProceedIntoOtherStatus() {
+    CANCELLED.next();
+  }
+
   private Matcher<OrderStatus> preceededBy(final OrderStatus status) {
     return new TypeSafeMatcher<OrderStatus>() {
 

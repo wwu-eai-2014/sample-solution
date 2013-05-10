@@ -2,35 +2,20 @@ package de.java.domain;
 
 public enum OrderStatus {
   OPEN {
-    @Override
-    public OrderStatus next() {
-      return POSTING;
-    }
+    public OrderStatus next() { return POSTING; }
+    public OrderStatus cancel() { throw new IllegalOrderStatusTransitionException(); }
   }, POSTING {
-    @Override
-    public OrderStatus next() {
-      return ORDERED;
-    }
-
-    @Override
-    public boolean mayBeCancelled() {
-      return true;
-    }
+    public OrderStatus next() { return ORDERED; }
+    public boolean mayBeCancelled() { return true; }
+    public OrderStatus cancel() { return CANCELLED; }
   }, ORDERED {
-    @Override
-    public OrderStatus next() {
-      return FINISHED;
-    }
+    public OrderStatus next() { return FINISHED; }
   }, FINISHED {
-    @Override
-    public OrderStatus next() {
-      throw new IllegalOrderStatusTransitionException();
-    }
-
-    @Override
-    public boolean isPreceedable() {
-      return false;
-    }
+    public OrderStatus next() { throw new IllegalOrderStatusTransitionException(); }
+    public boolean isPreceedable() { return false; }
+  }, CANCELLED {
+    public OrderStatus next() { throw new IllegalOrderStatusTransitionException(); }
+    public boolean isPreceedable() { return false; }
   };
 
   public abstract OrderStatus next();
@@ -41,6 +26,10 @@ public enum OrderStatus {
 
   public boolean mayBeCancelled() {
     return false;
+  }
+
+  public OrderStatus cancel() {
+    throw new IllegalOrderStatusTransitionException();
   }
 
 }
