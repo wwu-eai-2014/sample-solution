@@ -27,6 +27,14 @@
       <f:facet name="header">Status</f:facet>
       #{cur.state}
     </h:column>
+    <h:column>
+      <f:facet name="header">Expected delivery</f:facet>
+      #{cur.expectedDelivery}
+    </h:column>
+    <h:column>
+      <f:facet name="header">Actual delivery</f:facet>
+      #{cur.actualDelivery}
+    </h:column>
   </h:dataTable>
 </body>
 </html>
