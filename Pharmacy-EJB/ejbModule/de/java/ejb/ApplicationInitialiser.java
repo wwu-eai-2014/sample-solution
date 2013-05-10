@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
+import de.java.domain.OrderState;
+import de.java.domain.ReplenishmentOrder;
 
 @Singleton
 @Startup
@@ -33,5 +35,17 @@ public class ApplicationInitialiser {
     em.persist(new Drug(451139, "ACC 200 TABS 50St"));
     em.persist(new Drug(451145, "ACC 200 TABS 100St"));
     em.persist(new Drug(451151, "ACC 200 TABS 100St"));
+
+    em.persist(createReplenishmentOrder(OrderState.OPEN));
+    em.persist(createReplenishmentOrder(OrderState.POSTING));
+    em.persist(createReplenishmentOrder(OrderState.ORDERED));
+    em.persist(createReplenishmentOrder(OrderState.FINISHED));
+    em.persist(createReplenishmentOrder(OrderState.CANCELLED));
+  }
+
+  private ReplenishmentOrder createReplenishmentOrder(OrderState state) {
+    ReplenishmentOrder order = new ReplenishmentOrder();
+    order.setState(state);
+    return order;
   }
 }
