@@ -29,7 +29,6 @@ public class ReplenishmentOrderList {
   }
 
   public void setFilterForState(OrderState filterForState) {
-    System.out.println("set filter to: " + filterForState);
     this.filterForState = filterForState;
   }
 }
