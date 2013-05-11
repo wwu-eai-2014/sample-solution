@@ -15,8 +15,9 @@
       <h:inputText value="#{drugList.searchTerm}">
         <f:ajax render="search-button" />
       </h:inputText>
-      <h:button id="search-button" value="search"
-        outcome="list.xhtml?search=#{drugList.searchTerm}" />
+      <h:button id="search-button" value="search" outcome="list.xhtml">
+        <f:param name="search" value="#{drugList.searchTerm}" />
+      </h:button>
     </h:form>
     <h:dataTable value="#{drugList.drugs}" var="cur"
 			styleClass="data-table" headerClass="data-cell header-cell"
