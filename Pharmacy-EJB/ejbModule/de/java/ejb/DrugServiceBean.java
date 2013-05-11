@@ -47,4 +47,9 @@ public class DrugServiceBean implements DrugService {
   private String prepareUniversalMatch(String searchTerm) {
     return "%" + searchTerm.toLowerCase() + "%";
   }
+
+  @Override
+  public Drug getDrug(int pzn) {
+    return em.find(Drug.class, pzn);
+  }
 }

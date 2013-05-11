@@ -13,4 +13,6 @@ public interface DrugService {
 
   Collection<Drug> getAllDrugsLike(String searchTerm);
 
+  Drug getDrug(int pzn);
+
 }
