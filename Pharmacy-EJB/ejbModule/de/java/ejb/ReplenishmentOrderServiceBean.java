@@ -17,7 +17,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
 
   @Override
   public Collection<ReplenishmentOrder> getAllReplenishmentOrders() {
-    return em.createQuery("FROM ReplenishmentOrder", ReplenishmentOrder.class).getResultList();
+    return em.createQuery("FROM ReplenishmentOrder o ORDER BY o.state", ReplenishmentOrder.class).getResultList();
   }
 
   @Override

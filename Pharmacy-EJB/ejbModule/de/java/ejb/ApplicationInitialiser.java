@@ -41,6 +41,7 @@ public class ApplicationInitialiser {
     em.persist(createReplenishmentOrder(OrderState.ORDERED));
     em.persist(createReplenishmentOrder(OrderState.FINISHED));
     em.persist(createReplenishmentOrder(OrderState.CANCELLED));
+    em.persist(createReplenishmentOrder(OrderState.OPEN));
   }
 
   private ReplenishmentOrder createReplenishmentOrder(OrderState state) {
