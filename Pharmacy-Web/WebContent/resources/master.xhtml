@@ -22,14 +22,12 @@
         <ui:include src="/resources/navigation.xhtml" />
       </ui:insert>
     </div>
-    <hr />
     <div id="content">
       <!-- Display global error/success messages -->
       <h:messages id="messages" fatalClass="success" errorClass="error"
         warnClass="warning" infoClass="info" globalOnly="true" />
       <ui:insert name="content"></ui:insert>
     </div>
-    <hr />
     <div id="footer">
       <ui:insert name="footer">&copy; Practical Computer Science</ui:insert>
     </div>
