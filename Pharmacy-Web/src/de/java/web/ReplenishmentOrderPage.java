@@ -37,7 +37,7 @@ public class ReplenishmentOrderPage {
     Util.redirectToRoot();
   }
 
-  private ReplenishmentOrder getOrder() {
+  public ReplenishmentOrder getOrder() {
     if (order == null) {
       order = orderService.getOrder(id);
     }
