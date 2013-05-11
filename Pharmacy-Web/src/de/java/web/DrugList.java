@@ -28,4 +28,8 @@ public class DrugList {
     this.searchTerm = searchTerm;
   }
 
+  public String search() {
+    return "/drug/list.xhtml?faces-redirect=true&search=" + searchTerm;
+  }
+
 }
