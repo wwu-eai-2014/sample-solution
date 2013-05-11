@@ -30,4 +30,9 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
         .getResultList();
   }
 
+  @Override
+  public ReplenishmentOrder getOrder(long id) {
+    return em.find(ReplenishmentOrder.class, id);
+  }
+
 }

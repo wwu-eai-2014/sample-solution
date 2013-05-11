@@ -15,4 +15,6 @@ public interface ReplenishmentOrderService {
   Collection<ReplenishmentOrder> getReplenishmentOrdersInState(
       OrderState filterForState);
 
+  ReplenishmentOrder getOrder(long id);
+
 }
