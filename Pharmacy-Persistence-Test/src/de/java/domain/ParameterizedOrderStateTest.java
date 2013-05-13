@@ -43,7 +43,7 @@ public class ParameterizedOrderStateTest {
 
   @Test public void
   cancelbility() {
-    assertEquals(state.mayBeCancelled(), mayBeCancelled);
+    assertEquals(state.isCancellable(), mayBeCancelled);
   }
  
 }

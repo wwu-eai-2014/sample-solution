@@ -28,12 +28,12 @@ public class OrderStateTest {
  
   @Test(expected=IllegalOrderStatusTransitionException.class) public void
   finishedCannotProceedIntoOtherState() {
-    FINISHED.next();
+    FINISHED.getNext();
   }
 
   @Test(expected=IllegalOrderStatusTransitionException.class) public void
   cancelledCannotProceedIntoOtherState() {
-    CANCELLED.next();
+    CANCELLED.getNext();
   }
 
   private Matcher<OrderState> succeededBy(final OrderState state) {
@@ -46,7 +46,7 @@ public class OrderStateTest {
 
       @Override
       public boolean matchesSafely(OrderState initialState) {
-        return initialState.next() == state;
+        return initialState.getNext() == state;
       }
     };
   }

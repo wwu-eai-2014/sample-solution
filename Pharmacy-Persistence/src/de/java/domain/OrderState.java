@@ -2,32 +2,32 @@ package de.java.domain;
 
 public enum OrderState {
   OPEN {
-    public OrderState next() { return POSTING; }
+    public OrderState getNext() { return POSTING; }
   },
   POSTING {
-    public OrderState next() { return ORDERED; }
-    public boolean mayBeCancelled() { return true; }
+    public OrderState getNext() { return ORDERED; }
+    public boolean isCancellable() { return true; }
     public OrderState cancel() { return CANCELLED; }
   },
   ORDERED {
-    public OrderState next() { return FINISHED; }
+    public OrderState getNext() { return FINISHED; }
   },
   FINISHED {
-    public OrderState next() { throw new IllegalOrderStatusTransitionException(); }
+    public OrderState getNext() { throw new IllegalOrderStatusTransitionException(); }
     public boolean isProceedable() { return false; }
   },
   CANCELLED {
-    public OrderState next() { throw new IllegalOrderStatusTransitionException(); }
+    public OrderState getNext() { throw new IllegalOrderStatusTransitionException(); }
     public boolean isProceedable() { return false; }
   };
 
-  public abstract OrderState next();
+  public abstract OrderState getNext();
 
   public boolean isProceedable() {
     return true;
   }
 
-  public boolean mayBeCancelled() {
+  public boolean isCancellable() {
     return false;
   }
 
