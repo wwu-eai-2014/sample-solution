@@ -52,4 +52,16 @@ public class DrugServiceBean implements DrugService {
   public Drug getDrug(int pzn) {
     return em.find(Drug.class, pzn);
   }
+
+  @Override
+  public Drug createDrug(Drug newDrug) {
+    if (em.createQuery("SELECT COUNT(*) FROM Drug WHERE pzn=:pzn",
+        Long.class).setParameter("pzn", newDrug.getPzn())
+        .getSingleResult() > 0)
+      throw new KeyConstraintViolation(String.format(
+          "Drug with PZN: %s already in database", newDrug.getPzn()));
+
+    em.persist(newDrug);
+    return newDrug;
+  }
 }

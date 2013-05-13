@@ -15,4 +15,6 @@ public interface DrugService {
 
   Drug getDrug(int pzn);
 
+  Drug createDrug(Drug drug);
+
 }
