@@ -41,6 +41,9 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   public void proceedToNextState(long id) {
     ReplenishmentOrder order = getOrder(id);
     order.setState(order.getState().getNext());
+    if (order.getState() == OrderState.FINISHED) {
+      // TODO adjust inventory levels
+    }
   }
 
   @Override
