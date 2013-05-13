@@ -19,8 +19,7 @@ public class Drug implements Serializable {
   @Size(min=1, message="Name required")
   private String name;
 
-  protected Drug() {
-    // default constructor for JPA
+  public Drug() {
   }
 
   public Drug(int pzn, String name) {
