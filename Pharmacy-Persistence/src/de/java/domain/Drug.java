@@ -1,7 +1,5 @@
 package de.java.domain;
 
-import static java.util.Collections.unmodifiableCollection;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -139,7 +137,7 @@ public class Drug implements Serializable {
   }
 
   public Collection<InventoryEvent> getEvents() {
-    return unmodifiableCollection(events);
+    return events;
   }
 
   void setEvents(Collection<InventoryEvent> events) {

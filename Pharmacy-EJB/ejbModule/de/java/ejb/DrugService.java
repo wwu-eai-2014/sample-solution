@@ -16,6 +16,8 @@ public interface DrugService {
 
   Drug getDrug(int pzn);
 
+  Drug getDrugWithInventoryEvents(int pzn);
+
   Drug createDrug(Drug drug);
 
   Drug updateMasterData(int pzn, String name, String description);

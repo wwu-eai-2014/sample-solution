@@ -55,6 +55,17 @@ public class DrugServiceBean implements DrugService {
   }
 
   @Override
+  public Drug getDrugWithInventoryEvents(int pzn) {
+    Drug drug = getDrug(pzn);
+    forceLoadOfInventoryEvents(drug);
+    return drug;
+  }
+
+  private void forceLoadOfInventoryEvents(Drug drug) {
+    drug.getEvents().size();
+  }
+
+  @Override
   public Drug createDrug(Drug newDrug) {
     if (em.createQuery("SELECT COUNT(*) FROM Drug WHERE pzn=:pzn",
         Long.class).setParameter("pzn", newDrug.getPzn())
