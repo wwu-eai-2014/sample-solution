@@ -23,15 +23,15 @@ public class Drug implements Serializable {
   private String description;
 
   @NotNull
-  @Min(value=0)
+  @Min(value=0, message="Stock can not be negative")
   private long stock = 0;
 
   @NotNull
-  @Min(value=0)
+  @Min(value=0, message="Minimum inventory has to be greater or equal to zero")
   private long minimumInventoryLevel = 0;
 
   @NotNull
-  @Min(value=0)
+  @Min(value=0, message="Optimal inventory has to be greater or equal to zero")
   private long optimalInventoryLevel = 0;
 
   public Drug() {
