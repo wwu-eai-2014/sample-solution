@@ -98,8 +98,9 @@ public class DrugServiceBean implements DrugService {
 
   @Override
   public Drug initiateReplenishment(int pzn, long quantity) {
+    Drug drug = getDrug(pzn);
     // TODO implement adding to replenishment order
-    return null;
+    return drug;
   }
 
   @Override
