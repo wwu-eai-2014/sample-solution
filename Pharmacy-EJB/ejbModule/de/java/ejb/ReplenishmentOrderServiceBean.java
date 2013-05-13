@@ -153,4 +153,26 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     em.persist(order);
   }
 
+  @Override
+  public void removePosition(Position position) {
+    Position attachedPosition = em.find(Position.class, position.getId());
+    ReplenishmentOrder order = attachedPosition.getOrder();
+    validateOpenState(order);
+    order.getPositions().remove(attachedPosition);
+    em.remove(attachedPosition);
+    removeOrderIfEmpty(order);
+  }
+
+  private void validateOpenState(ReplenishmentOrder order) {
+    if (order.getState() != OPEN) {
+      throw new RuntimeException("Cannot remove positions from non-open orders!");
+    }
+  }
+
+  private void removeOrderIfEmpty(ReplenishmentOrder order) {
+    if (order.getPositions().isEmpty()) {
+      em.remove(order);
+    }
+  }
+
 }

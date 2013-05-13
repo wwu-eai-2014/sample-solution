@@ -69,7 +69,7 @@
         <h:messages for="actualDelivery" styleClass="error"/>
         <h:dataTable value="#{replenishmentOrderPage.order.positions}" var="cur"
           styleClass="data-table" headerClass="data-cell header-cell"
-          columnClasses="data-cell,data-cell,data-cell,data-cell"
+          columnClasses="data-cell,data-cell,data-cell,data-cell#{replenishmentOrderPage.order.state == 'OPEN' ? ',data-cell' : ''}"
           rendered="#{not empty replenishmentOrderPage.order.positions}">
           <h:column>
             <f:facet name="header">PZN</f:facet>
@@ -87,6 +87,9 @@
             <h:link outcome="/drug/details.xhtml" value="Details">
               <f:param name="pzn" value="#{cur.replenishedDrug.pzn}"></f:param>
             </h:link>
+          </h:column>
+          <h:column rendered="#{replenishmentOrderPage.order.state == 'OPEN'}">
+            <h:commandLink value="Remove" action="#{replenishmentOrderPage.remove(cur)}" />
           </h:column>
         </h:dataTable>
       </h:form>

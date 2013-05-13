@@ -34,4 +34,6 @@ public interface ReplenishmentOrderService {
 
   void initiateReplenishment(Drug drug, long quantity);
 
+  void removePosition(Position position);
+
 }

@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import de.java.domain.OrderState;
+import de.java.domain.Position;
 import de.java.domain.ReplenishmentOrder;
 import de.java.ejb.ReplenishmentOrderService;
 import de.java.web.util.Util;
@@ -77,6 +78,15 @@ public class ReplenishmentOrderPage {
 
   public String cancel() {
     orderService.cancel(order.getId());
+    init();
+    return returnToOrderPage();
+  }
+
+  public String remove(Position position) {
+    orderService.removePosition(position);
+    if (orderService.getOrder(id) == null) {
+      return "/replenishmentOrder/list.xhtml?faces-redirect=true";
+    }
     init();
     return returnToOrderPage();
   }
