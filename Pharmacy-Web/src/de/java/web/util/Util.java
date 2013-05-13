@@ -10,23 +10,31 @@ import javax.faces.context.FacesContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import de.java.domain.inventory.InventoryCannotBeOverdraftException;
+
 public class Util {
 
-  public static String getConstraintMessage(EJBException e) {
+  public static String getCausingMessage(EJBException e) {
     String message = "";
-    if (e.getCausedByException() instanceof ConstraintViolationException) {
-      ConstraintViolationException cve = (ConstraintViolationException) e
-          .getCausedByException();
-      Set<ConstraintViolation<?>> violations = cve
-          .getConstraintViolations();
-      if (violations != null)
-        for (ConstraintViolation<?> cur : violations)
-          message += cur.getMessage() + " ";
-      else
-        message += cve.getMessage();
+    Exception causingException = e.getCausedByException();
+    if (causingException instanceof ConstraintViolationException) {
+      message += getConstraintMessages((ConstraintViolationException) causingException);
+    } else if (causingException instanceof InventoryCannotBeOverdraftException) {
+      message += causingException.getMessage();
     } else
       message += e.getMessage();
     return message;
+  }
+
+  private static String getConstraintMessages(ConstraintViolationException cve) {
+    String messages = "";
+    Set<ConstraintViolation<?>> violations = cve.getConstraintViolations();
+    if (violations != null)
+      for (ConstraintViolation<?> cur : violations)
+        messages += cur.getMessage() + " ";
+    else
+      messages += cve.getMessage();
+    return messages;
   }
 
   public static void redirectToRoot() {

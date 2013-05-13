@@ -1,9 +1,14 @@
 package de.java.web;
 
+import static de.java.web.util.Util.errorMessage;
+
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
@@ -17,8 +22,10 @@ public class DrugPage {
   private DrugService drugService;
 
   private int pzn;
-
   private Drug drug;
+
+  private long quantity;
+  private Date dateOfAction;
 
   public int getPzn() {
     return pzn;
@@ -31,6 +38,8 @@ public class DrugPage {
 
   private void init() {
     drug = null;
+    setQuantity(0);
+    setDateOfAction(new Date());
   }
 
   public void ensureInitialized(){
@@ -46,16 +55,37 @@ public class DrugPage {
 
   public String submitMasterDataChanges() {
     drug = drugService.updateMasterData(drug.getPzn(), drug.getName(), drug.getDescription());
-    return returnToDrugPage();
+    return toDrugPage();
   }
 
-  private String returnToDrugPage() {
+  private String toDrugPage() {
     return "/drug/details.xhtml?faces-redirect=true&pzn=" + pzn;
   }
 
   public String submitReplenishmentConfigChanges() {
     drug = drugService.updateReplenishmentConfig(drug.getPzn(), drug.getMinimumInventoryLevel(), drug.getOptimalInventoryLevel());
-    return returnToDrugPage();
+    return toDrugPage();
+  }
+
+  public String withdraw() {
+    try {
+      drug = drugService.withdraw(drug.getPzn(), quantity, dateOfAction);
+    } catch (EJBException e) {
+      String msg = Util.getCausingMessage(e);
+      FacesContext.getCurrentInstance().addMessage(null, errorMessage(msg));
+      return null;
+    }
+    return toDrugPage();
+  }
+
+  public String restock() {
+    drug = drugService.restock(drug.getPzn(), quantity, dateOfAction);
+    return toDrugPage();
+  }
+
+  public String initiateReplenishment() {
+    drug = drugService.initiateReplenishment(drug.getPzn(), quantity);
+    return toDrugPage();
   }
 
   public Drug getDrug() {
@@ -67,5 +97,21 @@ public class DrugPage {
 
   public void setDrug(Drug drug) {
     this.drug = drug;
+  }
+
+  public long getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(long quantity) {
+    this.quantity = quantity;
+  }
+
+  public Date getDateOfAction() {
+    return dateOfAction;
+  }
+
+  public void setDateOfAction(Date dateOfAction) {
+    this.dateOfAction = dateOfAction;
   }
 }

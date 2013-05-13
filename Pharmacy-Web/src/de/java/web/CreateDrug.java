@@ -40,7 +40,7 @@ public class CreateDrug {
       errorMessage = null;
     }
     catch(EJBException e){
-      errorMessage = "Drug not created: " + Util.getConstraintMessage(e);
+      errorMessage = "Drug not created: " + Util.getCausingMessage(e);
     }
     
     // Navigation

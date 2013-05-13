@@ -41,6 +41,29 @@
           <h:commandButton tabindex="6" value="Submit changes" action="#{drugPage.submitReplenishmentConfigChanges}" />
         </f:facet>
       </h:panelGrid>
+      <h:messages for="minimumInventory" styleClass="error" />
+      <h:messages for="optimalInventory" styleClass="error" />
+      <h3>Inventory Management</h3>
+      <h:panelGrid columns="2" columnClasses="label, value form-input"
+        footerClass="form-footer" styleClass="details-table">
+        Quantity
+        <h:panelGroup >
+          <h:inputText tabindex="7" id="quantity" size="5" value="#{drugPage.quantity}">
+            <f:validateLongRange minimum="0" />
+          </h:inputText>
+          <h:inputText tabindex="8" id="dateOfAction" size="16" value="#{drugPage.dateOfAction}">
+            <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
+          </h:inputText>
+        </h:panelGroup>
+        &nbsp;
+        <h:panelGroup >
+          <h:commandButton tabindex="9" value="Withdraw" action="#{drugPage.withdraw}" />
+          <h:commandButton tabindex="10" value="Restock" action="#{drugPage.restock}" />
+          <h:commandButton tabindex="11" value="Initiate replenishment" action="#{drugPage.initiateReplenishment}" />
+        </h:panelGroup>
+      </h:panelGrid>
+      <h:messages for="quantity" styleClass="error" />
+      <h:messages for="dateOfAction" styleClass="error" />
     </h:form>
   </ui:define>
 </ui:composition>
