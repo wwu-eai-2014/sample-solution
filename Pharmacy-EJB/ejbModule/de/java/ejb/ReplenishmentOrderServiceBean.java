@@ -65,8 +65,20 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     ReplenishmentOrder order = getOrder(id);
     order.setState(order.getState().getNext());
     if (order.getState() == OrderState.FINISHED) {
-      // TODO adjust inventory levels
+      replenish(order.getPositions());
     }
+  }
+
+  private void replenish(Collection<Position> positions) {
+    for (Position position : positions) {
+      replenish(position);
+    }
+  }
+
+  private void replenish(Position position) {
+    Date actualDelivery = position.getOrder().getActualDelivery();
+    long quantity = position.getQuantity();
+    position.getReplenishedDrug().replenish(quantity, actualDelivery);
   }
 
   @Override
