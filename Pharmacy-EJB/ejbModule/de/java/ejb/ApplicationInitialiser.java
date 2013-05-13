@@ -1,5 +1,8 @@
 package de.java.ejb;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -36,16 +39,30 @@ public class ApplicationInitialiser {
     em.persist(new Drug(451145, "ACC 200 TABS 100St"));
     em.persist(new Drug(451151, "ACC 200 TABS 100St"));
 
+    final Date now = Calendar.getInstance().getTime();
     em.persist(createReplenishmentOrder(OrderState.OPEN));
     em.persist(createReplenishmentOrder(OrderState.POSTING));
-    em.persist(createReplenishmentOrder(OrderState.ORDERED));
-    em.persist(createReplenishmentOrder(OrderState.FINISHED));
+    em.persist(createReplenishmentOrder(OrderState.ORDERED, now));
+    em.persist(createReplenishmentOrder(OrderState.FINISHED, now, now));
     em.persist(createReplenishmentOrder(OrderState.CANCELLED));
     em.persist(createReplenishmentOrder(OrderState.OPEN));
   }
 
+  private ReplenishmentOrder createReplenishmentOrder(OrderState state,
+      Date expectedDelivery, Date actualDelivery) {
+    final ReplenishmentOrder result = createReplenishmentOrder(state, expectedDelivery);
+    result.setActualDelivery(actualDelivery);
+    return result;
+  }
+
+  private ReplenishmentOrder createReplenishmentOrder(OrderState state, Date expectedDelivery) {
+    final ReplenishmentOrder result = createReplenishmentOrder(state);
+    result.setExpectedDelivery(expectedDelivery);
+    return result;
+  }
+
   private ReplenishmentOrder createReplenishmentOrder(OrderState state) {
-    ReplenishmentOrder order = new ReplenishmentOrder();
+    final ReplenishmentOrder order = new ReplenishmentOrder();
     order.setState(state);
     return order;
   }
