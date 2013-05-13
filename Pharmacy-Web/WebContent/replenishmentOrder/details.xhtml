@@ -24,7 +24,8 @@
             Expected delivery date
           </h:panelGroup>
           <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'POSTING' or replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
-            <h:inputText
+            <h:inputText id="expectedDelivery"
+              required="true" requiredMessage="Expected delivery date required"
               rendered="#{replenishmentOrderPage.order.state == 'POSTING'}"
               value="#{replenishmentOrderPage.expectedDelivery}">
               <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
@@ -39,7 +40,8 @@
             Actual delivery date
           </h:panelGroup>
           <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
-            <h:inputText
+            <h:inputText id="actualDelivery"
+              required="true" requiredMessage="Actual delivery date required"
               rendered="#{replenishmentOrderPage.order.state == 'ORDERED'}"
               value="#{replenishmentOrderPage.actualDelivery}">
               <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
@@ -63,6 +65,8 @@
               action="#{replenishmentOrderPage.cancel}" />
           </f:facet>
         </h:panelGrid>
+        <h:messages for="expectedDelivery" styleClass="error"/>
+        <h:messages for="actualDelivery" styleClass="error"/>
       </h:form>
     </div>
   </ui:define>

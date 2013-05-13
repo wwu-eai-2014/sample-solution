@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -47,6 +48,16 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     ReplenishmentOrder order = getOrder(id);
     order.setState(order.getState().cancel());
     // TODO add positions to existing open order or create new one
+  }
+
+  @Override
+  public void updateExpectedDeliveryDate(long id, Date expectedDelivery) {
+    getOrder(id).setExpectedDelivery(expectedDelivery);
+  }
+
+  @Override
+  public void updateActualDeliveryDate(long id, Date actualDelivery) {
+    getOrder(id).setActualDelivery(actualDelivery);
   }
 
 }

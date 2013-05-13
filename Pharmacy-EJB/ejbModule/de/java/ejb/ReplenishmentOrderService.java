@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Remote;
 
@@ -20,5 +21,9 @@ public interface ReplenishmentOrderService {
   void proceedToNextState(long id);
 
   void cancel(long id);
+
+  void updateExpectedDeliveryDate(long id, Date expectedDelivery);
+
+  void updateActualDeliveryDate(long id, Date actualDelivery);
 
 }

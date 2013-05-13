@@ -7,6 +7,7 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import de.java.domain.OrderState;
 import de.java.domain.ReplenishmentOrder;
 import de.java.ejb.ReplenishmentOrderService;
 import de.java.web.util.Util;
@@ -59,6 +60,12 @@ public class ReplenishmentOrderPage {
   }
 
   public String proceed() {
+    if (order.getState() == OrderState.POSTING) {
+      orderService.updateExpectedDeliveryDate(order.getId(), getExpectedDelivery());
+    }
+    if (order.getState() == OrderState.ORDERED) {
+      orderService.updateActualDeliveryDate(order.getId(), getActualDelivery());
+    }
     orderService.proceedToNextState(order.getId());
     init();
     return returnToOrderPage();
