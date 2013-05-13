@@ -13,33 +13,58 @@
   </ui:define>
   <ui:define name="title">Replenishment Order Details</ui:define>
   <ui:define name="content">
-    <div class="details"><h2>Replenishment Order #{replenishmentOrderPage.order.id}</h2>
-  <h:form><h:panelGrid columns="2" columnClasses="label, value form-input" footerClass="form-footer" styleClass="details-table">
-    State
-    <h:outputText value="#{replenishmentOrderPage.order.state}" />
-    Expected delivery date
-    <h:outputText
-      rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}"
-      value="#{replenishmentOrderPage.order.expectedDelivery}">
-      <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
-    </h:outputText>
-    Actual delivery date
-    <h:outputText
-      rendered="#{replenishmentOrderPage.order.state == 'FINISHED'}"
-      value="#{replenishmentOrderPage.order.actualDelivery}">
-      <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
-    </h:outputText>
-    <f:facet name="footer">
-      <h:commandButton
-        disabled="#{not replenishmentOrderPage.order.state.proceedable}"
-        rendered="#{replenishmentOrderPage.order.state.proceedable}"
-        value="Proceed to #{replenishmentOrderPage.order.state.next}" actionListener="#{replenishmentOrderPage.proceed}" />
-      <h:commandButton
-        disabled="#{not replenishmentOrderPage.order.state.cancellable}"
-        rendered="#{replenishmentOrderPage.order.state.cancellable}"
-        value="Cancel" actionListener="#{replenishmentOrderPage.cancel}" />
-    </f:facet>
-  </h:panelGrid></h:form></div>
+    <div class="details">
+      <h2>Replenishment Order #{replenishmentOrderPage.order.id}</h2>
+      <h:form>
+        <h:panelGrid columns="2" columnClasses="label, value form-input"
+          footerClass="form-footer" styleClass="details-table">
+          State
+          <h:outputText value="#{replenishmentOrderPage.order.state}" />
+          <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'POSTING' or replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
+            Expected delivery date
+          </h:panelGroup>
+          <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'POSTING' or replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
+            <h:inputText
+              rendered="#{replenishmentOrderPage.order.state == 'POSTING'}"
+              value="#{replenishmentOrderPage.expectedDelivery}">
+              <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
+            </h:inputText>
+            <h:outputText
+              rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}"
+              value="#{replenishmentOrderPage.order.expectedDelivery}">
+              <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin" />
+            </h:outputText>
+          </h:panelGroup>
+          <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
+            Actual delivery date
+          </h:panelGroup>
+          <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
+            <h:inputText
+              rendered="#{replenishmentOrderPage.order.state == 'ORDERED'}"
+              value="#{replenishmentOrderPage.actualDelivery}">
+              <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
+            </h:inputText>
+            <h:outputText
+              rendered="#{replenishmentOrderPage.order.state == 'FINISHED'}"
+              value="#{replenishmentOrderPage.order.actualDelivery}">
+              <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin" />
+            </h:outputText>
+          </h:panelGroup>
+          <f:facet name="footer">
+            <h:commandButton
+              disabled="#{not replenishmentOrderPage.order.state.proceedable}"
+              rendered="#{replenishmentOrderPage.order.state.proceedable}"
+              value="Proceed to #{replenishmentOrderPage.order.state.next}"
+              action="#{replenishmentOrderPage.proceed}" />
+            <h:commandButton
+              disabled="#{not replenishmentOrderPage.order.state.cancellable}"
+              rendered="#{replenishmentOrderPage.order.state.cancellable}"
+              value="Cancel"
+              action="#{replenishmentOrderPage.cancel}" />
+          </f:facet>
+        </h:panelGrid>
+      </h:form>
+    </div>
   </ui:define>
 </ui:composition>
 </html>
