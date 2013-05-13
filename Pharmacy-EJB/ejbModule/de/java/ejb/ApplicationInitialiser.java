@@ -35,9 +35,9 @@ public class ApplicationInitialiser {
     em.persist(new Drug(8456716, "ASPIRIN PLUS C ORANGE 10St"));
     em.persist(new Drug(1715965, "ASPIRIN PLUS C ORANGE 20St"));
     em.persist(new Drug(451122, "ACC 200 TABS 20St"));
+    em.persist(new Drug(451151, "ACC 200 TABS 40St"));
     em.persist(new Drug(451139, "ACC 200 TABS 50St"));
     em.persist(new Drug(451145, "ACC 200 TABS 100St"));
-    em.persist(new Drug(451151, "ACC 200 TABS 100St"));
 
     Calendar cal = Calendar.getInstance();
     cal.add(Calendar.DAY_OF_YEAR, -1);
