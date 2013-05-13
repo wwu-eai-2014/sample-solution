@@ -19,4 +19,7 @@ public interface DrugService {
 
   Drug updateMasterData(int pzn, String name, String description);
 
+  Drug updateReplenishmentConfig(int pzn, long minimumInventoryLevel,
+      long optimalInventoryLevel);
+
 }

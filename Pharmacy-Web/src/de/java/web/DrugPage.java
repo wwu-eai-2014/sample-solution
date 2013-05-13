@@ -54,6 +54,7 @@ public class DrugPage {
   }
 
   public String submitReplenishmentConfigChanges() {
+    drug = drugService.updateReplenishmentConfig(drug.getPzn(), drug.getMinimumInventoryLevel(), drug.getOptimalInventoryLevel());
     return returnToDrugPage();
   }
 

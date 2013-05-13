@@ -26,6 +26,14 @@ public class Drug implements Serializable {
   @Min(value=0)
   private long stock = 0;
 
+  @NotNull
+  @Min(value=0)
+  private long minimumInventoryLevel = 0;
+
+  @NotNull
+  @Min(value=0)
+  private long optimalInventoryLevel = 0;
+
   public Drug() {
   }
 
@@ -69,6 +77,22 @@ public class Drug implements Serializable {
 
   void setStock(long stock) {
     this.stock = stock;
+  }
+
+  public long getMinimumInventoryLevel() {
+    return minimumInventoryLevel;
+  }
+
+  public void setMinimumInventoryLevel(long minimumInventoryLevel) {
+    this.minimumInventoryLevel = minimumInventoryLevel;
+  }
+
+  public long getOptimalInventoryLevel() {
+    return optimalInventoryLevel;
+  }
+
+  public void setOptimalInventoryLevel(long optimalInventoryLevel) {
+    this.optimalInventoryLevel = optimalInventoryLevel;
   }
 
 }

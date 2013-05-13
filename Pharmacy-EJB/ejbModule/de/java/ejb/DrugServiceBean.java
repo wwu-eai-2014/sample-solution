@@ -72,4 +72,12 @@ public class DrugServiceBean implements DrugService {
     drug.setDescription(description);
     return drug;
   }
+
+  @Override
+  public Drug updateReplenishmentConfig(int pzn, long minimumInventoryLevel, long optimalInventoryLevel) {
+    Drug drug = getDrug(pzn);
+    drug.setMinimumInventoryLevel(minimumInventoryLevel);
+    drug.setOptimalInventoryLevel(optimalInventoryLevel);
+    return drug;
+  }
 }

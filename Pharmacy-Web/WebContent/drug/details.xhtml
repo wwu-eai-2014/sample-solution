@@ -13,7 +13,34 @@
   </ui:define>
   <ui:define name="title">Drug Details - #{drugPage.drug.name}</ui:define>
   <ui:define name="content">
-    <h3>#{drugPage.drug.name} (PZN: #{drugPage.drug.pzn})</h3>
+    <h:form>
+      <h3>#{drugPage.drug.name} (PZN: #{drugPage.drug.pzn})</h3>
+      <h:panelGrid columns="2" columnClasses="label, value form-input"
+        footerClass="form-footer" styleClass="details-table">
+        PZN
+        <h:outputText value="#{drugPage.drug.pzn}" />
+        Name
+        <h:inputText tabindex="1" id="name" value="#{drugPage.drug.name}" />
+        Description
+        <h:inputTextarea tabindex="2" id="description" value="#{drugPage.drug.description}" />
+        Stock
+        <h:outputText value="#{drugPage.drug.stock}" />
+        <f:facet name="footer">
+          <h:commandButton tabindex="3" value="Submit changes" action="#{drugPage.submitMasterDataChanges}" />
+        </f:facet>
+      </h:panelGrid>
+      <h:messages for="name" styleClass="error" />
+      <h:panelGrid columns="2" columnClasses="label, value form-input"
+        footerClass="form-footer" styleClass="details-table">
+        Minimum inventory level
+        <h:inputText tabindex="4" id="minimumInventory" value="#{drugPage.drug.minimumInventoryLevel}" />
+        Optimal inventory level
+        <h:inputText tabindex="5" id="optimalInventory" value="#{drugPage.drug.optimalInventoryLevel}" />
+        <f:facet name="footer">
+          <h:commandButton tabindex="6" value="Submit changes" action="#{drugPage.submitReplenishmentConfigChanges}" />
+        </f:facet>
+      </h:panelGrid>
+    </h:form>
   </ui:define>
 </ui:composition>
 </html>
