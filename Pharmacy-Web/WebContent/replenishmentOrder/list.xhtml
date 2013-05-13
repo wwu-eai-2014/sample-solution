@@ -31,13 +31,17 @@
         <f:facet name="header">Status</f:facet>
       #{cur.state}
     </h:column>
-      <h:column>
-        <f:facet name="header">Expected delivery</f:facet>
-      #{cur.expectedDelivery}
+    <h:column>
+      <f:facet name="header">Expected delivery</f:facet>
+      <h:outputText value="#{cur.expectedDelivery}">
+        <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
+      </h:outputText>
     </h:column>
-      <h:column>
-        <f:facet name="header">Actual delivery</f:facet>
-      #{cur.actualDelivery}
+    <h:column>
+      <f:facet name="header">Actual delivery</f:facet>
+      <h:outputText value="#{cur.actualDelivery}">
+        <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
+      </h:outputText>
     </h:column>
     <h:column>
       <h:link outcome="/replenishmentOrder/details.xhtml" value="Details">
