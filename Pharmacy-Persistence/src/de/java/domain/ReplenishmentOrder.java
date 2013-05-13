@@ -64,4 +64,16 @@ public class ReplenishmentOrder implements Serializable {
     this.actualDelivery = actualDelivery;
   }
 
+  public Collection<Position> getPositions() {
+    return positions;
+  }
+
+  public void addPosition(Position position) {
+    getPositions().add(position);
+  }
+
+  void setPositions(Collection<Position> positions) {
+    this.positions = positions;
+  }
+
 }

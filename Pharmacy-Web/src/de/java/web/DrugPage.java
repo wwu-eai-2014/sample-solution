@@ -2,7 +2,6 @@ package de.java.web;
 
 import static de.java.web.util.Util.errorMessage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,10 +10,12 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import de.java.domain.Position;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
+import de.java.ejb.ReplenishmentOrderService;
 import de.java.web.util.Util;
 
 @ManagedBean
@@ -24,11 +25,16 @@ public class DrugPage {
   @EJB
   private DrugService drugService;
 
+  @EJB
+  private ReplenishmentOrderService orderService;
+
   private int pzn;
   private Drug drug;
 
   private long quantity;
   private Date dateOfAction;
+
+  private Collection<Position> pendingReplenishmentOrderPositions;
 
   public int getPzn() {
     return pzn;
@@ -54,10 +60,6 @@ public class DrugPage {
       e.printStackTrace();
     }
     Util.redirectToRoot();
-  }
-
-  public Collection<Position> getPendingReplenishmentOrderPositions() {
-    return new ArrayList<Position>();
   }
 
   public String submitMasterDataChanges() {
@@ -121,4 +123,16 @@ public class DrugPage {
   public void setDateOfAction(Date dateOfAction) {
     this.dateOfAction = dateOfAction;
   }
+
+  public Collection<Position> getPendingReplenishmentOrderPositions() {
+    if (pendingReplenishmentOrderPositions == null) {
+      pendingReplenishmentOrderPositions = orderService.getPendingPositions(pzn);
+    }
+    return pendingReplenishmentOrderPositions;
+  }
+
+  public void setPendingReplenishmentOrderPositions(Collection<Position> pendingReplenishmentOrderPositions) {
+    this.pendingReplenishmentOrderPositions = pendingReplenishmentOrderPositions;
+  }
+
 }

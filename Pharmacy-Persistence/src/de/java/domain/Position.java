@@ -1,5 +1,7 @@
 package de.java.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,7 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Position {
+public class Position implements Serializable {
+
+  private static final long serialVersionUID = 4036453834298206981L;
 
   @Id
   @GeneratedValue

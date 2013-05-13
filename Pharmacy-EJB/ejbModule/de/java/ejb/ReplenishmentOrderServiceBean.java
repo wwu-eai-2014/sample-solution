@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.OrderState;
+import de.java.domain.Position;
 import de.java.domain.ReplenishmentOrder;
 
 @Stateless
@@ -29,6 +30,14 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     return em
         .createQuery(query, ReplenishmentOrder.class)
         .setParameter("state", state)
+        .getResultList();
+  }
+
+  @Override
+  public Collection<Position> getPendingPositions(int pzn) {
+    String query = "FROM Position WHERE replenishedDrug.pzn = :pzn AND order.state IN (de.java.domain.OrderState.OPEN, de.java.domain.OrderState.POSTING, de.java.domain.OrderState.ORDERED)";
+    return em.createQuery(query, Position.class)
+        .setParameter("pzn", pzn)
         .getResultList();
   }
 

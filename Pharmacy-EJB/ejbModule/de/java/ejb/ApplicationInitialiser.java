@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
 import de.java.domain.OrderState;
+import de.java.domain.Position;
 import de.java.domain.ReplenishmentOrder;
 
 @Singleton
@@ -32,24 +33,40 @@ public class ApplicationInitialiser {
   }
 
   private void populateAppWithSampleDrugs() {
-    em.persist(new Drug(8456716, "ASPIRIN PLUS C ORANGE 10St"));
-    em.persist(new Drug(1715965, "ASPIRIN PLUS C ORANGE 20St"));
-    em.persist(new Drug(451122, "ACC 200 TABS 20St"));
-    em.persist(new Drug(451151, "ACC 200 TABS 40St"));
-    em.persist(new Drug(451139, "ACC 200 TABS 50St"));
-    em.persist(new Drug(451145, "ACC 200 TABS 100St"));
+    final Drug aspirin = new Drug(8456716, "ASPIRIN PLUS C ORANGE 10St");
+    em.persist(aspirin);
+    addMoreDrugs();
 
     Calendar cal = Calendar.getInstance();
     cal.add(Calendar.DAY_OF_YEAR, -1);
     final Date oneDayAgo = cal.getTime();
     cal.add(Calendar.DAY_OF_YEAR, -1);
     final Date twoDaysAgo = cal.getTime();
-    em.persist(createReplenishmentOrder(OrderState.OPEN));
+    ReplenishmentOrder openOrder = createReplenishmentOrder(OrderState.OPEN);
+    em.persist(createPosition(aspirin, 42, openOrder));
+    em.persist(openOrder);
     em.persist(createReplenishmentOrder(OrderState.POSTING));
     em.persist(createReplenishmentOrder(OrderState.ORDERED, twoDaysAgo));
     em.persist(createReplenishmentOrder(OrderState.FINISHED, twoDaysAgo, oneDayAgo));
     em.persist(createReplenishmentOrder(OrderState.CANCELLED));
     em.persist(createReplenishmentOrder(OrderState.OPEN));
+  }
+
+  private void addMoreDrugs() {
+    em.persist(new Drug(1715965, "ASPIRIN PLUS C ORANGE 20St"));
+    em.persist(new Drug(451122, "ACC 200 TABS 20St"));
+    em.persist(new Drug(451151, "ACC 200 TABS 40St"));
+    em.persist(new Drug(451139, "ACC 200 TABS 50St"));
+    em.persist(new Drug(451145, "ACC 200 TABS 100St"));
+  }
+
+  private Position createPosition(Drug drug, int quantity, ReplenishmentOrder order) {
+    final Position position = new Position();
+    position.setQuantity(quantity);
+    position.setReplenishedDrug(drug);
+    position.setOrder(order);
+    order.addPosition(position);
+    return position;
   }
 
   private ReplenishmentOrder createReplenishmentOrder(OrderState state,
