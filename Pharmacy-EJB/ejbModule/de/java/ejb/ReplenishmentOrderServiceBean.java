@@ -17,6 +17,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
 
   @Override
   public Collection<ReplenishmentOrder> getAllReplenishmentOrders() {
+    // ordering is done on the ordinal numbers (not on the state names)
     return em.createQuery("FROM ReplenishmentOrder o ORDER BY o.state", ReplenishmentOrder.class).getResultList();
   }
 
