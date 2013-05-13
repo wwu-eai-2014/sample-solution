@@ -64,4 +64,12 @@ public class DrugServiceBean implements DrugService {
     em.persist(newDrug);
     return newDrug;
   }
+
+  @Override
+  public Drug updateMasterData(int pzn, String name, String description) {
+    Drug drug = getDrug(pzn);
+    drug.setName(name);
+    drug.setDescription(description);
+    return drug;
+  }
 }

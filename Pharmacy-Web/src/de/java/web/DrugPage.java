@@ -3,12 +3,14 @@ package de.java.web;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
 import de.java.web.util.Util;
 
 @ManagedBean
+@ViewScoped
 public class DrugPage {
 
   @EJB
@@ -24,6 +26,11 @@ public class DrugPage {
 
   public void setPzn(int pzn) {
     this.pzn = pzn;
+    init();
+  }
+
+  private void init() {
+    drug = null;
   }
 
   public void ensureInitialized(){
@@ -35,6 +42,19 @@ public class DrugPage {
       e.printStackTrace();
     }
     Util.redirectToRoot();
+  }
+
+  public String submitMasterDataChanges() {
+    drug = drugService.updateMasterData(drug.getPzn(), drug.getName(), drug.getDescription());
+    return returnToDrugPage();
+  }
+
+  private String returnToDrugPage() {
+    return "/drug/details.xhtml?faces-redirect=true&pzn=" + pzn;
+  }
+
+  public String submitReplenishmentConfigChanges() {
+    return returnToDrugPage();
   }
 
   public Drug getDrug() {
