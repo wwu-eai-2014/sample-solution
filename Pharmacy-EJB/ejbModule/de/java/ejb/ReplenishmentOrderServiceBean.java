@@ -73,7 +73,9 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   public void cancel(long id) {
     ReplenishmentOrder order = getOrder(id);
     order.setState(order.getState().cancel());
-    // TODO add positions to existing open order or create new one
+    for (Position oldPosition : order.getPositions()) {
+      initiateReplenishment(oldPosition.getReplenishedDrug(), oldPosition.getQuantity());
+    }
   }
 
   @Override
