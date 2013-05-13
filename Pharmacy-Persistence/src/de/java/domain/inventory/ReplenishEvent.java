@@ -19,4 +19,9 @@ public class ReplenishEvent extends InventoryEvent {
     super(quantity, dateOfAction, drug);
   }
 
+  @Override
+  public String getEventType() {
+    return "replenish";
+  }
+
 }

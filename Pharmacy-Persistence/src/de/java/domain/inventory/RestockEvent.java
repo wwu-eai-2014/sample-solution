@@ -19,4 +19,9 @@ public class RestockEvent extends InventoryEvent {
     super(quantity, dateOfAction, drug);
   }
 
+  @Override
+  public String getEventType() {
+    return "restock";
+  }
+
 }

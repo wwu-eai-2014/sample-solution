@@ -43,6 +43,8 @@ public abstract class InventoryEvent implements Serializable {
     this.setDrug(drug);
   }
 
+  public abstract String getEventType();
+
   public long getQuantity() {
     return quantity;
   }
