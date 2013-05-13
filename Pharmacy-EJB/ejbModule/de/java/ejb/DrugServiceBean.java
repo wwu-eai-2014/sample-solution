@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -78,6 +79,33 @@ public class DrugServiceBean implements DrugService {
     Drug drug = getDrug(pzn);
     drug.setMinimumInventoryLevel(minimumInventoryLevel);
     drug.setOptimalInventoryLevel(optimalInventoryLevel);
+    return drug;
+  }
+
+  @Override
+  public Drug withdraw(int pzn, long quantity, Date dateOfAction) {
+    Drug drug = getDrug(pzn);
+    drug.withdraw(quantity, dateOfAction);
+    return drug;
+  }
+
+  @Override
+  public Drug restock(int pzn, long quantity, Date dateOfAction) {
+    Drug drug = getDrug(pzn);
+    drug.restock(quantity, dateOfAction);
+    return drug;
+  }
+
+  @Override
+  public Drug initiateReplenishment(int pzn, long quantity) {
+    // TODO implement adding to replenishment order
+    return null;
+  }
+
+  @Override
+  public Drug replenish(int pzn, long quantity, Date dateOfAction) {
+    Drug drug = getDrug(pzn);
+    drug.replenish(quantity, dateOfAction);
     return drug;
   }
 }

@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Remote;
 
@@ -21,5 +22,13 @@ public interface DrugService {
 
   Drug updateReplenishmentConfig(int pzn, long minimumInventoryLevel,
       long optimalInventoryLevel);
+
+  Drug withdraw(int pzn, long quantity, Date dateOfAction);
+
+  Drug restock(int pzn, long quantity, Date dateOfAction);
+
+  Drug initiateReplenishment(int pzn, long quantity);
+
+  Drug replenish(int pzn, long quantity, Date dateOfAction);
 
 }
