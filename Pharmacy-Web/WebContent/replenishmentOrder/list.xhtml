@@ -22,7 +22,8 @@
   <h:link outcome="list.xhtml?filter=CANCELLED" value="CANCELLED" />
     <h:dataTable value="#{replenishmentOrderList.orders}" var="cur"
       styleClass="data-table" headerClass="data-cell header-cell"
-      columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell">
+      columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell"
+      rendered="#{not empty replenishmentOrderList.orders}">
       <h:column>
         <f:facet name="header">ID</f:facet>
       #{cur.id}
