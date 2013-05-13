@@ -39,11 +39,15 @@ public class ApplicationInitialiser {
     em.persist(new Drug(451145, "ACC 200 TABS 100St"));
     em.persist(new Drug(451151, "ACC 200 TABS 100St"));
 
-    final Date now = Calendar.getInstance().getTime();
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DAY_OF_YEAR, -1);
+    final Date oneDayAgo = cal.getTime();
+    cal.add(Calendar.DAY_OF_YEAR, -1);
+    final Date twoDaysAgo = cal.getTime();
     em.persist(createReplenishmentOrder(OrderState.OPEN));
     em.persist(createReplenishmentOrder(OrderState.POSTING));
-    em.persist(createReplenishmentOrder(OrderState.ORDERED, now));
-    em.persist(createReplenishmentOrder(OrderState.FINISHED, now, now));
+    em.persist(createReplenishmentOrder(OrderState.ORDERED, twoDaysAgo));
+    em.persist(createReplenishmentOrder(OrderState.FINISHED, twoDaysAgo, oneDayAgo));
     em.persist(createReplenishmentOrder(OrderState.CANCELLED));
     em.persist(createReplenishmentOrder(OrderState.OPEN));
   }
