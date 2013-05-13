@@ -54,7 +54,7 @@ public class ReplenishmentOrderPage {
 
   public ReplenishmentOrder getOrder() {
     if (order == null) {
-      order = orderService.getOrder(id);
+      order = orderService.getOrderWithPositions(id);
     }
     return order;
   }

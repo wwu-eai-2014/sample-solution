@@ -20,6 +20,8 @@ public interface ReplenishmentOrderService {
 
   ReplenishmentOrder getOrder(long id);
 
+  ReplenishmentOrder getOrderWithPositions(long id);
+
   void proceedToNextState(long id);
 
   void cancel(long id);
