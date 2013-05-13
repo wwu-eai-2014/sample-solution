@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,6 +21,10 @@ public class Drug implements Serializable {
   private String name;
 
   private String description;
+
+  @NotNull
+  @Min(value=0)
+  private long stock = 0;
 
   public Drug() {
   }
@@ -56,6 +61,14 @@ public class Drug implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public long getStock() {
+    return stock;
+  }
+
+  void setStock(long stock) {
+    this.stock = stock;
   }
 
 }
