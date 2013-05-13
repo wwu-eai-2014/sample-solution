@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.ejb.Remote;
 
+import de.java.domain.Drug;
 import de.java.domain.OrderState;
 import de.java.domain.Position;
 import de.java.domain.ReplenishmentOrder;
@@ -28,5 +29,7 @@ public interface ReplenishmentOrderService {
   void updateActualDeliveryDate(long id, Date actualDelivery);
 
   Collection<Position> getPendingPositions(int pzn);
+
+  void initiateReplenishment(Drug drug, long quantity);
 
 }

@@ -29,8 +29,6 @@ public interface DrugService {
 
   Drug restock(int pzn, long quantity, Date dateOfAction);
 
-  Drug initiateReplenishment(int pzn, long quantity);
-
   Drug replenish(int pzn, long quantity, Date dateOfAction);
 
 }

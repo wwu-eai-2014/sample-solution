@@ -93,7 +93,7 @@ public class DrugPage {
   }
 
   public String initiateReplenishment() {
-    drug = drugService.initiateReplenishment(drug.getPzn(), quantity);
+    orderService.initiateReplenishment(drug, quantity);
     return toDrugPage();
   }
 
