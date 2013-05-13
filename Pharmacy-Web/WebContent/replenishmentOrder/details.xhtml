@@ -24,7 +24,7 @@
             Expected delivery date
           </h:panelGroup>
           <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'POSTING' or replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
-            <h:inputText id="expectedDelivery"
+            <h:inputText id="expectedDelivery" size="16"
               required="true" requiredMessage="Expected delivery date required"
               rendered="#{replenishmentOrderPage.order.state == 'POSTING'}"
               value="#{replenishmentOrderPage.expectedDelivery}">
@@ -40,7 +40,7 @@
             Actual delivery date
           </h:panelGroup>
           <h:panelGroup rendered="#{replenishmentOrderPage.order.state == 'ORDERED' or replenishmentOrderPage.order.state == 'FINISHED'}">
-            <h:inputText id="actualDelivery"
+            <h:inputText id="actualDelivery" size="16"
               required="true" requiredMessage="Actual delivery date required"
               rendered="#{replenishmentOrderPage.order.state == 'ORDERED'}"
               value="#{replenishmentOrderPage.actualDelivery}">

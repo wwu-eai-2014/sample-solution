@@ -34,9 +34,9 @@
       <h:panelGrid columns="2" columnClasses="label, value form-input"
         footerClass="form-footer" styleClass="details-table">
         Minimum inventory level
-        <h:inputText tabindex="4" id="minimumInventory" value="#{drugPage.drug.minimumInventoryLevel}" />
+        <h:inputText tabindex="4" id="minimumInventory" size="5" value="#{drugPage.drug.minimumInventoryLevel}" />
         Optimal inventory level
-        <h:inputText tabindex="5" id="optimalInventory" value="#{drugPage.drug.optimalInventoryLevel}" />
+        <h:inputText tabindex="5" id="optimalInventory" size="5" value="#{drugPage.drug.optimalInventoryLevel}" />
         <f:facet name="footer">
           <h:commandButton tabindex="6" value="Submit changes" action="#{drugPage.submitReplenishmentConfigChanges}" />
         </f:facet>
