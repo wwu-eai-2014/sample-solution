@@ -3,11 +3,14 @@ package de.java.domain;
 import static de.java.domain.OrderState.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,6 +24,9 @@ public class ReplenishmentOrder implements Serializable {
 
   @NotNull
   private OrderState state = OPEN;
+
+  @OneToMany(mappedBy="order")
+  private Collection<Position> positions = new ArrayList<Position>();
 
   private Date expectedDelivery;
  

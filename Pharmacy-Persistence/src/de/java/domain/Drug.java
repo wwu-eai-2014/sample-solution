@@ -50,8 +50,7 @@ public class Drug implements Serializable {
   @OneToMany(mappedBy="drug", cascade=CascadeType.ALL)
   private Collection<InventoryEvent> events = new ArrayList<InventoryEvent>();
 
-  public Drug() {
-  }
+  public Drug() { }
 
   public Drug(int pzn, String name) {
     this.pzn = pzn;

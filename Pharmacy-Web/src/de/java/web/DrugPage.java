@@ -2,6 +2,8 @@ package de.java.web;
 
 import static de.java.web.util.Util.errorMessage;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -9,6 +11,7 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import de.java.domain.Position;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
@@ -51,6 +54,10 @@ public class DrugPage {
       e.printStackTrace();
     }
     Util.redirectToRoot();
+  }
+
+  public Collection<Position> getPendingReplenishmentOrderPositions() {
+    return new ArrayList<Position>();
   }
 
   public String submitMasterDataChanges() {
