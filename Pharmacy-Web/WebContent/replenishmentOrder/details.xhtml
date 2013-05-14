@@ -89,7 +89,7 @@
             </h:link>
           </h:column>
           <h:column rendered="#{replenishmentOrderPage.order.state == 'OPEN'}">
-            <h:commandLink value="Remove" action="#{replenishmentOrderPage.remove(cur)}" />
+            <h:commandButton value="Remove" action="#{replenishmentOrderPage.remove(cur)}" />
           </h:column>
         </h:dataTable>
       </h:form>
