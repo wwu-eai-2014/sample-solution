@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -81,6 +82,22 @@ public class Drug implements Serializable {
 
   public void replenish(long quantity, Date dateOfAction) {
     apply(new ReplenishEvent(quantity, dateOfAction, this));
+  }
+
+  public boolean isInNeedOfReplenishment(long pendingQuantity) {
+    return (stock + pendingQuantity) < minimumInventoryLevel;
+  }
+
+  @Transient
+  public long getSuggestedReplenishmentQuantity(long pendingQuantity) {
+    if (isInNeedOfReplenishment(pendingQuantity)) {
+      return itemsNeededToReachOptimalInventoryLevel(pendingQuantity);
+    }
+    return 0;
+  }
+
+  private long itemsNeededToReachOptimalInventoryLevel(long pendingQuantity) {
+    return optimalInventoryLevel - (stock + pendingQuantity);
   }
 
   @Override
