@@ -49,6 +49,7 @@ public class DrugPage {
     drug = null;
     setQuantity(0);
     setDateOfAction(new Date());
+    setPendingReplenishmentOrderPositions(null);
   }
 
   public void ensureInitialized(){
