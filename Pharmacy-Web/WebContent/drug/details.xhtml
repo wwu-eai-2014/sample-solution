@@ -44,6 +44,9 @@
       <h:messages for="minimumInventory" styleClass="error" />
       <h:messages for="optimalInventory" styleClass="error" />
       <h3>Inventory Management</h3>
+      <h:panelGroup rendered="#{drugPage.drug.isInNeedOfReplenishment(drugPage.quantityPending)}" styleClass="success">
+        Needs replenishment of #{drugPage.drug.getSuggestedReplenishmentQuantity(drugPage.quantityPending)} items!
+      </h:panelGroup>
       <h:panelGrid columns="2" columnClasses="label, value form-input"
         footerClass="form-footer" styleClass="details-table">
         Quantity
