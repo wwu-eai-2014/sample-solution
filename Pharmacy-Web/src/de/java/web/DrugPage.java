@@ -78,6 +78,10 @@ public class DrugPage {
   }
 
   public String withdraw() {
+    if (quantityIsZero()) {
+      return toDrugPage();
+    }
+
     try {
       drug = drugService.withdraw(drug.getPzn(), quantity, dateOfAction);
     } catch (EJBException e) {
@@ -89,13 +93,25 @@ public class DrugPage {
   }
 
   public String restock() {
+    if (quantityIsZero()) {
+      return toDrugPage();
+    }
+
     drug = drugService.restock(drug.getPzn(), quantity, dateOfAction);
     return toDrugPage();
   }
 
   public String initiateReplenishment() {
+    if (quantityIsZero()) {
+      return toDrugPage();
+    }
+
     orderService.initiateReplenishment(drug, quantity);
     return toDrugPage();
+  }
+
+  private boolean quantityIsZero() {
+    return quantity == 0;
   }
 
   public long getQuantityPending() {
