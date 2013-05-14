@@ -1,10 +1,12 @@
-package de.java.domain;
+package de.java.domain.orderstate;
 
 import static de.java.domain.OrderState.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import de.java.domain.IllegalOrderStatusTransitionException;
 
 public class OrderStateCancellationTest {
   @Test public void

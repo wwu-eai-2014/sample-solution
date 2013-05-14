@@ -1,4 +1,4 @@
-package de.java.domain;
+package de.java.domain.orderstate;
 
 import static de.java.domain.OrderState.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -8,6 +8,9 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.internal.matchers.TypeSafeMatcher;
+
+import de.java.domain.IllegalOrderStatusTransitionException;
+import de.java.domain.OrderState;
 
 public class OrderStateTest {
 

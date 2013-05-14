@@ -1,4 +1,4 @@
-package de.java.domain;
+package de.java.domain.orderstate;
 
 import static de.java.domain.OrderState.*;
 import static org.junit.Assert.*;
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import de.java.domain.OrderState;
 
 @RunWith(Parameterized.class)
 public class ParameterizedOrderStateTest {
