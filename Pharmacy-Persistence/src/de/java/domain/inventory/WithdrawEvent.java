@@ -25,7 +25,7 @@ public class WithdrawEvent extends InventoryEvent {
 
   @Override
   public String getEventType() {
-    return "replenish";
+    return "withdraw";
   }
 
 }
