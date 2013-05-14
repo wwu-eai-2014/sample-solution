@@ -98,6 +98,18 @@ public class DrugPage {
     return toDrugPage();
   }
 
+  public long getQuantityPending() {
+    return getSumOfQuantities(getPendingReplenishmentOrderPositions());
+  }
+
+  private long getSumOfQuantities(Collection<Position> positions) {
+    long sum = 0;
+    for (Position p : positions) {
+      sum += p.getQuantity();
+    }
+    return sum;
+  }
+
   public Drug getDrug() {
     if (drug == null) {
       drug = drugService.getDrug(pzn);

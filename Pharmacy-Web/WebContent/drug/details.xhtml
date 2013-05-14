@@ -71,7 +71,8 @@
         <h3>Pending Replenishment Orders</h3>
         <h:dataTable value="#{drugPage.pendingReplenishmentOrderPositions}" var="cur"
           styleClass="data-table" headerClass="data-cell header-cell"
-          columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell">
+          columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell"
+          footerClass="data-cell footer-cell">
           <h:column>
               <f:facet name="header">ID</f:facet>
             #{cur.order.id}
@@ -85,10 +86,16 @@
             <h:outputText value="#{cur.order.expectedDelivery}">
               <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
             </h:outputText>
+            <f:facet name="footer">
+              Total
+            </f:facet>
           </h:column>
           <h:column>
               <f:facet name="header">Quantity</f:facet>
             #{cur.quantity}
+              <f:facet name="footer">
+                #{drugPage.quantityPending}
+              </f:facet>
           </h:column>
           <h:column>
             <h:link outcome="/replenishmentOrder/details.xhtml" value="Details">
