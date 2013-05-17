@@ -23,7 +23,8 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   @Override
   public Collection<ReplenishmentOrder> getAllReplenishmentOrders() {
     // ordering is done on the ordinal numbers (not on the state names)
-    return em.createQuery("FROM ReplenishmentOrder o ORDER BY o.state", ReplenishmentOrder.class).getResultList();
+    return em.createQuery("FROM ReplenishmentOrder o ORDER BY o.state",
+        ReplenishmentOrder.class).getResultList();
   }
 
   @Override
@@ -38,7 +39,12 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
 
   @Override
   public Collection<Position> getPendingPositionsForDrug(int pzn) {
-    String query = "FROM Position WHERE replenishedDrug.pzn = :pzn AND order.state IN (de.java.domain.OrderState.OPEN, de.java.domain.OrderState.POSTING, de.java.domain.OrderState.ORDERED)";
+    String query = "FROM Position"
+        + "  WHERE replenishedDrug.pzn = :pzn"
+        + "  AND order.state IN"
+        + "    (de.java.domain.OrderState.OPEN,"
+        + "    de.java.domain.OrderState.POSTING,"
+        + "    de.java.domain.OrderState.ORDERED)";
     return em.createQuery(query, Position.class)
         .setParameter("pzn", pzn)
         .getResultList();
