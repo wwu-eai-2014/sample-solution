@@ -106,7 +106,7 @@ public class DrugPage {
       return toDrugPage();
     }
 
-    orderService.initiateReplenishment(drug, quantity);
+    orderService.initiateReplenishmentForDrug(drug, quantity);
     return toDrugPage();
   }
 
@@ -155,7 +155,7 @@ public class DrugPage {
 
   public Collection<Position> getPendingReplenishmentOrderPositions() {
     if (pendingReplenishmentOrderPositions == null) {
-      pendingReplenishmentOrderPositions = orderService.getPendingPositions(pzn);
+      pendingReplenishmentOrderPositions = orderService.getPendingPositionsForDrug(pzn);
     }
     return pendingReplenishmentOrderPositions;
   }

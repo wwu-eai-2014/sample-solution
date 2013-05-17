@@ -37,7 +37,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   @Override
-  public Collection<Position> getPendingPositions(int pzn) {
+  public Collection<Position> getPendingPositionsForDrug(int pzn) {
     String query = "FROM Position WHERE replenishedDrug.pzn = :pzn AND order.state IN (de.java.domain.OrderState.OPEN, de.java.domain.OrderState.POSTING, de.java.domain.OrderState.ORDERED)";
     return em.createQuery(query, Position.class)
         .setParameter("pzn", pzn)
@@ -86,7 +86,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     ReplenishmentOrder order = getOrder(id);
     order.setState(order.getState().cancel());
     for (Position oldPosition : order.getPositions()) {
-      initiateReplenishment(oldPosition.getReplenishedDrug(), oldPosition.getQuantity());
+      initiateReplenishmentForDrug(oldPosition.getReplenishedDrug(), oldPosition.getQuantity());
     }
   }
 
@@ -101,7 +101,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   @Override
-  public void initiateReplenishment(Drug drug, long quantity) {
+  public void initiateReplenishmentForDrug(Drug drug, long quantity) {
     if (hasOpenOrders(drug)) {
       modifyPositionOfOpenOrder(drug, quantity);
     } else {
@@ -110,7 +110,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   private boolean hasOpenOrders(Drug drug) {
-    Collection<Position> pendingPositions = getPendingPositions(drug.getPzn());
+    Collection<Position> pendingPositions = getPendingPositionsForDrug(drug.getPzn());
     boolean foundOpenOrder = false;
     for (Position position : pendingPositions) {
       if (position.getOrder().getState() == OPEN) {
@@ -122,7 +122,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   private void modifyPositionOfOpenOrder(Drug drug, long quantity) {
-    for (Position p : getPendingPositions(drug.getPzn())) {
+    for (Position p : getPendingPositionsForDrug(drug.getPzn())) {
       if (p.getOrder().getState() == OPEN) {
         p.setQuantity(quantity + p.getQuantity());
         break;
@@ -171,7 +171,9 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   public void removePosition(Position position) {
     Position attachedPosition = em.find(Position.class, position.getId());
     ReplenishmentOrder order = attachedPosition.getOrder();
+
     validateOpenState(order);
+
     order.getPositions().remove(attachedPosition);
     em.remove(attachedPosition);
     removeOrderIfEmpty(order);
