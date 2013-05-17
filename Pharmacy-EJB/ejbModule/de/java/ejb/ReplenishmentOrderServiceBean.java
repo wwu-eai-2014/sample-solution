@@ -117,14 +117,12 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
 
   private boolean hasOpenOrders(Drug drug) {
     Collection<Position> pendingPositions = getPendingPositionsForDrug(drug.getPzn());
-    boolean foundOpenOrder = false;
     for (Position position : pendingPositions) {
       if (position.getOrder().getState() == OPEN) {
-        foundOpenOrder = true;
-        break;
+        return true;
       }
     }
-    return foundOpenOrder;
+    return false;
   }
 
   private void modifyPositionOfOpenOrder(Drug drug, long quantity) {
