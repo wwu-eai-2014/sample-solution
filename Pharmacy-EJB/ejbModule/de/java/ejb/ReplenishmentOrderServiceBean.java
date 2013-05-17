@@ -151,7 +151,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   private boolean openOrdersAvailable() {
-    return !getReplenishmentOrdersInState(OPEN).isEmpty();
+    return getReplenishmentOrdersInState(OPEN).size() > 0;
   }
 
   private void addToOpenOrder(Position position) {
