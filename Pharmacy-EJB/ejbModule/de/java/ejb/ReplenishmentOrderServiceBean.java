@@ -157,8 +157,7 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   private void addToOpenOrder(Position position) {
     for (ReplenishmentOrder order : getReplenishmentOrdersInState(OPEN)) {
       position.setOrder(order);
-      em.persist(position);
-      break;
+      return;
     }
   }
 
@@ -166,7 +165,6 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     ReplenishmentOrder order = new ReplenishmentOrder();
     position.setOrder(order);
     em.persist(position);
-    em.persist(order);
   }
 
   @Override

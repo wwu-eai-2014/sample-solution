@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class ReplenishmentOrder implements Serializable {
   @NotNull
   private OrderState state = OPEN;
 
-  @OneToMany(mappedBy="order")
+  @OneToMany(mappedBy="order", cascade=CascadeType.ALL)
   private Collection<Position> positions = new ArrayList<Position>();
 
   private Date expectedDelivery;
