@@ -20,6 +20,10 @@ public interface ReplenishmentOrderService {
 
   ReplenishmentOrder getOrder(long id);
 
+  /**
+   * @param id {@link ReplenishmentOrder#getId()}
+   * @return {@link ReplenishmentOrder} with positions loaded
+   */
   ReplenishmentOrder getOrderWithPositions(long id);
 
   void proceedToNextState(long id);
