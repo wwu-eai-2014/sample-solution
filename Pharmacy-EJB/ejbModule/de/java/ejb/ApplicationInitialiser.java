@@ -65,7 +65,6 @@ public class ApplicationInitialiser {
     position.setQuantity(quantity);
     position.setReplenishedDrug(drug);
     position.setOrder(order);
-    order.addPosition(position);
     return position;
   }
 
