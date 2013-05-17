@@ -168,14 +168,15 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   @Override
-  public void removePosition(Position position) {
-    Position attachedPosition = em.find(Position.class, position.getId());
-    ReplenishmentOrder order = attachedPosition.getOrder();
+  public void removePosition(Position detachedPosition) {
+    Position position = em.merge(detachedPosition);
+    ReplenishmentOrder order = position.getOrder();
 
     validateOpenState(order);
 
-    order.getPositions().remove(attachedPosition);
-    em.remove(attachedPosition);
+    order.getPositions().remove(position);
+    em.remove(position);
+
     removeOrderIfEmpty(order);
   }
 
