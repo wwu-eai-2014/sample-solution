@@ -68,7 +68,7 @@ public class ReplenishmentOrder implements Serializable {
     return positions;
   }
 
-  public void addPosition(Position position) {
+  void addPosition(Position position) {
     getPositions().add(position);
   }
 

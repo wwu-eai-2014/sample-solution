@@ -40,6 +40,7 @@ public class Position implements Serializable {
 
   public void setOrder(ReplenishmentOrder order) {
     this.order = order;
+    order.addPosition(this);
   }
 
   public Drug getReplenishedDrug() {
