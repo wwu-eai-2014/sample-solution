@@ -49,6 +49,7 @@
     <Compile Include="Data\Drug.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\DrugExtension.cs" />
     <Compile Include="Data\InventoryEvent.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
