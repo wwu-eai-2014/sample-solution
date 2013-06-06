@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Data
+namespace Pharmacy.BusinessLayer.Data
 {
-    enum OrderState
+    public enum OrderState
     {
         Open, Posting, Ordered, Finished, Cancelled
     }
