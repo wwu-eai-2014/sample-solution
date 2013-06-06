@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +46,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Drug.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\InventoryEvent.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\OrderState.cs" />
+    <Compile Include="Data\Pharmacy.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Pharmacy.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Pharmacy.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Pharmacy.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Pharmacy.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Position.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReplenishEvent.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ReplenishmentOrder.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RestockEvent.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\WithdrawEvent.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Data\Pharmacy.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Pharmacy.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Pharmacy.BusinessULayer.Data</CustomToolNamespace>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Data\Pharmacy.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Pharmacy.edmx</DependentUpon>
+      <LastGenOutput>Pharmacy.Context.cs</LastGenOutput>
+      <CustomToolNamespace>Pharmacy.BusinessLayer.Data</CustomToolNamespace>
+    </None>
+    <None Include="Data\Pharmacy.edmx.diagram">
+      <DependentUpon>Pharmacy.edmx</DependentUpon>
+    </None>
+    <None Include="Data\Pharmacy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Pharmacy.edmx</DependentUpon>
+      <LastGenOutput>Pharmacy.cs</LastGenOutput>
+      <CustomToolNamespace>Pharmacy.BusinessLayer.Data</CustomToolNamespace>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Pharmacy.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
