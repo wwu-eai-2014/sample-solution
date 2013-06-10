@@ -1,13 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+﻿<%@ Page Title="C.Sharpe - Drug Details" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
+        CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
+    <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
+    <form id="DrugDetailsForm" runat="server">
     <div>
         
         <asp:ObjectDataSource ID="DrugDataSource" runat="server"
@@ -67,5 +61,4 @@
         
     </div>
     </form>
-</body>
-</html>
+</asp:Content>
