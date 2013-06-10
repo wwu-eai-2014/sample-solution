@@ -15,8 +15,8 @@ namespace Pharmacy.BusinessLayer.Data
     public partial class InventoryEvent
     {
         public int Id { get; set; }
-        public int Quantity { get; private set; }
-        public System.DateTime DateOfAction { get; private set; }
+        public int Quantity { get; set; }
+        public System.DateTime DateOfAction { get; set; }
         public int DrugPZN { get; set; }
     
         public virtual Drug Drug { get; set; }

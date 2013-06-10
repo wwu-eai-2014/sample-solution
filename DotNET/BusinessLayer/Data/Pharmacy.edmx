@@ -198,10 +198,10 @@
           <Key>
             <PropertyRef Name="PZN" />
           </Key>
-          <Property Type="Int32" Name="PZN" Nullable="false" annotation:StoreGeneratedPattern="None" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="PZN" Nullable="false" annotation:StoreGeneratedPattern="None" cg:SetterAccess="Public" />
           <Property Type="String" Name="Name" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="true" />
-          <Property Type="Int32" Name="Stock" Nullable="false" cg:SetterAccess="Private" DefaultValue="0" />
+          <Property Type="Int32" Name="Stock" Nullable="false" cg:SetterAccess="Public" DefaultValue="0" />
           <Property Type="Int32" Name="MinimumInventoryLevel" Nullable="false" DefaultValue="0" />
           <Property Type="Int32" Name="OptimalInventoryLevel" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="Events" Relationship="Pharmacy.BusinessLayer.Data.DrugInventoryEvent" FromRole="Drug" ToRole="InventoryEvent" />
@@ -211,8 +211,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Quantity" Nullable="false" cg:SetterAccess="Private" />
-          <Property Type="DateTime" Name="DateOfAction" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" cg:SetterAccess="Public" />
+          <Property Type="DateTime" Name="DateOfAction" Nullable="false" cg:SetterAccess="Public" />
           <NavigationProperty Name="Drug" Relationship="Pharmacy.BusinessLayer.Data.DrugInventoryEvent" FromRole="InventoryEvent" ToRole="Drug" />
           <Property Type="Int32" Name="DrugPZN" Nullable="false" />
         </EntityType>

@@ -22,10 +22,10 @@ namespace Pharmacy.BusinessLayer.Data
             this.Events = new HashSet<InventoryEvent>();
         }
     
-        public int PZN { get; private set; }
+        public int PZN { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Stock { get; private set; }
+        public int Stock { get; set; }
         public int MinimumInventoryLevel { get; set; }
         public int OptimalInventoryLevel { get; set; }
     
