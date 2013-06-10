@@ -28,19 +28,24 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
-        public static Drug UpdateDrugData(Drug drug)
+        public static Drug UpdateDrug(Drug drug)
         {
-            string newName = drug.Name;
-            string newDescription = drug.Description;
-            int newMinimumInventoryLevel = drug.MinimumInventoryLevel;
-            int newOptimalInventoryLevel = drug.OptimalInventoryLevel;
+            return UpdateDrug(drug, drug.Name, drug.Description, drug.MinimumInventoryLevel, drug.OptimalInventoryLevel);
+        }
+
+        public static Drug UpdateDrug(Drug drug, String Name, String Description, int MinimumInventoryLevel, int OptimalInventoryLevel)
+        {
             using (PharmacyContainer db = new PharmacyContainer())
             {
                 Drug attachedDrug = GetDrug(drug.PZN);
-                attachedDrug.Name = newName;
-                attachedDrug.Description = newDescription;
-                attachedDrug.MinimumInventoryLevel = newMinimumInventoryLevel;
-                attachedDrug.OptimalInventoryLevel = newOptimalInventoryLevel;
+                // adjust state to enforce update
+                db.Entry(attachedDrug).State = System.Data.EntityState.Modified;
+                attachedDrug.Name = Name;
+                attachedDrug.Description = Description;
+                attachedDrug.MinimumInventoryLevel = MinimumInventoryLevel;
+                attachedDrug.OptimalInventoryLevel = OptimalInventoryLevel;
+
+                db.SaveChanges();
                 return attachedDrug;
             }
         }

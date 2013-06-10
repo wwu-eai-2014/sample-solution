@@ -17,7 +17,7 @@
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
                 <asp:BoundField DataField="Stock" HeaderText="Stock" ReadOnly="True" SortExpression="Stock" />
-                <asp:CommandField ShowSelectButton="True" />
+                <asp:HyperLinkField DataNavigateUrlFields="PZN" DataNavigateUrlFormatString="Details.aspx?pzn={0}" Text="Details" />
             </Columns>
             <EmptyDataTemplate>
                 No drugs yet.

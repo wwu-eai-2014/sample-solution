@@ -11,39 +11,52 @@
     <div>
         
         <asp:ObjectDataSource ID="DrugDataSource" runat="server"
-            SelectMethod="GetDrug" UpdateMethod="UpdateDrugData"
-            TypeName="Pharmacy.BusinessLayer.Logic.DrugService">
+            SelectMethod="GetDrug" UpdateMethod="UpdateDrug"
+            TypeName="Pharmacy.BusinessLayer.Logic.DrugService"
+            DataObjectTypeName="Pharmacy.BusinessLayer.Data.Drug">
             <SelectParameters>
                 <asp:QueryStringParameter Name="pzn" QueryStringField="pzn" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-        <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False"
+        <asp:DetailsView ID="DrugDetailsView" runat="server" AutoGenerateRows="False"
             BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4"
-            ForeColor="Black" GridLines="Horizontal" Height="50px" Width="125px"
+            ForeColor="Black" GridLines="Horizontal" Height="50px" 
             DataSourceID="DrugDataSource" >
             <EditRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
             <Fields>
                 <asp:BoundField DataField="PZN" HeaderText="PZN" ReadOnly="True" SortExpression="PZN" />
                 <asp:TemplateField HeaderText="Name">
                     <ItemTemplate>
-                        <asp:TextBox ID="Name" runat="server" Text='<%# Bind("Name") %>' TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+                        <asp:Label ID="Name" runat="server" Text='<%# Eval("Name") %>' />
                      </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="Name" runat="server" Text='<%# Bind("Name") %>' TextMode="SingleLine" ReadOnly="false" />
+                    </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description">
                     <ItemTemplate>
-                        <asp:TextBox ID="Description" runat="server" Text='<%# Eval("Description") %>' TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
-                     </ItemTemplate>
+                        <asp:Label ID="Description" runat="server" Text='<%# Eval("Description") %>' />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="Description" runat="server" Text='<%# Bind("Description") %>' TextMode="MultiLine" ReadOnly="false" />
+                    </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="Stock" HeaderText="In Stock" ReadOnly="True" SortExpression="Stock" />
-                <asp:TemplateField HeaderText="MinimumInventoryLevel">
+                <asp:TemplateField HeaderText="Minimum Inventory Level">
                     <ItemTemplate>
-                        <asp:TextBox ID="MinimumInventoryLevel" runat="server" Text='<%# Eval("MinimumInventoryLevel") %>' TextMode="SingleLine" Columns="5" ReadOnly="true"></asp:TextBox>
-                     </ItemTemplate>
+                        <asp:Label ID="MinimumInventoryLevel" runat="server" Text='<%# Eval("MinimumInventoryLevel") %>' />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="MinimumInventoryLevel" runat="server" Text='<%# Bind("MinimumInventoryLevel") %>' TextMode="SingleLine" Columns="5" ReadOnly="false" />
+                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="OptimalInventoryLevel">
+                <asp:TemplateField HeaderText="Optimal Inventory Level">
                     <ItemTemplate>
-                        <asp:TextBox ID="OptimalInventoryLevel" runat="server" Text='<%# Eval("OptimalInventoryLevel") %>' TextMode="SingleLine" Columns="5" ReadOnly="true"></asp:TextBox>
-                     </ItemTemplate>
+                        <asp:Label ID="OptimalInventoryLevel" runat="server" Text='<%# Eval("OptimalInventoryLevel") %>' />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="OptimalInventoryLevel" runat="server" Text='<%# Bind("OptimalInventoryLevel") %>' TextMode="SingleLine" Columns="5" ReadOnly="false" />
+                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:CommandField ButtonType="Button" ShowEditButton="true" CancelText="Cancel" EditText="Edit" UpdateText="Update" />
             </Fields>
