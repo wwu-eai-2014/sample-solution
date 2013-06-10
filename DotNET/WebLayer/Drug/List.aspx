@@ -2,7 +2,6 @@
         CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
     <form id="DrugListForm" runat="server">
-    <div>
         <asp:ObjectDataSource ID="AllDrugsDatasource" runat="server" SelectMethod="GetAllDrugs" TypeName="Pharmacy.BusinessLayer.Logic.DrugService"></asp:ObjectDataSource>
         <asp:GridView ID="DrugGridView" runat="server" AutoGenerateColumns="False" DataSourceID="AllDrugsDatasource">
             <Columns>
@@ -16,6 +15,5 @@
                 No drugs yet.
             </EmptyDataTemplate>
         </asp:GridView>
-    </div>
     </form>
 </asp:Content>

@@ -2,8 +2,6 @@
         CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
     <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
     <form id="DrugDetailsForm" runat="server">
-    <div>
-        
         <asp:ObjectDataSource ID="DrugDataSource" runat="server"
             SelectMethod="GetDrug" UpdateMethod="UpdateDrug"
             TypeName="Pharmacy.BusinessLayer.Logic.DrugService"
@@ -25,6 +23,11 @@
                      </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="Name" runat="server" Text='<%# Bind("Name") %>' TextMode="SingleLine" ReadOnly="false" />
+                        <asp:RequiredFieldValidator ID="NameBoxValidator" runat="server" 
+                            ControlToValidate="Name" ErrorMessage="RequiredFieldValidator"
+                            EnableClientScript="false">
+                            <span class="error">Name required</span>
+                        </asp:RequiredFieldValidator>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description">
@@ -58,7 +61,5 @@
             <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
             <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
         </asp:DetailsView>
-        
-    </div>
     </form>
 </asp:Content>
