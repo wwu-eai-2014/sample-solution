@@ -7,36 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebLayer.Drug {
+namespace WebLayer {
     
     
-    public partial class Details {
+    public partial class Site {
         
         /// <summary>
-        /// DrugListForm control.
+        /// head control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm DrugListForm;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
         
         /// <summary>
-        /// AllDrugsDatasource control.
+        /// ContentHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource AllDrugsDatasource;
-        
-        /// <summary>
-        /// DrugGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView DrugGridView;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentHolder;
     }
 }

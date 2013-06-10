@@ -1,15 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="WebLayer.Main" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+﻿<%@ Page Title="C.Sharpe - Drug List" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
+        CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
+    <form id="DrugListForm" runat="server">
     <div>
-    
         <asp:ObjectDataSource ID="AllDrugsDatasource" runat="server" SelectMethod="GetAllDrugs" TypeName="Pharmacy.BusinessLayer.Logic.DrugService"></asp:ObjectDataSource>
         <asp:GridView ID="DrugGridView" runat="server" AutoGenerateColumns="False" DataSourceID="AllDrugsDatasource">
             <Columns>
@@ -23,8 +16,6 @@
                 No drugs yet.
             </EmptyDataTemplate>
         </asp:GridView>
-    
     </div>
     </form>
-</body>
-</html>
+</asp:Content>

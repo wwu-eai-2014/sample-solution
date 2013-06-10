@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="Drug\Details.aspx" />
     <Content Include="Drug\List.aspx" />
+    <Content Include="Resources\default.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
