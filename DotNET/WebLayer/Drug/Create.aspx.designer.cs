@@ -40,13 +40,13 @@ namespace WebLayer.Drug {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator PZNBoxValidator;
         
         /// <summary>
-        /// PZNIsANumberValidator control.
+        /// PZNNumberValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator PZNIsANumberValidator;
+        protected global::System.Web.UI.WebControls.RangeValidator PZNNumberValidator;
         
         /// <summary>
         /// NameBox control.

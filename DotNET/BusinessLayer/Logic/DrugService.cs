@@ -9,6 +9,32 @@ namespace Pharmacy.BusinessLayer.Logic
 {
     public static class DrugService
     {
+        public static Drug CreateDrug(int pzn, string name, string description)
+        {
+            Util.ConvertEmptyToNull(ref description);
+
+            Drug newDrug = new Drug
+            {
+                PZN = pzn,
+                Name = name,
+                Description = description
+            };
+            return CreateDrug(newDrug);
+        }
+
+        private static Drug CreateDrug(Drug newDrug)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                var count = (from d in db.DrugSet where d.PZN == newDrug.PZN select d).Count();
+                if (count > 0)
+                    throw new ArgumentException(String.Format("Drug with PZN {0} already exists!", newDrug.PZN));
+                db.DrugSet.Add(newDrug);
+                db.SaveChanges();
+                return newDrug;
+            }
+        }
+
         public static ICollection<Drug> GetAllDrugs()
         {
             using (PharmacyContainer db = new PharmacyContainer())
@@ -33,17 +59,19 @@ namespace Pharmacy.BusinessLayer.Logic
             return UpdateDrug(drug, drug.Name, drug.Description, drug.MinimumInventoryLevel, drug.OptimalInventoryLevel);
         }
 
-        public static Drug UpdateDrug(Drug drug, String Name, String Description, int MinimumInventoryLevel, int OptimalInventoryLevel)
+        public static Drug UpdateDrug(Drug drug, String name, String description, int minimumInventoryLevel, int optimalInventoryLevel)
         {
+            Util.ConvertEmptyToNull(ref description);
+
             using (PharmacyContainer db = new PharmacyContainer())
             {
                 Drug attachedDrug = GetDrug(drug.PZN);
                 // adjust state to enforce update
                 db.Entry(attachedDrug).State = System.Data.EntityState.Modified;
-                attachedDrug.Name = Name;
-                attachedDrug.Description = Description;
-                attachedDrug.MinimumInventoryLevel = MinimumInventoryLevel;
-                attachedDrug.OptimalInventoryLevel = OptimalInventoryLevel;
+                attachedDrug.Name = name;
+                attachedDrug.Description = description;
+                attachedDrug.MinimumInventoryLevel = minimumInventoryLevel;
+                attachedDrug.OptimalInventoryLevel = optimalInventoryLevel;
 
                 db.SaveChanges();
                 return attachedDrug;
