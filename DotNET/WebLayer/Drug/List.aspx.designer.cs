@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebLayer {
+namespace WebLayer.Drug {
     
     
-    public partial class Main {
+    public partial class List {
         
         /// <summary>
-        /// form1 control.
+        /// DrugListForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm DrugListForm;
         
         /// <summary>
         /// AllDrugsDatasource control.

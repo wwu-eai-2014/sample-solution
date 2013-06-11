@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="C.Sharpe - Drug List" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-        CodeBehind="Details.aspx.cs" Inherits="WebLayer.Drug.Details" %>
+        CodeBehind="List.aspx.cs" Inherits="WebLayer.Drug.List" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
     <form id="DrugListForm" runat="server">
         <asp:ObjectDataSource ID="AllDrugsDatasource" runat="server" SelectMethod="GetAllDrugs" TypeName="Pharmacy.BusinessLayer.Logic.DrugService"></asp:ObjectDataSource>
