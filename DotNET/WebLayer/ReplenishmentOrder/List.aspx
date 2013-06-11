@@ -12,7 +12,7 @@
                 <asp:HyperLinkField DataNavigateUrlFields="ID" DataNavigateUrlFormatString="Details.aspx?id={0}" Text="Details" />
             </Columns>
             <EmptyDataTemplate>
-                No drugs yet.
+                No replenishment orders yet.
             </EmptyDataTemplate>
         </asp:GridView>
     </form>

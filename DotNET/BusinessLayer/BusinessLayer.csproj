@@ -86,6 +86,7 @@
     <Compile Include="Data\WithdrawEvent.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logic\OrderService.cs" />
     <Compile Include="Logic\DrugService.cs" />
     <Compile Include="Logic\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
