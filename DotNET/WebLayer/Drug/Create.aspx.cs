@@ -16,6 +16,7 @@ namespace WebLayer.Drug
 
         protected void SubmitBtn_Click(object sender, EventArgs e)
         {
+            // because validation still invoke this method
             if (!Page.IsValid)
                 return;
             try
