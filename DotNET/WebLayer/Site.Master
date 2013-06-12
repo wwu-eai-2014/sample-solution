@@ -18,7 +18,7 @@
         (
         <asp:HyperLink NavigateUrl="~/Drug/Create.aspx" Text="Create" runat="server" />
         ) |
-        <asp:HyperLink NavigateUrl="~/Order/List.aspx" Text="Orders" runat="server" />
+        <asp:HyperLink NavigateUrl="~/ReplenishmentOrder/List.aspx" Text="Orders" runat="server" />
     </div>
     <div id="content">
         <asp:ContentPlaceHolder ID="ContentHolder" runat="server">
