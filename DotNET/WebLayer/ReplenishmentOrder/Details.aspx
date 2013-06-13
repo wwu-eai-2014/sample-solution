@@ -72,5 +72,26 @@
             </asp:TemplateField>
         </Fields>
     </asp:DetailsView>
+       <asp:ObjectDataSource ID="PositionDataSource" runat="server"
+        SelectMethod="GetPositionsForOrder"
+        TypeName="Pharmacy.BusinessLayer.Logic.OrderService"
+        DataObjectTypeName="Pharmacy.BusinessLayer.Data.Position">
+        <SelectParameters>
+            <asp:QueryStringParameter Name="ID" QueryStringField="id" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
+    <asp:GridView ID="DrugGridView" runat="server" AutoGenerateColumns="False" DataSourceID="PositionDataSource">
+        <Columns>
+            <asp:BoundField DataField="Drug.PZN" HeaderText="PZN" ReadOnly="True" SortExpression="Drug.PZN" />
+            <asp:BoundField DataField="Drug.Name" HeaderText="Name" SortExpression="Drug.Name" />
+            <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink ID="DrugDetailsLink" runat="server" Text="Details"
+                        NavigateUrl='<%# String.Format("~/Drug/Details.aspx?pzn={0}", Eval("Drug.PZN")) %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>    
+    </asp:GridView>
 </form>
 </asp:Content>

@@ -33,6 +33,16 @@ namespace Pharmacy.BusinessLayer.Logic
             return result;
         }
 
+        public static ICollection<Position> GetPositionsForOrder(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                return (from p in db.PositionSet.Include("Drug")
+                            where p.Order.Id == id
+                            select p).ToList();
+            }
+        }
+
         public static ICollection<Position> GetPendingPositionsForDrug(Int32 pzn)
         {
             using (PharmacyContainer db = new PharmacyContainer())
