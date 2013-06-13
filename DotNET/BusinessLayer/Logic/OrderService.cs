@@ -22,7 +22,7 @@ namespace Pharmacy.BusinessLayer.Logic
                 ReplenishmentOrder result = (from o in db.ReplenishmentOrderSet where o.Id == id select o).FirstOrDefault();
 
                 if (result == default(ReplenishmentOrder))
-                    throw new ArgumentException("Order with ID {0} not found", id.ToString());
+                    throw new ArgumentException(String.Format("Order with ID {0} not found", id.ToString()));
 
                 return result;
             }

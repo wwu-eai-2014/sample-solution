@@ -48,7 +48,7 @@ namespace Pharmacy.BusinessLayer.Logic
                 Drug result = (from d in db.DrugSet where d.PZN == pzn select d).FirstOrDefault();
 
                 if (result == default(Drug))
-                    throw new ArgumentException("Drug with PZN {0} not found", pzn.ToString());
+                    throw new ArgumentException(String.Format("Drug with PZN {0} not found", pzn.ToString()));
 
                 return result;
             }
