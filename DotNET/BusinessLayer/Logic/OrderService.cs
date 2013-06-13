@@ -33,6 +33,24 @@ namespace Pharmacy.BusinessLayer.Logic
             return result;
         }
 
+        public static ICollection<Position> GetPendingPositionsForDrug(Int32 pzn)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                ICollection<Position> pendingPositions = (
+                    from p in db.PositionSet
+                    where p.Order.State == OrderState.Open || 
+                        p.Order.State == OrderState.Posting ||
+                        p.Order.State == OrderState.Ordered
+                    select p).ToList();
+                foreach (Position p in pendingPositions) {
+                    OrderState os = p.Order.State;
+                }
+
+                return pendingPositions;
+            }
+        }
+
         public static void UpdateExpectedDeliveryDate(Int32 id, DateTime expectedDelivery)
         {
             using (PharmacyContainer db = new PharmacyContainer())
