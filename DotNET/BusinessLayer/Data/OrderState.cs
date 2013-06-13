@@ -34,6 +34,13 @@ namespace Pharmacy.BusinessLayer.Data
             return !(state == OrderState.Finished || state == OrderState.Cancelled);
         }
 
+        public static OrderState Cancel(this OrderState state)
+        {
+            if (state != OrderState.Posting)
+                throw new ArgumentException("Order can only be cancelled in state " + OrderState.Posting);
+            return OrderState.Cancelled;
+        }
+
         public static Boolean Cancellable(this OrderState state)
         {
             return state == OrderState.Posting;

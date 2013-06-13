@@ -66,5 +66,16 @@ namespace Pharmacy.BusinessLayer.Logic
                 db.SaveChanges();
             }
         }
+
+        public static void Cancel(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                ReplenishmentOrder order = GetOrder(id, db);
+                order.State = order.State.Cancel();
+                // migrate all positions to new or existing open order
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace WebLayer.ReplenishmentOrder
             if (!Page.IsValid)
                 return;
 
-            Pharmacy.BusinessLayer.Data.ReplenishmentOrder order = OrderService.GetOrder(Int32.Parse(Request.Params["id"]));
+            Pharmacy.BusinessLayer.Data.ReplenishmentOrder order = OrderService.GetOrder(GetOrderId());
             if (order.State == OrderState.Posting)
             {
                 string expectedDelivery = ((TextBox)OrderDetailsView.FindControl("ExpectedDeliveryBox")).Text;
@@ -46,6 +46,11 @@ namespace WebLayer.ReplenishmentOrder
             OrderDetailsView.DataBind();
         }
 
+        private Int32 GetOrderId()
+        {
+            return Int32.Parse(Request.Params["id"]);
+        }
+
         private static DateTime parseDateTime(string dateAsString)
         {
             return DateTime.ParseExact(dateAsString, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
@@ -53,7 +58,9 @@ namespace WebLayer.ReplenishmentOrder
 
         protected void Cancel_Command(object sender, CommandEventArgs e)
         {
-            // TODO cancel order
+            OrderService.Cancel(GetOrderId());
+            // display updated data
+            OrderDetailsView.DataBind();
         }
     }
 }
