@@ -61,6 +61,20 @@
         <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
         <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
     </asp:DetailsView>
+    <h3>Inventory Management</h3>
+    <asp:TextBox ID="QuantityBox" runat="server" TextMode="Number" />
+    <asp:CompareValidator ID="QuantityMinimumValidator" runat="server"
+        ControlToValidate="QuantityBox" ErrorMessage="CompareValidator"
+        Type="Integer" EnableClientScript="false" ValidationGroup="InvMgmt"
+        Operator="GreaterThan" ValueToCompare="0">
+        <span class="error">Enter positive quantity</span>
+    </asp:CompareValidator>
+    <asp:Button ID="WithdrawButton" Text="Withdraw" ValidationGroup="InvMgmt" runat="server"
+        OnCommand="WithdrawButton_Command" />
+    <asp:Button ID="RestockButton" Text="RestockButton" ValidationGroup="InvMgmt" runat="server"
+        OnCommand="RestockButton_Command" />
+    <asp:Button ID="ReplenishButton" Text="Initiate replenishment" ValidationGroup="InvMgmt" runat="server"
+        OnCommand="ReplenishButton_Command" />
     <h3>Pending Replenishment Orders</h3>
     <asp:ObjectDataSource ID="PositionDatasource" runat="server"
         SelectMethod="GetPendingPositionsForDrug"

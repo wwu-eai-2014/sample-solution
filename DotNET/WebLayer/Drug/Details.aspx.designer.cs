@@ -40,6 +40,51 @@ namespace WebLayer.Drug {
         protected global::System.Web.UI.WebControls.DetailsView DrugDetailsView;
         
         /// <summary>
+        /// QuantityBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox QuantityBox;
+        
+        /// <summary>
+        /// QuantityMinimumValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator QuantityMinimumValidator;
+        
+        /// <summary>
+        /// WithdrawButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button WithdrawButton;
+        
+        /// <summary>
+        /// RestockButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RestockButton;
+        
+        /// <summary>
+        /// ReplenishButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ReplenishButton;
+        
+        /// <summary>
         /// PositionDatasource control.
         /// </summary>
         /// <remarks>

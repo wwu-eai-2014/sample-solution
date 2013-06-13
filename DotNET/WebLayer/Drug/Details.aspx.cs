@@ -13,5 +13,32 @@ namespace WebLayer.Drug
         {
 
         }
+
+        protected void WithdrawButton_Command(object sender, CommandEventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+        }
+
+        protected void RestockButton_Command(object sender, CommandEventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+        }
+
+        protected void ReplenishButton_Command(object sender, CommandEventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+        }
     }
 }
