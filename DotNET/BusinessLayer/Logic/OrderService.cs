@@ -38,14 +38,11 @@ namespace Pharmacy.BusinessLayer.Logic
             using (PharmacyContainer db = new PharmacyContainer())
             {
                 ICollection<Position> pendingPositions = (
-                    from p in db.PositionSet
+                    from p in db.PositionSet.Include("Order")
                     where p.Order.State == OrderState.Open || 
                         p.Order.State == OrderState.Posting ||
                         p.Order.State == OrderState.Ordered
                     select p).ToList();
-                foreach (Position p in pendingPositions) {
-                    OrderState os = p.Order.State;
-                }
 
                 return pendingPositions;
             }
