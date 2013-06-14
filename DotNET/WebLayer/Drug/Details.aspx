@@ -56,6 +56,7 @@
                     </EditItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ButtonType="Button" ShowEditButton="true" CancelText="Cancel" EditText="Edit" UpdateText="Update" />
+            <asp:HyperLinkField DataNavigateUrlFields="PZN" DataNavigateUrlFormatString="~/Drug/history.aspx?pzn={0}" Text="Inventory history"/>
         </Fields>
         <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
         <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />

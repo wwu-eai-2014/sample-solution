@@ -60,6 +60,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Drug\Create.aspx" />
     <Content Include="Drug\Details.aspx" />
+    <Content Include="Drug\History.aspx" />
     <Content Include="Drug\List.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="ReplenishmentOrder\Details.aspx" />
@@ -88,6 +89,13 @@
     </Compile>
     <Compile Include="Drug\Details.aspx.designer.cs">
       <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Drug\History.aspx.cs">
+      <DependentUpon>History.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Drug\History.aspx.designer.cs">
+      <DependentUpon>History.aspx</DependentUpon>
     </Compile>
     <Compile Include="Drug\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
