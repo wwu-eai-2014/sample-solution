@@ -2,7 +2,12 @@
         CodeBehind="List.aspx.cs" Inherits="WebLayer.Drug.List" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
     <form id="DrugListForm" runat="server">
-        <asp:ObjectDataSource ID="AllDrugsDatasource" runat="server" SelectMethod="GetAllDrugs" TypeName="Pharmacy.BusinessLayer.Logic.DrugService"></asp:ObjectDataSource>
+        <asp:TextBox ID="SearchBox" runat="server" />
+        <asp:Button ID="SearchButton" Text="search" runat="server" OnClick="SearchButton_Click" />
+        <asp:EntityDataSource ID="AllDrugsDatasource" runat="server" ConnectionString="name=PharmacyContainer"
+            DefaultContainerName="PharmacyContainer" EnableFlattening="False" EntitySetName="DrugSet"
+            EntityTypeFilter="Drug" Select="it.[PZN], it.[Name], it.[Description], it.[Stock]">
+        </asp:EntityDataSource>
         <asp:GridView ID="DrugGridView" runat="server" AutoGenerateColumns="False" DataSourceID="AllDrugsDatasource">
             <Columns>
                 <asp:BoundField DataField="PZN" HeaderText="PZN" ReadOnly="True" SortExpression="PZN" />
