@@ -73,7 +73,7 @@ namespace WebLayer.Drug
             {
                 return;
             }
-            DrugService.InitiateReplenishment(GetPzn(), GetQuantity());
+            OrderService.InitiateReplenishment(GetPzn(), GetQuantity());
             UpdateData();
         }
     }

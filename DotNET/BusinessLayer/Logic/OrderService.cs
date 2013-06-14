@@ -49,9 +49,10 @@ namespace Pharmacy.BusinessLayer.Logic
             {
                 ICollection<Position> pendingPositions = (
                     from p in db.PositionSet.Include("Order")
-                    where p.Order.State == OrderState.Open || 
+                    where (p.Order.State == OrderState.Open || 
                         p.Order.State == OrderState.Posting ||
-                        p.Order.State == OrderState.Ordered
+                        p.Order.State == OrderState.Ordered) &&
+                        p.DrugPZN == pzn
                     select p).ToList();
 
                 return pendingPositions;
@@ -101,9 +102,95 @@ namespace Pharmacy.BusinessLayer.Logic
             {
                 ReplenishmentOrder order = GetOrder(id, db);
                 order.State = order.State.Cancel();
+                foreach (Position p in order.Positions)
+                {
+                    InitiateReplenishment(p.DrugPZN, p.Quantity, db);
+                }
                 // migrate all positions to new or existing open order
                 db.SaveChanges();
             }
         }
+
+        public static void InitiateReplenishment(Int32 pzn, int quantity, PharmacyContainer db)
+        {
+            Drug drug = DrugService.GetDrug(pzn, db);
+            if (HasOpenOrders(drug, db))
+            {
+                AdjustExistingOrderFor(drug, quantity, db);
+            }
+            else
+            {
+                CreatePositionOnOpenOrNewOrder(drug, quantity, db);
+            }
+            db.SaveChanges();
+        }
+        
+        public static void InitiateReplenishment(int pzn, int quantity)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                InitiateReplenishment(pzn, quantity, db);
+            }
+        }
+
+        public static Boolean HasOpenOrders(Drug drug, PharmacyContainer db)
+        {
+            return OpenOrdersFor(drug, db).Count() > 0;
+        }
+
+        private static IQueryable<ReplenishmentOrder> OpenOrdersFor(Drug drug, PharmacyContainer db)
+        {
+            return (from o in db.ReplenishmentOrderSet
+                    where o.Positions.Where(p => p.DrugPZN == drug.PZN).Count() > 0
+                    && o.State == OrderState.Open select o);
+        }
+
+        private static void AdjustExistingOrderFor(Drug drug, int quantity, PharmacyContainer db)
+        {
+            foreach (Position p in GetPendingPositionsForDrug(drug.PZN))
+            {
+                if (p.Order.State == OrderState.Open)
+                {
+                    p.Quantity = p.Quantity + quantity;
+                    db.Entry(p).State = System.Data.EntityState.Modified;
+                }
+            }
+        }
+
+        private static void CreatePositionOnOpenOrNewOrder(Drug drug, int quantity, PharmacyContainer db)
+        {
+            if (OpenOrdersAvailable(db))
+            {
+                ReplenishmentOrder openOrder = GetOpenOrders(db).First();
+                openOrder.Positions.Add(new Position
+                {
+                    Drug = drug,
+                    Order = openOrder,
+                    Quantity = quantity
+                });
+            }
+            else
+            {
+                ReplenishmentOrder newOrder = new ReplenishmentOrder();
+                newOrder.Positions.Add(new Position
+                {
+                    Drug = drug,
+                    Order = newOrder,
+                    Quantity = quantity
+                });
+                db.ReplenishmentOrderSet.Add(newOrder);
+            }
+        }
+
+        private static bool OpenOrdersAvailable(PharmacyContainer db)
+        {
+            return GetOpenOrders(db).Count() > 0;
+        }
+
+        private static IEnumerable<ReplenishmentOrder> GetOpenOrders(PharmacyContainer db)
+        {
+            return (from o in db.ReplenishmentOrderSet where o.State == OrderState.Open select o);
+        }
+
     }
 }

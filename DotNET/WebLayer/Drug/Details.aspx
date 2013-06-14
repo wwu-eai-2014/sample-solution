@@ -85,7 +85,7 @@
     </asp:RegularExpressionValidator>
     <asp:Button ID="WithdrawButton" Text="Withdraw" ValidationGroup="InvMgmt" runat="server"
         OnCommand="WithdrawButton_Command" />
-    <asp:Button ID="RestockButton" Text="RestockButton" ValidationGroup="InvMgmt" runat="server"
+    <asp:Button ID="RestockButton" Text="Restock" ValidationGroup="InvMgmt" runat="server"
         OnCommand="RestockButton_Command" />
     <asp:Button ID="ReplenishButton" Text="Initiate replenishment" ValidationGroup="InvMgmt" runat="server"
         OnCommand="ReplenishButton_Command" />

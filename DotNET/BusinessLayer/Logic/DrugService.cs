@@ -49,7 +49,7 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
-        private static Drug GetDrug(Int32 pzn, PharmacyContainer db)
+        internal static Drug GetDrug(Int32 pzn, PharmacyContainer db)
         {
             Drug result = (from d in db.DrugSet where d.PZN == pzn select d).FirstOrDefault();
 
@@ -114,11 +114,6 @@ namespace Pharmacy.BusinessLayer.Logic
                 throw new ArgumentException("date of action must not be null");
             }
             return (DateTime) dateOfAction;
-        }
-
-        public static void InitiateReplenishment(int pzn, int quantity)
-        {
-            throw new NotImplementedException();
         }
 
     }
