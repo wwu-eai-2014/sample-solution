@@ -49,6 +49,15 @@ namespace WebLayer.Drug {
         protected global::System.Web.UI.WebControls.TextBox QuantityBox;
         
         /// <summary>
+        /// RequiredQuantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredQuantity;
+        
+        /// <summary>
         /// QuantityMinimumValidator control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,33 @@ namespace WebLayer.Drug {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator QuantityMinimumValidator;
+        
+        /// <summary>
+        /// DateOfActionBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DateOfActionBox;
+        
+        /// <summary>
+        /// RequiredDateOfAction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredDateOfAction;
+        
+        /// <summary>
+        /// ValidDateOfAction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ValidDateOfAction;
         
         /// <summary>
         /// WithdrawButton control.

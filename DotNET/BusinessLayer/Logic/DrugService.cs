@@ -45,13 +45,18 @@ namespace Pharmacy.BusinessLayer.Logic
         {
             using (PharmacyContainer db = new PharmacyContainer())
             {
-                Drug result = (from d in db.DrugSet where d.PZN == pzn select d).FirstOrDefault();
-
-                if (result == default(Drug))
-                    throw new ArgumentException(String.Format("Drug with PZN {0} not found", pzn.ToString()));
-
-                return result;
+                return GetDrug(pzn, db);
             }
+        }
+
+        private static Drug GetDrug(Int32 pzn, PharmacyContainer db)
+        {
+            Drug result = (from d in db.DrugSet where d.PZN == pzn select d).FirstOrDefault();
+
+            if (result == default(Drug))
+                throw new ArgumentException(String.Format("Drug with PZN {0} not found", pzn.ToString()));
+
+            return result;
         }
 
         public static Drug UpdateDrug(Drug drug)
@@ -65,17 +70,49 @@ namespace Pharmacy.BusinessLayer.Logic
 
             using (PharmacyContainer db = new PharmacyContainer())
             {
-                Drug attachedDrug = GetDrug(drug.PZN);
-                // adjust state to enforce update
-                db.Entry(attachedDrug).State = System.Data.EntityState.Modified;
+                Drug attachedDrug = GetDrug(drug.PZN, db);
                 attachedDrug.Name = name;
                 attachedDrug.Description = description;
                 attachedDrug.MinimumInventoryLevel = minimumInventoryLevel;
                 attachedDrug.OptimalInventoryLevel = optimalInventoryLevel;
-
                 db.SaveChanges();
                 return attachedDrug;
             }
+        }
+
+        public static void Withdraw(Int32 pzn, Int32 quantity, DateTime dateOfAction)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug drug = GetDrug(pzn, db);
+                drug.Apply(WithdrawEvent.Create(drug, quantity, dateOfAction));
+                db.SaveChanges();
+            }
+        }
+
+        public static void Restock(Int32 pzn, Int32 quantity, DateTime dateOfAction)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug drug = GetDrug(pzn, db);
+                drug.Apply(RestockEvent.Create(drug, quantity, dateOfAction));
+                db.SaveChanges();
+            }
+        }
+
+        public static void Replenish(Int32 pzn, Int32 quantity, DateTime dateOfAction)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug drug = GetDrug(pzn, db);
+                drug.Apply(ReplenishEvent.Create(drug, quantity, dateOfAction));
+                db.SaveChanges();
+            }
+        }
+
+        public static void InitiateReplenishment(int pzn, int quantity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

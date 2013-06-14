@@ -8,22 +8,17 @@ namespace Pharmacy.BusinessLayer.Data
 {
     public partial class Drug
     {
-        public string dummyMethod()
-        {
-            return "Hello world";
-        }
-
         internal void Apply(InventoryEvent inventoryEvent)
         {
-            Int32 inventoryDelta = inventoryEvent.GetInventoryDelta();
-            ValidateEvent(inventoryDelta);
-            Stock += inventoryDelta;
+            ValidateEvent(inventoryEvent);
+
+            Stock += inventoryEvent.Quantity;
             Events.Add(inventoryEvent);
         }
 
-        private void ValidateEvent(Int32 inventoryDelta)
+        private void ValidateEvent(InventoryEvent inventoryEvent)
         {
-            if (Stock + inventoryDelta < 0)
+            if (Stock + inventoryEvent.Quantity < 0)
             {
                 throw new ArgumentException("Cannot withdraw below stock of " + Stock);
             }
@@ -32,19 +27,50 @@ namespace Pharmacy.BusinessLayer.Data
 
     public abstract partial class InventoryEvent
     {
-        public virtual Int32 GetInventoryDelta()
+        public static InventoryEvent Create(Drug drug, Int32 quantity, DateTime dateOfAction)
         {
-            return Quantity;
+            throw new NotImplementedException();
         }
+
     }
 
     public partial class WithdrawEvent : InventoryEvent
     {
-
-        public override Int32 GetInventoryDelta()
+        public static new InventoryEvent Create(Drug drug, int quantity, DateTime dateOfAction)
         {
-            return -Quantity;
+            return new WithdrawEvent
+            {
+                Drug = drug,
+                // negate quantity for withdrawal
+                Quantity = -quantity,
+                DateOfAction = dateOfAction
+            };
         }
     }
 
+    public partial class RestockEvent : InventoryEvent
+    {
+        public static new InventoryEvent Create(Drug drug, int quantity, DateTime dateOfAction)
+        {
+            return new RestockEvent
+            {
+                Drug = drug,
+                Quantity = quantity,
+                DateOfAction = dateOfAction
+            };
+        }
+    }
+
+    public partial class ReplenishEvent : InventoryEvent
+    {
+        public static new InventoryEvent Create(Drug drug, int quantity, DateTime dateOfAction)
+        {
+            return new ReplenishEvent
+            {
+                Drug = drug,
+                Quantity = quantity,
+                DateOfAction = dateOfAction
+            };
+        }
+    }
 }

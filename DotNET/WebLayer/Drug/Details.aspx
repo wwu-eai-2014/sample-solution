@@ -63,12 +63,26 @@
     </asp:DetailsView>
     <h3>Inventory Management</h3>
     <asp:TextBox ID="QuantityBox" runat="server" TextMode="Number" />
+    <asp:RequiredFieldValidator ID="RequiredQuantity" ControlToValidate="QuantityBox"
+        EnableClientScript="false" runat="server" ValidationGroup="InvMgmt">
+        Positive quantity required
+    </asp:RequiredFieldValidator>
     <asp:CompareValidator ID="QuantityMinimumValidator" runat="server"
         ControlToValidate="QuantityBox" ErrorMessage="CompareValidator"
         Type="Integer" EnableClientScript="false" ValidationGroup="InvMgmt"
         Operator="GreaterThan" ValueToCompare="0">
         <span class="error">Enter positive quantity</span>
     </asp:CompareValidator>
+    <asp:TextBox ID="DateOfActionBox" runat="server" TextMode="DateTime" ValidationGroup="InvMgmt" />
+    <asp:RequiredFieldValidator ID="RequiredDateOfAction" ControlToValidate="DateOfActionBox"
+        EnableClientScript="false" runat="server" ValidationGroup="InvMgmt">
+        Date of action required (e.g. 24.12.2013 18:32)
+    </asp:RequiredFieldValidator>
+    <asp:RegularExpressionValidator ID="ValidDateOfAction" ControlToValidate="DateOfActionBox"
+        EnableClientScript="false" runat="server" ValidationGroup="InvMgmt"
+        ValidationExpression="\d{2}.\d{2}.\d{4} \d{2}:\d{2}">
+        Invalid date of action (e.g. 24.12.2013 18:32)
+    </asp:RegularExpressionValidator>
     <asp:Button ID="WithdrawButton" Text="Withdraw" ValidationGroup="InvMgmt" runat="server"
         OnCommand="WithdrawButton_Command" />
     <asp:Button ID="RestockButton" Text="RestockButton" ValidationGroup="InvMgmt" runat="server"
