@@ -86,7 +86,10 @@ namespace Pharmacy.BusinessLayer.Logic
                 order.State = order.State.Next();
                 if (order.State == OrderState.Finished)
                 {
-                    // replenish all positions
+                    foreach (Position p in order.Positions)
+                    {
+                        DrugService.Replenish(p.Drug.PZN, p.Quantity, order.ActualDelivery, db);
+                    }
                 }
                 db.SaveChanges();
             }

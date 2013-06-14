@@ -100,19 +100,26 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
-        public static void Replenish(Int32 pzn, Int32 quantity, DateTime dateOfAction)
+        public static void Replenish(Int32 pzn, Int32 quantity, DateTime? dateOfAction, PharmacyContainer db)
         {
-            using (PharmacyContainer db = new PharmacyContainer())
+            Drug drug = GetDrug(pzn, db);
+            drug.Apply(ReplenishEvent.Create(drug, quantity, FailOnNull(dateOfAction)));
+            db.SaveChanges();
+        }
+
+        private static DateTime FailOnNull(DateTime? dateOfAction)
+        {
+            if (dateOfAction == null)
             {
-                Drug drug = GetDrug(pzn, db);
-                drug.Apply(ReplenishEvent.Create(drug, quantity, dateOfAction));
-                db.SaveChanges();
+                throw new ArgumentException("date of action must not be null");
             }
+            return (DateTime) dateOfAction;
         }
 
         public static void InitiateReplenishment(int pzn, int quantity)
         {
             throw new NotImplementedException();
         }
+
     }
 }
