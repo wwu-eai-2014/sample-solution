@@ -95,7 +95,7 @@
     <EntityDeploy Include="Data\Pharmacy.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Pharmacy.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Pharmacy.BusinessULayer.Data</CustomToolNamespace>
+      <CustomToolNamespace>Pharmacy.BusinessLayer.Data</CustomToolNamespace>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
