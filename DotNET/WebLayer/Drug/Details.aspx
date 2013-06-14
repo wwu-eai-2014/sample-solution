@@ -62,6 +62,7 @@
         <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
     </asp:DetailsView>
     <h3>Inventory Management</h3>
+    <p><asp:Label ID="SuggestionLabel" runat="server" Visible="false" /></p>
     <asp:TextBox ID="QuantityBox" runat="server" TextMode="Number" />
     <asp:RequiredFieldValidator ID="RequiredQuantity" ControlToValidate="QuantityBox"
         EnableClientScript="false" runat="server" ValidationGroup="InvMgmt">

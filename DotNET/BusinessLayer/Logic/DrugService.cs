@@ -116,5 +116,38 @@ namespace Pharmacy.BusinessLayer.Logic
             return (DateTime) dateOfAction;
         }
 
+
+        public static bool RequiresReplenishment(Int32 pzn)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug drug = GetDrug(pzn, db);
+                Int32 quantityPending = GetQuantityPending(drug, db);
+                return drug.RequiresReplenishment(quantityPending);
+            }
+        }
+
+        private static Int32 GetQuantityPending(Drug drug, PharmacyContainer db)
+        {
+            if (OrderService.PendingPositionsFor(drug.PZN, db).Count() > 0)
+            {
+                // would not work on empty position collections
+                return OrderService.PendingPositionsFor(drug.PZN, db).Sum(p => p.Quantity);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static int GetReplenishmentSuggestion(int pzn)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug drug = GetDrug(pzn, db);
+                Int32 quantityPending = GetQuantityPending(drug, db);
+                return drug.ReplenishmentSuggestion(quantityPending);
+            }
+        }
     }
 }

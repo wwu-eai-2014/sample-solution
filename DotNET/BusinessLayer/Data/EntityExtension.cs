@@ -23,6 +23,16 @@ namespace Pharmacy.BusinessLayer.Data
                 throw new ArgumentException("Cannot withdraw below stock of " + Stock);
             }
         }
+
+        internal bool RequiresReplenishment(int quantityPending)
+        {
+            return Stock + quantityPending < MinimumInventoryLevel;
+        }
+
+        internal int ReplenishmentSuggestion(int quantityPending)
+        {
+            return OptimalInventoryLevel - (Stock + quantityPending);
+        }
     }
 
     public abstract partial class InventoryEvent

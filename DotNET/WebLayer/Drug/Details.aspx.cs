@@ -18,6 +18,21 @@ namespace WebLayer.Drug
             {
                 DateOfActionBox.Text = String.Format("{0:dd.MM.yyyy HH:mm}", DateTime.Now);
             }
+            UpdateSuggestion();
+        }
+
+        private void UpdateSuggestion()
+        {
+            if (DrugService.RequiresReplenishment(GetPzn()))
+            {
+                SuggestionLabel.Visible = true;
+                int replenishmentSuggestion = DrugService.GetReplenishmentSuggestion(GetPzn());
+                SuggestionLabel.Text = String.Format("Requires replenishment of {0} items", replenishmentSuggestion);
+            }
+            else
+            {
+                SuggestionLabel.Visible = false;
+            }
         }
 
         protected void WithdrawButton_Command(object sender, CommandEventArgs e)
@@ -55,6 +70,7 @@ namespace WebLayer.Drug
             // update data
             DrugDetailsView.DataBind();
             PendingOrdersGridView.DataBind();
+            UpdateSuggestion();
         }
 
         protected void RestockButton_Command(object sender, CommandEventArgs e)

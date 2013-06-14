@@ -47,16 +47,18 @@ namespace Pharmacy.BusinessLayer.Logic
         {
             using (PharmacyContainer db = new PharmacyContainer())
             {
-                ICollection<Position> pendingPositions = (
-                    from p in db.PositionSet.Include("Order")
-                    where (p.Order.State == OrderState.Open || 
-                        p.Order.State == OrderState.Posting ||
-                        p.Order.State == OrderState.Ordered) &&
-                        p.DrugPZN == pzn
-                    select p).ToList();
-
-                return pendingPositions;
+                return PendingPositionsFor(pzn, db).ToList();
             }
+        }
+
+        internal static IQueryable<Position> PendingPositionsFor(Int32 pzn, PharmacyContainer db)
+        {
+            return (from p in db.PositionSet.Include("Order")
+                    where p.DrugPZN == pzn
+                    && (p.Order.State == OrderState.Open ||
+                        p.Order.State == OrderState.Posting ||
+                        p.Order.State == OrderState.Ordered)
+                    select p);   
         }
 
         public static void UpdateExpectedDeliveryDate(Int32 id, DateTime expectedDelivery)
