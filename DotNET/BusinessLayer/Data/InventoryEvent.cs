@@ -12,7 +12,7 @@ namespace Pharmacy.BusinessLayer.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class InventoryEvent
+    public abstract partial class InventoryEvent
     {
         public int Id { get; set; }
         public int Quantity { get; set; }

@@ -206,7 +206,7 @@
           <Property Type="Int32" Name="OptimalInventoryLevel" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="Events" Relationship="Pharmacy.BusinessLayer.Data.DrugInventoryEvent" FromRole="Drug" ToRole="InventoryEvent" />
         </EntityType>
-        <EntityType Name="InventoryEvent">
+        <EntityType Name="InventoryEvent" Abstract="true">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
