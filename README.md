@@ -1,5 +1,2 @@
-Sample solutions for EAI (SS2013)
+Base/sample solutions for EAI (SS2014)
 =================================
-
-* JavaEE holds the solution for the first exercise
-* DotNET holds the solution for the second exercise
