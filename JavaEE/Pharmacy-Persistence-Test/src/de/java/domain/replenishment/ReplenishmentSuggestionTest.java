@@ -6,9 +6,9 @@ import static org.junit.Assert.*;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.matchers.TypeSafeMatcher;
 
 import de.java.domain.Drug;
 
