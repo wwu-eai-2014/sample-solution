@@ -15,17 +15,17 @@ import de.java.domain.OrderState;
 public class OrderStateTest {
 
   @Test public void
-  openIsPreceededByPosting() {
+  openIsSucceededByPosting() {
     assertThat(OPEN, is(succeededBy(POSTING)));
   }
 
   @Test public void
-  postingIsPreceededByOrdered() {
+  postingIsSucceededByOrdered() {
     assertThat(POSTING, is(succeededBy(ORDERED)));
   }
  
   @Test public void
-  orderedIsPreceedByFinished() {
+  orderedIsSucceededFinished() {
     assertThat(ORDERED, is(succeededBy(FINISHED)));
   }
  
