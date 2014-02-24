@@ -2,6 +2,7 @@ package de.java.web;
 
 import static de.java.web.util.Util.errorMessage;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import de.java.domain.Position;
-
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
 import de.java.ejb.ReplenishmentOrderService;
@@ -20,7 +20,8 @@ import de.java.web.util.Util;
 
 @ManagedBean
 @ViewScoped
-public class DrugPage {
+public class DrugPage implements Serializable {
+  private static final long serialVersionUID = 8259058692232409420L;
 
   @EJB
   private DrugService drugService;

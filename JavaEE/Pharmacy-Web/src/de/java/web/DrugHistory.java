@@ -1,20 +1,22 @@
 package de.java.web;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import de.java.domain.Position;
 
+import de.java.domain.Position;
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
 import de.java.web.util.Util;
 
 @ManagedBean
-public class DrugHistory {
+public class DrugHistory implements Serializable {
+  private static final long serialVersionUID = -1323161833846877488L;
 
   @EJB
   private DrugService drugService;

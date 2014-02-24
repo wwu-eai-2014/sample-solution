@@ -1,5 +1,6 @@
 package de.java.web;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.ejb.EJB;
@@ -9,7 +10,8 @@ import de.java.domain.Drug;
 import de.java.ejb.DrugService;
 
 @ManagedBean
-public class DrugList {
+public class DrugList implements Serializable {
+  private static final long serialVersionUID = 9000977856559982072L;
 
   @EJB
   private DrugService drugService;

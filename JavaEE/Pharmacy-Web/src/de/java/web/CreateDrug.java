@@ -1,5 +1,7 @@
 package de.java.web;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -9,7 +11,9 @@ import de.java.ejb.DrugService;
 import de.java.web.util.Util;
 
 @ManagedBean
-public class CreateDrug {
+public class CreateDrug implements Serializable {
+  private static final long serialVersionUID = -2902383377336267606L;
+  
   private Drug drug = new Drug();
   private Drug lastDrug;
   

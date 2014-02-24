@@ -1,5 +1,6 @@
 package de.java.web;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -15,7 +16,8 @@ import de.java.web.util.Util;
 
 @ManagedBean
 @ViewScoped
-public class ReplenishmentOrderPage {
+public class ReplenishmentOrderPage implements Serializable {
+  private static final long serialVersionUID = -294493970660064204L;
 
   @EJB
   private ReplenishmentOrderService orderService;

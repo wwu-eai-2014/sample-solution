@@ -1,5 +1,6 @@
 package de.java.web;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.ejb.EJB;
@@ -10,7 +11,8 @@ import de.java.domain.ReplenishmentOrder;
 import de.java.ejb.ReplenishmentOrderService;
 
 @ManagedBean
-public class ReplenishmentOrderList {
+public class ReplenishmentOrderList implements Serializable {
+  private static final long serialVersionUID = 337082669291191654L;
 
   @EJB
   private ReplenishmentOrderService orderService;
