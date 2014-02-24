@@ -1,8 +1,9 @@
 package de.java.domain;
 
+import static javax.persistence.CascadeType.*;
+
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ public class Position implements Serializable {
   @GeneratedValue
   private long id;
 
-  @ManyToOne(cascade=CascadeType.ALL)
+  @ManyToOne(cascade={DETACH,MERGE,PERSIST,REFRESH})
   private ReplenishmentOrder order;
 
   @ManyToOne
