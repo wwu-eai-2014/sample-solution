@@ -9,8 +9,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 
-import de.java.domain.Position;
 import de.java.domain.Drug;
+import de.java.domain.replenishment.Position;
 import de.java.ejb.DrugService;
 import de.java.web.util.Util;
 

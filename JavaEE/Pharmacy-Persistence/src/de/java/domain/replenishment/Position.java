@@ -1,4 +1,4 @@
-package de.java.domain;
+package de.java.domain.replenishment;
 
 import static javax.persistence.CascadeType.*;
 
@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import de.java.domain.Drug;
 
 @Entity
 public class Position implements Serializable {

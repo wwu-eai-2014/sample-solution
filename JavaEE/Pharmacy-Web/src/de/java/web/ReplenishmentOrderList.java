@@ -6,8 +6,8 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-import de.java.domain.OrderState;
-import de.java.domain.ReplenishmentOrder;
+import de.java.domain.replenishment.OrderState;
+import de.java.domain.replenishment.ReplenishmentOrder;
 import de.java.ejb.ReplenishmentOrderService;
 
 @ManagedBean

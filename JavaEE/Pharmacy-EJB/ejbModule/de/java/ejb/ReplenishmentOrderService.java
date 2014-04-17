@@ -6,9 +6,9 @@ import java.util.Date;
 import javax.ejb.Remote;
 
 import de.java.domain.Drug;
-import de.java.domain.OrderState;
-import de.java.domain.Position;
-import de.java.domain.ReplenishmentOrder;
+import de.java.domain.replenishment.OrderState;
+import de.java.domain.replenishment.Position;
+import de.java.domain.replenishment.ReplenishmentOrder;
 
 @Remote
 public interface ReplenishmentOrderService {

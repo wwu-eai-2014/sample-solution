@@ -1,6 +1,6 @@
 package de.java.domain.orderstate;
 
-import static de.java.domain.OrderState.*;
+import static de.java.domain.replenishment.OrderState.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
 import de.java.domain.IllegalOrderStatusTransitionException;
-import de.java.domain.OrderState;
+import de.java.domain.replenishment.OrderState;
 
 public class OrderStateTest {
 

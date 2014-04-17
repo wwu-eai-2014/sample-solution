@@ -1,6 +1,6 @@
-package de.java.domain;
+package de.java.domain.replenishment;
 
-import static de.java.domain.OrderState.*;
+import static de.java.domain.replenishment.OrderState.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;

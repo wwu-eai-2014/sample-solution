@@ -1,4 +1,6 @@
-package de.java.domain;
+package de.java.domain.replenishment;
+
+import de.java.domain.IllegalOrderStatusTransitionException;
 
 public enum OrderState {
   OPEN {

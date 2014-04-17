@@ -8,9 +8,9 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import de.java.domain.OrderState;
-import de.java.domain.Position;
-import de.java.domain.ReplenishmentOrder;
+import de.java.domain.replenishment.OrderState;
+import de.java.domain.replenishment.Position;
+import de.java.domain.replenishment.ReplenishmentOrder;
 import de.java.ejb.ReplenishmentOrderService;
 import de.java.web.util.Util;
 

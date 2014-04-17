@@ -1,6 +1,6 @@
 package de.java.ejb;
 
-import static de.java.domain.OrderState.OPEN;
+import static de.java.domain.replenishment.OrderState.OPEN;
 
 import java.util.Collection;
 import java.util.Date;
@@ -10,9 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
-import de.java.domain.OrderState;
-import de.java.domain.Position;
-import de.java.domain.ReplenishmentOrder;
+import de.java.domain.replenishment.OrderState;
+import de.java.domain.replenishment.Position;
+import de.java.domain.replenishment.ReplenishmentOrder;
 
 @Stateless
 public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService {
@@ -42,9 +42,9 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
     String query = "FROM Position"
         + "  WHERE replenishedDrug.pzn = :pzn"
         + "  AND order.state IN"
-        + "    (de.java.domain.OrderState.OPEN,"
-        + "    de.java.domain.OrderState.POSTING,"
-        + "    de.java.domain.OrderState.ORDERED)";
+        + "    (de.java.domain.replenishment.OrderState.OPEN,"
+        + "    de.java.domain.replenishment.OrderState.POSTING,"
+        + "    de.java.domain.replenishment.OrderState.ORDERED)";
     return em.createQuery(query, Position.class)
         .setParameter("pzn", pzn)
         .getResultList();

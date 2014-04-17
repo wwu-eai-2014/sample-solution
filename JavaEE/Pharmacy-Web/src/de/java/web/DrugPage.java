@@ -12,8 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import de.java.domain.Position;
 import de.java.domain.Drug;
+import de.java.domain.replenishment.Position;
 import de.java.ejb.DrugService;
 import de.java.ejb.ReplenishmentOrderService;
 import de.java.web.util.Util;
