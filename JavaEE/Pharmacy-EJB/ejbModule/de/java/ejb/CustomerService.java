@@ -8,9 +8,13 @@ import de.java.domain.customer.Customer;
 
 @Remote
 public interface CustomerService {
+  
+  Customer getCustomer(long id);
 
   Collection<Customer> getAllCustomers();
 
   Customer createCustomer(Customer newCustomer);
+
+  Customer update(long id, String telephoneNumber, String address);
 
 }

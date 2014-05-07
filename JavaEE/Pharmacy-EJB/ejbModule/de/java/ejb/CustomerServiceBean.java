@@ -13,6 +13,11 @@ public class CustomerServiceBean implements CustomerService {
 
   @PersistenceContext
   private EntityManager em;
+  
+  @Override
+  public Customer getCustomer(long id) {
+    return em.find(Customer.class, id);
+  }
 
   @Override
   public Collection<Customer> getAllCustomers() {
@@ -29,6 +34,14 @@ public class CustomerServiceBean implements CustomerService {
     }
     em.persist(newCustomer);
     return newCustomer;
+  }
+
+  @Override
+  public Customer update(long id, String telephoneNumber, String address) {
+    Customer customer = getCustomer(id);
+    customer.setTelephoneNumber(telephoneNumber);
+    customer.setAddress(address);
+    return customer;
   }
 
 }
