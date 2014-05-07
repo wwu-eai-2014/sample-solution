@@ -14,7 +14,8 @@ import de.java.web.util.Util;
 @ManagedBean
 @ViewScoped
 public class CustomerPage implements Serializable {
-  private static final long serialVersionUID = 8259058692232409420L;
+
+  private static final long serialVersionUID = 3577839317048078008L;
 
   @EJB
   private CustomerService customerService;
