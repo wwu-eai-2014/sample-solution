@@ -1,14 +1,19 @@
 package de.java.domain.customer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import de.java.domain.prescription.Prescription;
 
 @Entity
 public class Customer implements Serializable {
@@ -29,6 +34,9 @@ public class Customer implements Serializable {
   private String telephoneNumber;
   
   private String address;
+
+  @OneToMany(mappedBy="customer")
+  private Collection<Prescription> prescriptions = new ArrayList<>();
 
   public long getId() {
     return id;
@@ -60,5 +68,13 @@ public class Customer implements Serializable {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public Collection<Prescription> getPrescriptions() {
+    return prescriptions;
+  }
+
+  public void setPrescriptions(Collection<Prescription> prescriptions) {
+    this.prescriptions = prescriptions;
   }
 }
