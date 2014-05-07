@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
+import de.java.domain.customer.Customer;
 import de.java.domain.replenishment.OrderState;
 import de.java.domain.replenishment.Position;
 import de.java.domain.replenishment.ReplenishmentOrder;
@@ -25,6 +26,7 @@ public class ApplicationInitialiser {
   public void initialise() {
     if (noDrugsPersisted()) {
       populateAppWithSampleDrugs();
+      populateAppWithSampleCustomers();
     }
   }
 
@@ -86,4 +88,12 @@ public class ApplicationInitialiser {
     order.setState(state);
     return order;
   }
+
+  private void populateAppWithSampleCustomers() {
+    Customer albertAmundsen = new Customer();
+    albertAmundsen.setName("Albert Amundsen");
+    albertAmundsen.setTelephoneNumber("+49 123 456-78");
+    em.persist(albertAmundsen);
+  }
+
 }
