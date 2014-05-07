@@ -19,4 +19,16 @@ public class CustomerServiceBean implements CustomerService {
     return em.createQuery("From Customer", Customer.class).getResultList();
   }
 
+  @Override
+  public Customer createCustomer(Customer newCustomer) {
+    if (em
+        .createQuery("SELECT COUNT(*) FROM Customer WHERE name = :name", Long.class)
+        .setParameter("name", newCustomer.getName()).getSingleResult() > 0) {
+      throw new KeyConstraintViolation(String.format(
+          "Customer with name: %s already in database", newCustomer.getName()));
+    }
+    em.persist(newCustomer);
+    return newCustomer;
+  }
+
 }

@@ -11,4 +11,6 @@ public interface CustomerService {
 
   Collection<Customer> getAllCustomers();
 
+  Customer createCustomer(Customer newCustomer);
+
 }
