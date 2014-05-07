@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.customer.Customer;
+import de.java.domain.prescription.Prescription;
 
 @Stateless
 public class CustomerServiceBean implements CustomerService {
@@ -42,6 +43,15 @@ public class CustomerServiceBean implements CustomerService {
     customer.setTelephoneNumber(telephoneNumber);
     customer.setAddress(address);
     return customer;
+  }
+
+  @Override
+  public Prescription createPrescription(long id) {
+    Customer customer = getCustomer(id);
+    Prescription newPrescription = new Prescription();
+    customer.getPrescriptions().add(newPrescription);
+    em.persist(newPrescription);
+    return newPrescription;
   }
 
 }

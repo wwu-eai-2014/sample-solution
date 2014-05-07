@@ -52,6 +52,12 @@ public class CustomerPage implements Serializable {
     return toCustomerPage();
   }
 
+  public String enterPrescription() {
+    customerService.createPrescription(customer.getId());
+    // TODO redirect to prescription details page
+    return "/prescription/list.xhtml";
+  }
+
   private String toCustomerPage() {
     return "/customer/details.xhtml?faces-redirect=true&id=" + id;
   }

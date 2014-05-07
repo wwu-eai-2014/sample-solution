@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ejb.Remote;
 
 import de.java.domain.customer.Customer;
+import de.java.domain.prescription.Prescription;
 
 @Remote
 public interface CustomerService {
@@ -16,5 +17,7 @@ public interface CustomerService {
   Customer createCustomer(Customer newCustomer);
 
   Customer update(long id, String telephoneNumber, String address);
+
+  Prescription createPrescription(long id);
 
 }
