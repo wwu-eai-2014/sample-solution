@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
 import de.java.domain.customer.Customer;
+import de.java.domain.prescription.Prescription;
 import de.java.domain.replenishment.OrderState;
 import de.java.domain.replenishment.Position;
 import de.java.domain.replenishment.ReplenishmentOrder;
@@ -93,7 +94,12 @@ public class ApplicationInitialiser {
     Customer albertAmundsen = new Customer();
     albertAmundsen.setName("Albert Amundsen");
     albertAmundsen.setTelephoneNumber("+49 123 456-78");
+    
     em.persist(albertAmundsen);
+    
+    Prescription p = new Prescription();
+    albertAmundsen.getPrescriptions().add(p);
+    em.persist(p);
   }
 
 }
