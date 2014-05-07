@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import de.java.domain.customer.Customer;
+import de.java.domain.prescription.Prescription;
 import de.java.ejb.CustomerService;
 import de.java.web.util.Util;
 
@@ -53,9 +54,8 @@ public class CustomerPage implements Serializable {
   }
 
   public String enterPrescription() {
-    customerService.createPrescription(customer.getId());
-    // TODO redirect to prescription details page
-    return "/prescription/list.xhtml";
+    Prescription prescription = customerService.createPrescription(customer.getId());
+    return "/prescription/details.xhtml?faces-redirect=true&id=" + prescription.getId();
   }
 
   private String toCustomerPage() {

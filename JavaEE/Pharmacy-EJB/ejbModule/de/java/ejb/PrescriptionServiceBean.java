@@ -19,4 +19,9 @@ public class PrescriptionServiceBean implements PrescriptionService {
     return em.createQuery("FROM Prescription", Prescription.class).getResultList();
   }
 
+  @Override
+  public Prescription getPrescription(long id) {
+    return em.find(Prescription.class, id);
+  }
+
 }

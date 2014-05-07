@@ -94,11 +94,9 @@ public class ApplicationInitialiser {
     Customer albertAmundsen = new Customer();
     albertAmundsen.setName("Albert Amundsen");
     albertAmundsen.setTelephoneNumber("+49 123 456-78");
-    
     em.persist(albertAmundsen);
     
-    Prescription p = new Prescription();
-    albertAmundsen.getPrescriptions().add(p);
+    Prescription p = albertAmundsen.createPrescription();
     em.persist(p);
   }
 

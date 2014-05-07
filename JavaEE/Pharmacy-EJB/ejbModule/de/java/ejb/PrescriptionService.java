@@ -11,4 +11,6 @@ public interface PrescriptionService {
 
   Collection<Prescription> getAllPrescriptions();
 
+  Prescription getPrescription(long id);
+
 }

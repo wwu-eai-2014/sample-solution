@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import de.java.domain.prescription.Prescription;
@@ -29,14 +28,20 @@ public class Customer implements Serializable {
   @NotNull(message="Name required")
   private String name;
   
-  // TODO test regular expression
-//  @Pattern(regexp="^+[0-9- ]{1,}")
+  // TODO ensure valid telephone number; either by form validation or constraint
   private String telephoneNumber;
   
   private String address;
 
   @OneToMany(mappedBy="customer")
   private Collection<Prescription> prescriptions = new ArrayList<>();
+
+  public Prescription createPrescription() {
+    Prescription newPrescription = new Prescription();
+    newPrescription.setCustomer(this);
+    prescriptions.add(newPrescription);
+    return newPrescription;
+  }
 
   public long getId() {
     return id;
