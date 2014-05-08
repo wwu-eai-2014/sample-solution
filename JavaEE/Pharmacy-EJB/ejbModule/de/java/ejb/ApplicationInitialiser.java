@@ -113,7 +113,9 @@ public class ApplicationInitialiser {
     prescriptionInChecking.setState(PrescriptionState.CHECKING);
     em.persist(prescriptionInChecking);
     
-    em.persist(albertAmundsen.createPrescription());
+    Prescription prescriptionInEntry = albertAmundsen.createPrescription();
+    prescriptionInEntry.setIssuer("Doctor Who");
+    em.persist(prescriptionInEntry);
   }
 
 }
