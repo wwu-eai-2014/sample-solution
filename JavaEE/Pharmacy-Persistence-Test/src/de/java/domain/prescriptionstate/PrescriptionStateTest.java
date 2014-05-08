@@ -15,7 +15,7 @@ import de.java.domain.prescription.PrescriptionState;
 public class PrescriptionStateTest {
 
   @Test public void
-  enteringIsSucceededByChecking() {
+  entryIsSucceededByChecking() {
     assertThat(ENTRY, is(succeededBy(CHECKING)));
   }
 
