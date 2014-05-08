@@ -101,9 +101,18 @@ public class ApplicationInitialiser {
     albertAmundsen.setTelephoneNumber("+49 123 456-78");
     em.persist(albertAmundsen);
     
-    Prescription p = albertAmundsen.createPrescription();
-    p.setState(PrescriptionState.CHECKING);
-    em.persist(p);
+    Prescription fulfilledPrescription = albertAmundsen.createPrescription();
+    fulfilledPrescription.setState(PrescriptionState.FULFILLED);
+    em.persist(fulfilledPrescription);
+    
+    Prescription prescriptionInFulfilling = albertAmundsen.createPrescription();
+    prescriptionInFulfilling.setState(PrescriptionState.FULFILLING);
+    em.persist(prescriptionInFulfilling);
+    
+    Prescription prescriptionInChecking = albertAmundsen.createPrescription();
+    prescriptionInChecking.setState(PrescriptionState.CHECKING);
+    em.persist(prescriptionInChecking);
+    
     em.persist(albertAmundsen.createPrescription());
   }
 
