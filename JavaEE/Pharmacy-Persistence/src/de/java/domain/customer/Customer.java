@@ -29,6 +29,7 @@ public class Customer implements Serializable {
   private String name;
   
   // TODO ensure valid telephone number; either by form validation or constraint
+  @NotNull(message="Telephone number required")
   private String telephoneNumber;
   
   private String address;
