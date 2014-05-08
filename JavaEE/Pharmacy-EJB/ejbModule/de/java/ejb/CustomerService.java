@@ -11,6 +11,8 @@ import de.java.domain.prescription.Prescription;
 public interface CustomerService {
   
   Customer getCustomer(long id);
+  
+  Customer getCustomerWithPrescriptions(long id);
 
   Collection<Customer> getAllCustomers();
 

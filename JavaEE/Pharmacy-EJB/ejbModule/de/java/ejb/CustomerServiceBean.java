@@ -21,6 +21,16 @@ public class CustomerServiceBean implements CustomerService {
   }
 
   @Override
+  public Customer getCustomerWithPrescriptions(long id) {
+    return forceLoadOfPrescriptions(getCustomer(id));
+  }
+
+  private Customer forceLoadOfPrescriptions(Customer customer) {
+    customer.getPrescriptions().size();
+    return customer;
+  }
+
+  @Override
   public Collection<Customer> getAllCustomers() {
     return em.createQuery("From Customer", Customer.class).getResultList();
   }

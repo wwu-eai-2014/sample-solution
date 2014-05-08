@@ -64,7 +64,7 @@ public class CustomerPage implements Serializable {
 
   public Customer getCustomer() {
     if (customer == null) {
-      customer = customerService.getCustomer(id);
+      customer = customerService.getCustomerWithPrescriptions(id);
     }
     return customer;
   }
