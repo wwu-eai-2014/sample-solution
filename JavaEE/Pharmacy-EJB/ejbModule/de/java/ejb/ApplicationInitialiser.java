@@ -25,7 +25,7 @@ public class ApplicationInitialiser {
 
   @PostConstruct
   public void initialise() {
-    if (noDrugsPersisted()) {
+    if (noDrugsPersisted() && noCustomersPersisted()) {
       populateAppWithSampleDrugs();
       populateAppWithSampleCustomers();
     }
@@ -33,6 +33,10 @@ public class ApplicationInitialiser {
 
   private boolean noDrugsPersisted() {
     return em.createQuery("FROM Drug").getResultList().size() == 0;
+  }
+
+  private boolean noCustomersPersisted() {
+    return em.createQuery("FROM Customer").getResultList().size() == 0;
   }
 
   private void populateAppWithSampleDrugs() {
