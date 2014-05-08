@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,6 +33,14 @@ public class PrescriptionServiceBean implements PrescriptionService {
   @Override
   public Prescription getPrescription(long id) {
     return em.find(Prescription.class, id);
+  }
+
+  @Override
+  public void updateEntryData(long id, String issuer, Date issueDate, Date entryDate) {
+    Prescription p = getPrescription(id);
+    p.setIssuer(issuer);
+    p.setIssueDate(issueDate);
+    p.setEntryDate(entryDate);
   }
 
 }

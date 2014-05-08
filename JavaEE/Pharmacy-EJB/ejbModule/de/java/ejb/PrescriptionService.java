@@ -1,6 +1,7 @@
 package de.java.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Remote;
 
@@ -16,5 +17,7 @@ public interface PrescriptionService {
       PrescriptionState filterForState);
 
   Prescription getPrescription(long id);
+
+  void updateEntryData(long id, String issuer, Date issueDate, Date entryDate);
 
 }
