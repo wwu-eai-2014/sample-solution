@@ -1,5 +1,6 @@
 package de.java.domain.prescription;
 
+import static de.java.domain.prescription.PrescriptionState.ENTRY;
 import static javax.persistence.CascadeType.*;
 
 import java.io.Serializable;
@@ -20,6 +21,8 @@ public class Prescription implements Serializable {
   @GeneratedValue
   private long id;
 
+  private PrescriptionState state = ENTRY;
+
   @ManyToOne(cascade={DETACH,MERGE,PERSIST,REFRESH})
   private Customer customer;
 
@@ -29,6 +32,14 @@ public class Prescription implements Serializable {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public PrescriptionState getState() {
+    return state;
+  }
+
+  public void setState(PrescriptionState state) {
+    this.state = state;
   }
 
   public Customer getCustomer() {
