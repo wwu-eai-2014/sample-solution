@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import de.java.domain.customer.Customer;
 
@@ -21,6 +22,7 @@ public class Prescription implements Serializable {
   @GeneratedValue
   private long id;
 
+  @NotNull
   private PrescriptionState state = ENTRY;
 
   @ManyToOne(cascade={DETACH,MERGE,PERSIST,REFRESH})
