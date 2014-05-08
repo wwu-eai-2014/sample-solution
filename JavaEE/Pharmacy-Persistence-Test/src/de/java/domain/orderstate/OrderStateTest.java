@@ -9,7 +9,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
-import de.java.domain.IllegalOrderStatusTransitionException;
+import de.java.domain.IllegalStatusTransitionException;
 import de.java.domain.replenishment.OrderState;
 
 public class OrderStateTest {
@@ -29,12 +29,12 @@ public class OrderStateTest {
     assertThat(ORDERED, is(succeededBy(FINISHED)));
   }
  
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   finishedCannotProceedIntoOtherState() {
     FINISHED.getNext();
   }
 
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   cancelledCannotProceedIntoOtherState() {
     CANCELLED.getNext();
   }

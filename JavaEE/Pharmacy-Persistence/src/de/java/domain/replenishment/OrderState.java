@@ -1,6 +1,6 @@
 package de.java.domain.replenishment;
 
-import de.java.domain.IllegalOrderStatusTransitionException;
+import de.java.domain.IllegalStatusTransitionException;
 
 public enum OrderState {
   OPEN {
@@ -15,11 +15,11 @@ public enum OrderState {
     public OrderState getNext() { return FINISHED; }
   },
   FINISHED {
-    public OrderState getNext() { throw new IllegalOrderStatusTransitionException(); }
+    public OrderState getNext() { throw new IllegalStatusTransitionException(); }
     public boolean isProceedable() { return false; }
   },
   CANCELLED {
-    public OrderState getNext() { throw new IllegalOrderStatusTransitionException(); }
+    public OrderState getNext() { throw new IllegalStatusTransitionException(); }
     public boolean isProceedable() { return false; }
   };
 
@@ -34,7 +34,7 @@ public enum OrderState {
   }
 
   public OrderState cancel() {
-    throw new IllegalOrderStatusTransitionException();
+    throw new IllegalStatusTransitionException();
   }
 
 }

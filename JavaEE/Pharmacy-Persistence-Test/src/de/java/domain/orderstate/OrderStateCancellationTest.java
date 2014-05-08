@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.java.domain.IllegalOrderStatusTransitionException;
+import de.java.domain.IllegalStatusTransitionException;
 
 public class OrderStateCancellationTest {
   @Test public void
@@ -14,22 +14,22 @@ public class OrderStateCancellationTest {
     assertThat(POSTING.cancel(), is(CANCELLED));
   }
 
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   openCannotProceedIntoCancelled() {
     OPEN.cancel();
   }
 
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   orderedCannotProceedIntoCancelled() {
     ORDERED.cancel();
   }
 
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   finishedCannotProceedIntoCancelled() {
     FINISHED.cancel();
   }
 
-  @Test(expected=IllegalOrderStatusTransitionException.class) public void
+  @Test(expected=IllegalStatusTransitionException.class) public void
   cancelledCannotBeCancelled() {
     CANCELLED.cancel();
   }
