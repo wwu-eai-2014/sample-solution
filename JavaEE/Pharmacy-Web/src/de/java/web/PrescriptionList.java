@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import de.java.domain.prescription.Prescription;
+import de.java.domain.prescription.PrescriptionState;
 import de.java.ejb.PrescriptionService;
 
 @ManagedBean
@@ -17,8 +18,21 @@ public class PrescriptionList implements Serializable {
   @EJB
   private PrescriptionService prescriptionService;
 
+  private PrescriptionState filterForState = null;
+
   public Collection<Prescription> getPrescriptions() {
+    if (filterForState != null) {
+      return prescriptionService.getPrescriptionsInState(filterForState);
+    }
     return prescriptionService.getAllPrescriptions();
+  }
+
+  public PrescriptionState getFilterForState() {
+    return filterForState;
+  }
+
+  public void setFilterForState(PrescriptionState filterForState) {
+    this.filterForState = filterForState;
   }
 
 }
