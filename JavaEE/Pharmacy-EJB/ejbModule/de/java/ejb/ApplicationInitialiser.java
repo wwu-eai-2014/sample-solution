@@ -103,6 +103,7 @@ public class ApplicationInitialiser {
     
     Prescription fulfilledPrescription = albertAmundsen.createPrescription();
     fulfilledPrescription.setState(PrescriptionState.FULFILLED);
+    fulfilledPrescription.setFulfilmentDate(new Date());
     em.persist(fulfilledPrescription);
     
     Prescription prescriptionInFulfilling = albertAmundsen.createPrescription();
