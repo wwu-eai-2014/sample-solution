@@ -1,11 +1,14 @@
 package de.java.domain.prescription;
 
+import java.util.Collection;
+
 import de.java.domain.IllegalStatusTransitionException;
 
 public enum PrescriptionState {
   ENTRY {
     public PrescriptionState getNext() { return CHECKING; }
     public boolean isCancellable() { return true; }
+    public boolean isProceedable(Collection<Fulfillable> fulfillables) { return !fulfillables.isEmpty(); }
   },
   CHECKING {
     public PrescriptionState getNext() { return FULFILLING; }
@@ -15,15 +18,22 @@ public enum PrescriptionState {
   },
   FULFILLING {
     public PrescriptionState getNext() { return FULFILLED; }
+    @Override
+    public boolean isProceedable(Collection<Fulfillable> fulfillables) {
+      for (Fulfillable fulfillable : fulfillables) {
+        if (!fulfillable.isFulfilled()) { return false; }
+      }
+      return true;
+    }
   },
   FULFILLED {
     public PrescriptionState getNext() { throw new IllegalStatusTransitionException(); }
-    public boolean isProceedable() { return false; }
+    public boolean isProceedable(Collection<Fulfillable> fulfillables) { return false; }
   };
 
   public abstract PrescriptionState getNext();
 
-  public boolean isProceedable() { return true; }
+  public boolean isProceedable(Collection<Fulfillable> fulfillables) { return true; }
 
   public boolean isCancellable() { return false; }
 

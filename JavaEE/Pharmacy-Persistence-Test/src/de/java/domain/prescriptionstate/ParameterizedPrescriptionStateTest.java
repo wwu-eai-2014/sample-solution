@@ -17,31 +17,24 @@ import de.java.domain.prescription.PrescriptionState;
 public class ParameterizedPrescriptionStateTest {
   
   private PrescriptionState state;
-  private boolean canProceed;
   private boolean cancellable;
   private boolean reversible;
 
   @Parameters
   public static List<Object[]> data() {
     return Arrays.asList(new Object[][] {
-        { ENTRY, true, true, false },
-        { CHECKING, true, true, true },
-        { FULFILLING, true, false, false },
-        { FULFILLED, false, false, false }
+        { ENTRY, true, false },
+        { CHECKING, true, true },
+        { FULFILLING, false, false },
+        { FULFILLED, false, false }
     });
   }
 
   public ParameterizedPrescriptionStateTest(PrescriptionState state,
-      boolean canProceed, boolean cancellable, boolean reversible) {
+      boolean cancellable, boolean reversible) {
         this.state = state;
-        this.canProceed = canProceed;
         this.cancellable = cancellable;
         this.reversible = reversible;
-  }
-
-  @Test public void
-  preceedability() {
-    assertEquals(state.toString(), state.isProceedable(), canProceed);
   }
 
   @Test public void
