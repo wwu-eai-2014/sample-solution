@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import de.java.domain.Drug;
 import de.java.domain.customer.Customer;
 import de.java.domain.prescription.Prescription;
+import de.java.domain.prescription.PrescriptionState;
 import de.java.domain.replenishment.OrderState;
 import de.java.domain.replenishment.Position;
 import de.java.domain.replenishment.ReplenishmentOrder;
@@ -101,7 +102,9 @@ public class ApplicationInitialiser {
     em.persist(albertAmundsen);
     
     Prescription p = albertAmundsen.createPrescription();
+    p.setState(PrescriptionState.CHECKING);
     em.persist(p);
+    em.persist(albertAmundsen.createPrescription());
   }
 
 }
