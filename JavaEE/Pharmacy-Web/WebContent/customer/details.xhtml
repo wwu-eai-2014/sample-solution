@@ -18,9 +18,9 @@
       <h:panelGrid columns="2" columnClasses="label, value form-input"
         footerClass="form-footer" styleClass="details-table">
         TelephoneNumber
-        <h:inputText tabindex="1" id="name" value="#{customerPage.customer.telephoneNumber}" />
+        <h:inputText tabindex="1" id="telephoneNumber" value="#{customerPage.customer.telephoneNumber}" />
         Address
-        <h:inputTextarea tabindex="2" id="description" value="#{customerPage.customer.address}" />
+        <h:inputTextarea tabindex="2" id="address" value="#{customerPage.customer.address}" />
         <f:facet name="footer">
           <h:commandButton tabindex="3" value="Submit changes" action="#{customerPage.submit}" />
         </f:facet>
