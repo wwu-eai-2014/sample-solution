@@ -35,6 +35,8 @@ public interface ReplenishmentOrderService {
   void updateActualDeliveryDate(long id, Date actualDelivery);
 
   Collection<Position> getPendingPositionsForDrug(int pzn);
+  
+  long getQuantityPendingForDrug(int pzn);
 
   void initiateReplenishmentForDrug(Drug drug, long quantity);
 

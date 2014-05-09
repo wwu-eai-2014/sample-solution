@@ -51,6 +51,15 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
   }
 
   @Override
+  public long getQuantityPendingForDrug(int pzn) {
+    long quantityPending = 0;
+    for (Position p : getPendingPositionsForDrug(pzn)) {
+      quantityPending += p.getQuantity();
+    }
+    return quantityPending;
+  }
+
+  @Override
   public ReplenishmentOrder getOrder(long id) {
     return em.find(ReplenishmentOrder.class, id);
   }
