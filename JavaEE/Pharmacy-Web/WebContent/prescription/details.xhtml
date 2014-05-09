@@ -52,7 +52,9 @@
           <h:messages for="entryDate" styleClass="error"/>
           
           <h:outputText value="Fulfilment date" rendered="#{prescriptionPage.prescription.state == 'FULFILLING' or prescriptionPage.prescription.state == 'FULFILLED'}" />
-          <h:inputText value="#{prescriptionPage.fulfilmentDate}" rendered="#{prescriptionPage.prescription.state == 'FULFILLING'}" id="fulfilmentDate" tabindex="4">
+          <h:inputText value="#{prescriptionPage.fulfilmentDate}" rendered="#{prescriptionPage.prescription.state == 'FULFILLING'}" id="fulfilmentDate" tabindex="4"
+            required="true" requiredMessage="Fulfilment date required"
+            disabled="#{not prescriptionPage.proceedable}">
             <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
           </h:inputText>
           <h:outputText value="#{prescriptionPage.prescription.fulfilmentDate}" rendered="#{prescriptionPage.prescription.state != 'FULFILLING'}">

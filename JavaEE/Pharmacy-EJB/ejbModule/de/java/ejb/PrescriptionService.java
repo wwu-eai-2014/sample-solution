@@ -40,4 +40,6 @@ public interface PrescriptionService {
 
   Collection<WrappedItem> wrapItems(Collection<Item> items);
 
+  void updateFulfilmentDate(long id, Date fulfilmentDate);
+
 }

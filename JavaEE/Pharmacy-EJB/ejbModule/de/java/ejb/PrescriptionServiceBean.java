@@ -172,4 +172,9 @@ public class PrescriptionServiceBean implements PrescriptionService {
         .getSingleResult();
   }
 
+  @Override
+  public void updateFulfilmentDate(long id, Date fulfilmentDate) {
+    getPrescription(id).setFulfilmentDate(fulfilmentDate);
+  }
+
 }
