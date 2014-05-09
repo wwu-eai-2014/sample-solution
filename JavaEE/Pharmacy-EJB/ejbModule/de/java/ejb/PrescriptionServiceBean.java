@@ -125,9 +125,31 @@ public class PrescriptionServiceBean implements PrescriptionService {
     Collection<WrappedItem> wrappedItems = new ArrayList<>();
     for (Item i : items) {
       long quantityPending = replenishmentOrderService.getQuantityPendingForDrug(i.getPrescribedDrug().getPzn());
-      wrappedItems.add(new WrappedItem(i, quantityPending));
+      long quantityRequired = getQuantityRequired(i, quantityPending);
+      wrappedItems.add(new WrappedItem(i, quantityPending, quantityRequired));
     }
     return wrappedItems;
+  }
+
+  private long getQuantityRequired(Item item, long quantityPending) {
+    long optimalInventoryLevel = item.getPrescribedDrug().getOptimalInventoryLevel();
+    long quantityUnfulfilled = getQuantityUnfulfilledForDrug(item.getPrescribedDrug().getPzn());
+    long currentStock = item.getPrescribedDrug().getStock();
+    long quantityRequired = (optimalInventoryLevel + quantityUnfulfilled) - (currentStock + quantityPending);
+    return Math.max(0, quantityRequired);
+  }
+
+  private long getQuantityUnfulfilledForDrug(int pzn) {
+    String query = "SELECT COUNT(i)"
+        + " FROM Item i"
+        + " JOIN i.prescription p"
+        + " JOIN i.prescribedDrug d"
+        + " WHERE d.pzn = :pzn"
+        + " AND i.state = de.java.domain.prescription.FulfilmentState.UNFULFILLED"
+        + " AND p.state = de.java.domain.prescription.PrescriptionState.FULFILLING";
+    return em.createQuery(query, Long.class)
+        .setParameter("pzn", pzn)
+        .getSingleResult();
   }
 
 }
