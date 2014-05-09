@@ -65,14 +65,18 @@
               action="#{prescriptionPage.update()}"
               rendered="#{prescriptionPage.prescription.state == 'ENTRY'}"
               tabindex="5" />
+            <h:commandButton value="Return to #{prescriptionPage.prescription.state.previous}"
+              action="#{prescriptionPage.returnToPrevious}"
+              rendered="#{prescriptionPage.prescription.state.reversible}"
+              tabindex="6" />
             <h:commandButton value="Proceed to #{prescriptionPage.prescription.state.next}"
               action="#{prescriptionPage.proceed}"
               rendered="#{prescriptionPage.proceedable}"
-              tabindex="6" />
+              tabindex="7" />
             <h:commandButton value="Cancel"
               action="#{prescriptionPage.cancel()}"
               rendered="#{prescriptionPage.prescription.state.cancellable}"
-              tabindex="7" />
+              tabindex="8" />
           </f:facet>
         </h:panelGrid>
         <h3>Prescribed drugs</h3>

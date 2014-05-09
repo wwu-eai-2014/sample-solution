@@ -100,6 +100,12 @@ public class PrescriptionServiceBean implements PrescriptionService {
       throw new IllegalStateException("Cannot remove items from non-ENTRY prescriptions");
     }
   }
+  
+  @Override
+  public void returnToPreviousState(long id) {
+    Prescription p = getPrescription(id);
+    p.setState(p.getState().getPrevious());
+  }
 
   @Override
   public void proceedToNextState(long id) {

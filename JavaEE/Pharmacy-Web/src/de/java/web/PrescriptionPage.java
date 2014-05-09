@@ -78,6 +78,11 @@ public class PrescriptionPage implements Serializable {
     return "details.xhtml?faces-redirect=true&id=" + id;
   }
 
+  public String returnToPrevious() {
+    prescriptionService.returnToPreviousState(getPrescription().getId());
+    return toPrescriptionPage();
+  }
+
   public boolean isProceedable() {
     Collection<Fulfillable> fulfillables = new ArrayList<>();
     fulfillables.addAll(getPrescription().getItems());

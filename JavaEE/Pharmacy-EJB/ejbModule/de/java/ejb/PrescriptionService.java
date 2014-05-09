@@ -27,6 +27,8 @@ public interface PrescriptionService {
   void addNewItem(long prescriptionId, int itemPzn);
 
   void removeItem(long itemId);
+  
+  void returnToPreviousState(long id);
 
   void proceedToNextState(long id);
 
