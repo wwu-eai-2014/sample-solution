@@ -58,9 +58,18 @@ public class PrescriptionPage implements Serializable {
         prescription.getEntryDate());
     return toPrescriptionPage();
   }
-
+  
   private String toPrescriptionPage() {
     return "details.xhtml?faces-redirect=true&id=" + id;
+  }
+
+  public String cancel() {
+    prescriptionService.cancel(prescription.getId());
+    return toPrescriptionList();
+  }
+
+  private String toPrescriptionList() {
+    return "list.xhtml";
   }
 
   public Prescription getPrescription() {

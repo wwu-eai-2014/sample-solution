@@ -43,4 +43,12 @@ public class PrescriptionServiceBean implements PrescriptionService {
     p.setEntryDate(entryDate);
   }
 
+  @Override
+  public void cancel(long id) {
+    Prescription prescription = getPrescription(id);
+    if (prescription.getState().isCancellable()) {
+      em.remove(prescription);
+    }
+  }
+
 }

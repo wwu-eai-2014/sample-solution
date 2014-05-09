@@ -20,4 +20,6 @@ public interface PrescriptionService {
 
   void updateEntryData(long id, String issuer, Date issueDate, Date entryDate);
 
+  void cancel(long id);
+
 }

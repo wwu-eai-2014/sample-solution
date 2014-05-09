@@ -62,6 +62,7 @@
           
           <f:facet name="footer">
             <h:commandButton value="Update prescription" action="#{prescriptionPage.update()}" rendered="#{prescriptionPage.prescription.state == 'ENTRY'}" tabindex="5" />
+            <h:commandButton value="Cancel" action="#{prescriptionPage.cancel()}" rendered="#{prescriptionPage.prescription.state.cancellable}" tabindex="6" />
           </f:facet>
         </h:panelGrid>
       </h:form>
