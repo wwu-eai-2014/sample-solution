@@ -47,6 +47,7 @@ public class PrescriptionServiceBean implements PrescriptionService {
   }
 
   private Prescription forceLoadOfItems(Prescription prescription) {
+    if (prescription == null) return prescription;
     prescription.getItems().size();
     return prescription;
   }

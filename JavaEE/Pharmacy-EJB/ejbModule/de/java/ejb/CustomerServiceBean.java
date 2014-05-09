@@ -26,6 +26,7 @@ public class CustomerServiceBean implements CustomerService {
   }
 
   private Customer forceLoadOfPrescriptions(Customer customer) {
+    if (customer == null) return customer;
     customer.getPrescriptions().size();
     return customer;
   }
