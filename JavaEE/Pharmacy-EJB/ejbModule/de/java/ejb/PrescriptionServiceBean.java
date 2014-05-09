@@ -22,9 +22,13 @@ public class PrescriptionServiceBean implements PrescriptionService {
   @EJB
   private DrugService drugService;
 
+  @EJB
+  private ReplenishmentOrderService replenishmentOrderService;
+
   @Override
   public Collection<Prescription> getAllPrescriptions() {
-    return em.createQuery("FROM Prescription", Prescription.class).getResultList();
+    return em.createQuery("FROM Prescription p ORDER BY p.state",
+        Prescription.class).getResultList();
   }
 
   @Override
