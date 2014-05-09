@@ -93,13 +93,17 @@ public class PrescriptionServiceBean implements PrescriptionService {
 
   @Override
   public void removeItem(long itemId) {
-    Item item = em.find(Item.class, itemId);
+    Item item = getItem(itemId);
     Prescription p = item.getPrescription();
 
     validateEntryState(p);
 
     p.getItems().remove(item);
     em.remove(item);
+  }
+
+  private Item getItem(long itemId) {
+    return em.find(Item.class, itemId);
   }
 
   private void validateEntryState(Prescription p) {
