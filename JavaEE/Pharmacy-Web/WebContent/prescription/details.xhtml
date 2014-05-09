@@ -114,6 +114,7 @@
             </f:facet>
           </h:column>
         </h:dataTable>
+        
         <h:dataTable value="#{prescriptionPage.wrappedItems}" var="cur"
           rendered="#{prescriptionPage.prescription.state == 'CHECKING' or prescriptionPage.prescription.state == 'FULFILLING'}"
           styleClass="data-table" headerClass="data-cell header-cell"

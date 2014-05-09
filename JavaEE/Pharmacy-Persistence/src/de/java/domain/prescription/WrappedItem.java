@@ -10,8 +10,11 @@ public class WrappedItem implements Serializable {
 
   private final Item item;
 
-  public WrappedItem(Item item) {
+  private final long quantityPending;
+
+  public WrappedItem(Item item, long quantityPending) {
     this.item = item;
+    this.quantityPending = quantityPending;
   }
 
   public Item getItem() {
@@ -27,8 +30,7 @@ public class WrappedItem implements Serializable {
   }
 
   public long getQuantityPending() {
-    // TODO use proper value
-    return 0;
+    return quantityPending;
   }
 
   public long getQuantityRequired() {

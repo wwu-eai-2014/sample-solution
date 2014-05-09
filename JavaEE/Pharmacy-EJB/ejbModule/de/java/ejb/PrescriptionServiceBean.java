@@ -124,7 +124,8 @@ public class PrescriptionServiceBean implements PrescriptionService {
   public Collection<WrappedItem> wrapItems(Collection<Item> items) {
     Collection<WrappedItem> wrappedItems = new ArrayList<>();
     for (Item i : items) {
-      wrappedItems.add(new WrappedItem(i));
+      long quantityPending = replenishmentOrderService.getQuantityPendingForDrug(i.getPrescribedDrug().getPzn());
+      wrappedItems.add(new WrappedItem(i, quantityPending));
     }
     return wrappedItems;
   }
