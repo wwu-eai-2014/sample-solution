@@ -74,7 +74,7 @@ public class PrescriptionPage implements Serializable {
 
   public Prescription getPrescription() {
     if (prescription == null) {
-      prescription = prescriptionService.getPrescription(id);
+      prescription = prescriptionService.getPrescriptionWithItems(id);
     }
     return prescription;
   }

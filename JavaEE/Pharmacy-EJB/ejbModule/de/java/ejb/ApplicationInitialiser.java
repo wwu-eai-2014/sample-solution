@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
 import de.java.domain.customer.Customer;
+import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
 import de.java.domain.replenishment.OrderState;
@@ -21,6 +22,7 @@ import de.java.domain.replenishment.ReplenishmentOrder;
 @Startup
 public class ApplicationInitialiser {
 
+  private static final int PZN_FOR_SAMPLE_DRUG = 8456716;
   @PersistenceContext
   private EntityManager em;
 
@@ -41,7 +43,7 @@ public class ApplicationInitialiser {
   }
 
   private void populateAppWithSampleDrugs() {
-    final Drug aspirin = new Drug(8456716, "ASPIRIN PLUS C ORANGE 10St");
+    final Drug aspirin = new Drug(PZN_FOR_SAMPLE_DRUG, "ASPIRIN PLUS C ORANGE 10St");
     em.persist(aspirin);
     addMoreDrugs();
 
@@ -116,6 +118,8 @@ public class ApplicationInitialiser {
     
     Prescription prescriptionInEntry = albertAmundsen.createPrescription();
     prescriptionInEntry.setIssuer("Doctor Who");
+    Drug drug = em.find(Drug.class, PZN_FOR_SAMPLE_DRUG);
+    Item item = new Item(drug, prescriptionInEntry);
     em.persist(prescriptionInEntry);
   }
 

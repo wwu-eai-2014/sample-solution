@@ -61,10 +61,36 @@
           <h:messages for="fulfilmentDate" styleClass="error" />
           
           <f:facet name="footer">
-            <h:commandButton value="Update prescription" action="#{prescriptionPage.update()}" rendered="#{prescriptionPage.prescription.state == 'ENTRY'}" tabindex="5" />
-            <h:commandButton value="Cancel" action="#{prescriptionPage.cancel()}" rendered="#{prescriptionPage.prescription.state.cancellable}" tabindex="6" />
+            <h:commandButton value="Update prescription"
+              action="#{prescriptionPage.update()}"
+              rendered="#{prescriptionPage.prescription.state == 'ENTRY'}"
+              tabindex="5" />
+            <h:commandButton value="Cancel"
+              action="#{prescriptionPage.cancel()}"
+              rendered="#{prescriptionPage.prescription.state.cancellable}"
+              tabindex="6" />
           </f:facet>
         </h:panelGrid>
+        <h:dataTable value="#{prescriptionPage.prescription.items}" var="cur"
+          styleClass="data-table" headerClass="data-cell header-cell"
+          columnClasses="data-cell,data-cell,data-cell,data-cell">
+          <h:column>
+            <f:facet name="header">PZN</f:facet>
+            #{cur.prescribedDrug.pzn}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{cur.prescribedDrug.name}
+          </h:column>
+          <h:column>
+            <h:link outcome="/drug/details.xhtml" value="Details">
+              <f:param name="pzn" value="#{cur.prescribedDrug.pzn}"></f:param>
+            </h:link>
+          </h:column>
+          <h:column rendered="#{prescriptionPage.prescription.state == 'ENTRY'}">
+            <h:commandButton value="Remove" action="#{prescriptionPage.remove(cur)}" />
+          </h:column>
+        </h:dataTable>
       </h:form>
     </div>
   </ui:define>

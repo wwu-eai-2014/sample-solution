@@ -4,12 +4,16 @@ import static de.java.domain.prescription.PrescriptionState.ENTRY;
 import static javax.persistence.CascadeType.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -41,6 +45,9 @@ public class Prescription implements Serializable {
   private Date entryDate = new Date();
 
   private Date fulfilmentDate;
+
+  @OneToMany(mappedBy="prescription", cascade={CascadeType.ALL})
+  private Collection<Item> items = new ArrayList<>();
 
   public long getId() {
     return id;
@@ -96,6 +103,14 @@ public class Prescription implements Serializable {
 
   public void setFulfilmentDate(Date fulfilmentDate) {
     this.fulfilmentDate = fulfilmentDate;
+  }
+
+  public Collection<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(Collection<Item> items) {
+    this.items = items;
   }
 
 }

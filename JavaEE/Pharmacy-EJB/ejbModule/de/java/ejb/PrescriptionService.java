@@ -17,6 +17,8 @@ public interface PrescriptionService {
       PrescriptionState filterForState);
 
   Prescription getPrescription(long id);
+  
+  Prescription getPrescriptionWithItems(long id);
 
   void updateEntryData(long id, String issuer, Date issueDate, Date entryDate);
 

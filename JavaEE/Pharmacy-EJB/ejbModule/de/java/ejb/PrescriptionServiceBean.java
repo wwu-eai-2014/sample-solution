@@ -34,6 +34,16 @@ public class PrescriptionServiceBean implements PrescriptionService {
   public Prescription getPrescription(long id) {
     return em.find(Prescription.class, id);
   }
+  
+  @Override
+  public Prescription getPrescriptionWithItems(long id) {
+    return forceLoadOfItems(getPrescription(id));
+  }
+
+  private Prescription forceLoadOfItems(Prescription prescription) {
+    prescription.getItems().size();
+    return prescription;
+  }
 
   @Override
   public void updateEntryData(long id, String issuer, Date issueDate, Date entryDate) {
