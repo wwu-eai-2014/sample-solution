@@ -146,6 +146,13 @@
             #{cur.quantityRequired}
           </h:column>
           <h:column rendered="#{prescriptionPage.prescription.state == 'FULFILLING'}">
+            <h:commandButton value="Fulfil"
+              action="#{prescriptionPage.fulfil(cur)}"
+              rendered="#{not cur.fulfilled}"
+              disabled="#{cur.prescribedDrug.stock == 0}" />
+            <h:commandButton value="Replenish"
+              action="#{prescriptionPage.replenish(cur)}"
+              rendered="#{cur.quantityRequired > 0}" />
           </h:column>
         </h:dataTable>
       </h:form>

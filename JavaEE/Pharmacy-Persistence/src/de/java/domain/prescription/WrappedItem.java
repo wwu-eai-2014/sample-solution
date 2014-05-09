@@ -5,7 +5,7 @@ import java.io.Serializable;
 import de.java.domain.Drug;
 
 
-public class WrappedItem implements Serializable {
+public class WrappedItem implements Fulfillable, Serializable {
   private static final long serialVersionUID = -4955900242712940679L;
 
   private final Item item;
@@ -38,5 +38,10 @@ public class WrappedItem implements Serializable {
 
   public long getQuantityRequired() {
     return quantityRequired;
+  }
+
+  @Override
+  public boolean isFulfilled() {
+    return item.isFulfilled();
   }
 }

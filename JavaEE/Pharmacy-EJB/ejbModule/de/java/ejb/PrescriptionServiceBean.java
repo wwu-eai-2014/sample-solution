@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import de.java.domain.Drug;
+import de.java.domain.prescription.FulfilmentState;
 import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
@@ -111,7 +112,19 @@ public class PrescriptionServiceBean implements PrescriptionService {
       throw new IllegalStateException("Cannot remove items from non-ENTRY prescriptions");
     }
   }
-  
+
+  @Override
+  public void fulfil(long itemId) {
+    Item item = getItem(itemId);
+    drugService.withdraw(item.getPrescribedDrug().getPzn(), 1, new Date());
+    item.setState(FulfilmentState.FULFILLED);
+  }
+
+  @Override
+  public void replenish(WrappedItem item) {
+    replenishmentOrderService.initiateReplenishmentForDrug(item.getPrescribedDrug(), item.getQuantityRequired());
+  }
+
   @Override
   public void returnToPreviousState(long id) {
     Prescription p = getPrescription(id);

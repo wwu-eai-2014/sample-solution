@@ -150,7 +150,17 @@ public class PrescriptionPage implements Serializable {
     }
     return newItemDrug;
   }
-  
+
+  public String fulfil(WrappedItem item) {
+    prescriptionService.fulfil(item.getItem().getId());
+    return toPrescriptionPage();
+  }
+
+  public String replenish(WrappedItem item) {
+    prescriptionService.replenish(item);
+    return toPrescriptionPage();
+  }
+
   public Collection<WrappedItem> getWrappedItems() {
     if (wrappedItems == null) {
       wrappedItems = prescriptionService.wrapItems(prescription.getItems());
