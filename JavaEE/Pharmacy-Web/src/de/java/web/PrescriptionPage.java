@@ -40,7 +40,7 @@ public class PrescriptionPage implements Serializable {
   private int newPzn;
   private Drug newItemDrug;
 
-  private Date fulfilmentDate;
+  private Date fulfilmentDate = new Date();
 
   public long getId() {
     return id;
