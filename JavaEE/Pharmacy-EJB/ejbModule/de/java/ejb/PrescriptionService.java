@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.ejb.Remote;
 
-import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
 
@@ -28,5 +27,7 @@ public interface PrescriptionService {
   void addNewItem(long prescriptionId, int itemPzn);
 
   void removeItem(long itemId);
+
+  void proceedToNextState(long id);
 
 }

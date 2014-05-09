@@ -101,4 +101,10 @@ public class PrescriptionServiceBean implements PrescriptionService {
     }
   }
 
+  @Override
+  public void proceedToNextState(long id) {
+    Prescription p = getPrescription(id);
+    p.setState(p.getState().getNext());
+  }
+
 }
