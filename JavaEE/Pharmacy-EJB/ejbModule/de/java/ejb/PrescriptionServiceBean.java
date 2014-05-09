@@ -1,5 +1,6 @@
 package de.java.ejb;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import de.java.domain.Drug;
 import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
+import de.java.domain.prescription.WrappedItem;
 
 @Stateless
 public class PrescriptionServiceBean implements PrescriptionService {
@@ -116,6 +118,15 @@ public class PrescriptionServiceBean implements PrescriptionService {
   public void proceedToNextState(long id) {
     Prescription p = getPrescription(id);
     p.setState(p.getState().getNext());
+  }
+
+  @Override
+  public Collection<WrappedItem> wrapItems(Collection<Item> items) {
+    Collection<WrappedItem> wrappedItems = new ArrayList<>();
+    for (Item i : items) {
+      wrappedItems.add(new WrappedItem(i));
+    }
+    return wrappedItems;
   }
 
 }
