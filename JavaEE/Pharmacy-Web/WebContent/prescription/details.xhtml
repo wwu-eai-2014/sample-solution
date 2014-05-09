@@ -28,7 +28,7 @@
           <h:outputText value="#{prescriptionPage.prescription.state}" />
           <h:outputText />
           
-          From
+          Issuer
           <h:inputTextarea value="#{prescriptionPage.prescription.issuer}" rendered="#{prescriptionPage.prescription.state == 'ENTRY'}" tabindex="1"/>
           <h:outputText value="#{prescriptionPage.prescription.issuer}" rendered="#{prescriptionPage.prescription.state != 'ENTRY'}" />
           <h:outputText />
@@ -42,7 +42,7 @@
           </h:outputText>
           <h:messages for="issueDate" styleClass="error"/>
           
-          Entry date
+          Entered on
           <h:inputText value="#{prescriptionPage.prescription.entryDate}" rendered="#{prescriptionPage.prescription.state == 'ENTRY'}" id="entryDate" tabindex="3">
             <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="Europe/Berlin"/>
           </h:inputText>
