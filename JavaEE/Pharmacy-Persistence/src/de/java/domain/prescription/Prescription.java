@@ -34,8 +34,10 @@ public class Prescription implements Serializable {
   private String issuer = "";
 
   @Temporal(TemporalType.DATE)
+  @NotNull(message="Issue date required")
   private Date issueDate = new Date();
 
+  @NotNull(message="Entry date required")
   private Date entryDate = new Date();
 
   private Date fulfilmentDate;
