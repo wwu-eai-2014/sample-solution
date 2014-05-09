@@ -59,7 +59,6 @@ public class ApplicationInitialiser {
     em.persist(createReplenishmentOrder(OrderState.ORDERED, twoDaysAgo));
     em.persist(createReplenishmentOrder(OrderState.FINISHED, twoDaysAgo, oneDayAgo));
     em.persist(createReplenishmentOrder(OrderState.CANCELLED));
-    em.persist(createReplenishmentOrder(OrderState.OPEN));
   }
 
   private void addMoreDrugs() {
@@ -119,7 +118,7 @@ public class ApplicationInitialiser {
     Prescription prescriptionInEntry = albertAmundsen.createPrescription();
     prescriptionInEntry.setIssuer("Doctor Who");
     Drug drug = em.find(Drug.class, PZN_FOR_SAMPLE_DRUG);
-    Item item = new Item(drug, prescriptionInEntry);
+    new Item(drug, prescriptionInEntry);
     em.persist(prescriptionInEntry);
   }
 
