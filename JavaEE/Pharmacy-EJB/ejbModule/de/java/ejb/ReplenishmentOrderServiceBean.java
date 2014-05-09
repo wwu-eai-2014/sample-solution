@@ -66,13 +66,13 @@ public class ReplenishmentOrderServiceBean implements ReplenishmentOrderService 
 
   @Override
   public ReplenishmentOrder getOrderWithPositions(long id) {
-    ReplenishmentOrder order = getOrder(id);
-    forceLoadOfPositions(order);
-    return order;
+    return forceLoadOfPositions(getOrder(id));
   }
 
-  private void forceLoadOfPositions(ReplenishmentOrder order) {
+  private ReplenishmentOrder forceLoadOfPositions(ReplenishmentOrder order) {
+    if (order == null) return order;
     order.getPositions().size();
+    return order;
   }
 
   @Override
