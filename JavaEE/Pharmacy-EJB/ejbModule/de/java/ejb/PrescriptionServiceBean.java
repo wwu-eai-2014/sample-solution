@@ -3,10 +3,13 @@ package de.java.ejb;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import de.java.domain.Drug;
+import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
 
@@ -15,6 +18,9 @@ public class PrescriptionServiceBean implements PrescriptionService {
 
   @PersistenceContext
   private EntityManager em;
+
+  @EJB
+  private DrugService drugService;
 
   @Override
   public Collection<Prescription> getAllPrescriptions() {
@@ -58,6 +64,40 @@ public class PrescriptionServiceBean implements PrescriptionService {
     Prescription prescription = getPrescription(id);
     if (prescription.getState().isCancellable()) {
       em.remove(prescription);
+    }
+  }
+
+  @Override
+  public void addNewItem(long prescriptionId, int itemPzn) {
+    Prescription p = getPrescription(prescriptionId);
+    Drug drug = drugService.getDrug(itemPzn);
+    validateDrugNotInPrescription(p, drug);
+    
+    em.persist(new Item(drug, p));
+  }
+
+  private void validateDrugNotInPrescription(Prescription prescription, Drug drug) {
+    for (Item item : prescription.getItems()) {
+      if (item.getPrescribedDrug().getPzn() == drug.getPzn()) {
+        throw new IllegalArgumentException(drug + " already present in this prescription");
+      }
+    }
+  }
+
+  @Override
+  public void removeItem(long itemId) {
+    Item item = em.find(Item.class, itemId);
+    Prescription p = item.getPrescription();
+
+    validateEntryState(p);
+
+    p.getItems().remove(item);
+    em.remove(item);
+  }
+
+  private void validateEntryState(Prescription p) {
+    if (p.getState() != PrescriptionState.ENTRY) {
+      throw new IllegalStateException("Cannot remove items from non-ENTRY prescriptions");
     }
   }
 

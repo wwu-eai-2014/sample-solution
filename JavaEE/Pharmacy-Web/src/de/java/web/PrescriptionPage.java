@@ -1,5 +1,7 @@
 package de.java.web;
 
+import static de.java.web.util.Util.errorMessage;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +9,13 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 
+import de.java.domain.Drug;
+import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
+import de.java.ejb.DrugService;
 import de.java.ejb.PrescriptionService;
 import de.java.web.util.Util;
 
@@ -21,11 +28,16 @@ public class PrescriptionPage implements Serializable {
   @EJB
   private PrescriptionService prescriptionService;
 
-  private long id;
+  @EJB
+  private DrugService drugService;
 
+  private long id;
   private Prescription prescription;
 
-  private Date fulfilmentDate; 
+  private int newPzn;
+  private Drug newItemDrug;
+
+  private Date fulfilmentDate;
 
   public long getId() {
     return id;
@@ -72,11 +84,49 @@ public class PrescriptionPage implements Serializable {
     return "list.xhtml";
   }
 
+  public String remove(Item item) {
+    prescriptionService.removeItem(item.getId());
+    return toPrescriptionPage();
+  }
+
+  public void addNewItem() {
+    try {
+      prescriptionService.addNewItem(getPrescription().getId(), getNewPzn());
+    } catch (EJBException e) {
+      String msg = Util.getCausingMessage(e);
+      FacesContext.getCurrentInstance().addMessage(null, errorMessage(msg));
+    }
+    setNewPzn(0);
+    prescription = null;
+  }
+
   public Prescription getPrescription() {
     if (prescription == null) {
       prescription = prescriptionService.getPrescriptionWithItems(id);
     }
     return prescription;
+  }
+  
+  public int getNewPzn() {
+    return newPzn;
+  }
+  
+  public void setNewPzn(int newPzn) {
+    this.newPzn = newPzn;
+    newItemDrug = null;
+  }
+  
+  public Drug getNewItemDrug() {
+    if (newItemDrug == null) {
+      try {
+        newItemDrug = drugService.getDrug(getNewPzn());
+      } catch (EJBException e) {
+        if (!(e.getCausedByException() instanceof NoResultException)) {
+          throw e;
+        }
+      }
+    }
+    return newItemDrug;
   }
 
   public Date getFulfilmentDate() {

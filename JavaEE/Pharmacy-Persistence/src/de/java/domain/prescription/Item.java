@@ -1,8 +1,12 @@
 package de.java.domain.prescription;
 
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REFRESH;
+
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +28,7 @@ public class Item implements Fulfillable, Serializable {
   @NotNull
   private Drug prescribedDrug;
 
-  @ManyToOne(cascade={CascadeType.ALL})
+  @ManyToOne(cascade={DETACH,MERGE,PERSIST,REFRESH})
   @NotNull
   private Prescription prescription;
 
