@@ -18,6 +18,10 @@ public class WrappedItem implements Serializable {
     return item;
   }
 
+  public FulfilmentState getState() {
+    return item.getState();
+  }
+
   public Drug getPrescribedDrug() {
     return item.getPrescribedDrug();
   }

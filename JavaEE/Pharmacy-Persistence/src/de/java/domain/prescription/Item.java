@@ -1,5 +1,7 @@
 package de.java.domain.prescription;
 
+import static de.java.domain.prescription.FulfilmentState.FULFILLED;
+import static de.java.domain.prescription.FulfilmentState.UNFULFILLED;
 import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
@@ -32,6 +34,8 @@ public class Item implements Fulfillable, Serializable {
   @NotNull
   private Prescription prescription;
 
+  private FulfilmentState state = UNFULFILLED;
+
   Item() {} // default constructor for JPA
 
   public Item(Drug prescribedDrug, Prescription prescription) {
@@ -42,8 +46,7 @@ public class Item implements Fulfillable, Serializable {
 
   @Override
   public boolean isFulfilled() {
-    // TODO Auto-generated method stub
-    return false;
+    return state == FULFILLED;
   }
 
   public long getId() {
@@ -68,6 +71,14 @@ public class Item implements Fulfillable, Serializable {
 
   void setPrescription(Prescription prescription) {
     this.prescription = prescription;
+  }
+
+  public FulfilmentState getState() {
+    return state;
+  }
+
+  public void setState(FulfilmentState state) {
+    this.state = state;
   }
 
 }
