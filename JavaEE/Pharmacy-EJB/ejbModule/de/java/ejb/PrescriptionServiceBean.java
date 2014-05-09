@@ -146,7 +146,10 @@ public class PrescriptionServiceBean implements PrescriptionService {
         + " JOIN i.prescribedDrug d"
         + " WHERE d.pzn = :pzn"
         + " AND i.state = de.java.domain.prescription.FulfilmentState.UNFULFILLED"
-        + " AND p.state = de.java.domain.prescription.PrescriptionState.FULFILLING";
+        + " AND ("
+        + "   p.state = de.java.domain.prescription.PrescriptionState.FULFILLING"
+        + "   OR p.state = de.java.domain.prescription.PrescriptionState.CHECKING"
+        + " )";
     return em.createQuery(query, Long.class)
         .setParameter("pzn", pzn)
         .getSingleResult();
