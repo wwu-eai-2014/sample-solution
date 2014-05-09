@@ -15,14 +15,14 @@ public class PznValidator implements Validator {
   public void validate(FacesContext context, UIComponent component, Object value)
       throws ValidatorException {
     try {
+      if (value == null)
+        return;
       final int pzn = ((Integer) value);
-      if (pzn <= 0) {
+      if (pzn < 0)
         invalidPzn();
-      }
       String pznAsString = "" + value;
-      if (pznAsString.length() > 8) {
+      if (pznAsString.length() > 8)
         invalidPzn();
-      }
     } catch (ClassCastException e) {
       invalidPzn();
     }
