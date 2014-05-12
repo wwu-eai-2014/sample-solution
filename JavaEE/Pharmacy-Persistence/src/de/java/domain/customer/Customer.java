@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import de.java.domain.prescription.Prescription;
@@ -28,8 +29,9 @@ public class Customer implements Serializable {
   @NotNull(message="Name required")
   private String name;
   
-  // TODO ensure valid telephone number; either by form validation or constraint
   @NotNull(message="Telephone number required")
+  @Pattern(regexp="\\+[1-9][0-9]{0,2}{0,2}[0-9 ]{3,13}[0-9]$",
+    message="Not a valid phone number (use E.123 international, e.g.: +49 251 83 38250))")
   private String telephoneNumber;
   
   private String address;

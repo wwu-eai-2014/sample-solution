@@ -99,7 +99,7 @@ public class ApplicationInitialiser {
   private void populateAppWithSampleCustomers() {
     Customer albertAmundsen = new Customer();
     albertAmundsen.setName("Albert Amundsen");
-    albertAmundsen.setTelephoneNumber("+49 123 456-78");
+    albertAmundsen.setTelephoneNumber("+49 123 456 78");
     em.persist(albertAmundsen);
     
     Prescription fulfilledPrescription = albertAmundsen.createPrescription();
