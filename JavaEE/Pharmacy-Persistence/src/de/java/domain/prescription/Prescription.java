@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import de.java.domain.customer.Customer;
 
@@ -35,7 +36,9 @@ public class Prescription implements Serializable {
   @ManyToOne(cascade={DETACH,MERGE,PERSIST,REFRESH})
   private Customer customer;
 
-  private String issuer = "";
+  @NotNull(message="Issuing physician required")
+  @Size(min=1, message="Issuing physician required")
+  private String issuer = "Issuing physician";
 
   @Temporal(TemporalType.DATE)
   @NotNull(message="Issue date required")
