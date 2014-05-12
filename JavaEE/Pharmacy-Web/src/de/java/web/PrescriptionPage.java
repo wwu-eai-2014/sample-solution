@@ -57,6 +57,8 @@ public class PrescriptionPage implements Serializable {
 
   public void init() {
     prescription = null;
+    wrappedItems = null;
+    newPzn = 0;
   }
 
   public void ensureInitialized(){
@@ -122,8 +124,7 @@ public class PrescriptionPage implements Serializable {
       String msg = Util.getCausingMessage(e);
       FacesContext.getCurrentInstance().addMessage(null, errorMessage(msg));
     }
-    setNewPzn(0);
-    prescription = null;
+    init();
   }
 
   public Prescription getPrescription() {
