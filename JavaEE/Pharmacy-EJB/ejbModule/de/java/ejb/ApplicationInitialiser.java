@@ -105,14 +105,17 @@ public class ApplicationInitialiser {
     Prescription fulfilledPrescription = albertAmundsen.createPrescription();
     fulfilledPrescription.setState(PrescriptionState.FULFILLED);
     fulfilledPrescription.setFulfilmentDate(new Date());
+    fulfilledPrescription.setIssuer("Dr F. Ulfilled");
     em.persist(fulfilledPrescription);
     
     Prescription prescriptionInFulfilling = albertAmundsen.createPrescription();
     prescriptionInFulfilling.setState(PrescriptionState.FULFILLING);
+    prescriptionInFulfilling.setIssuer("Doc Norris");
     em.persist(prescriptionInFulfilling);
     
     Prescription prescriptionInChecking = albertAmundsen.createPrescription();
     prescriptionInChecking.setState(PrescriptionState.CHECKING);
+    prescriptionInChecking.setIssuer("Doc Checker");
     em.persist(prescriptionInChecking);
     
     Prescription prescriptionInEntry = albertAmundsen.createPrescription();

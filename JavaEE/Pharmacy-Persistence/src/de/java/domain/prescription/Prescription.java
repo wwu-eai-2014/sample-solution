@@ -38,7 +38,7 @@ public class Prescription implements Serializable {
 
   @NotNull(message="Issuing physician required")
   @Size(min=1, message="Issuing physician required")
-  private String issuer = "Issuing physician";
+  private String issuer;
 
   @Temporal(TemporalType.DATE)
   @NotNull(message="Issue date required")
