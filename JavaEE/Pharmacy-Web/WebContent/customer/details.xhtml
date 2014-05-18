@@ -51,7 +51,9 @@
           </h:column>
         </h:dataTable>
       </h:panelGrid>
-      <h:commandButton action="#{customerPage.enterPrescription}" value="Enter prescription" />
+      <h:link outcome="/prescription/create.xhtml" value="Enter new prescription">
+        <f:param name="customerId" value="#{customerPage.id}" ></f:param>
+      </h:link>
     </h:form>
   </ui:define>
 </ui:composition>

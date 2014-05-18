@@ -57,8 +57,9 @@ public class CustomerServiceBean implements CustomerService {
   }
 
   @Override
-  public Prescription createPrescription(long id) {
-    Prescription newPrescription = getCustomer(id).createPrescription();
+  public Prescription createPrescription(long customerId, String issuer) {
+    Prescription newPrescription = getCustomer(customerId).createPrescription();
+    newPrescription.setIssuer(issuer);
     em.persist(newPrescription);
     return newPrescription;
   }

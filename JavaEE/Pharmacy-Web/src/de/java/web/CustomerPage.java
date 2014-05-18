@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import de.java.domain.customer.Customer;
-import de.java.domain.prescription.Prescription;
 import de.java.ejb.CustomerService;
 import de.java.web.util.Util;
 
@@ -50,16 +49,7 @@ public class CustomerPage implements Serializable {
 
   public String submit() {
     customer = customerService.update(customer.getId(), customer.getTelephoneNumber(), customer.getAddress());
-    return toCustomerPage();
-  }
-
-  public String enterPrescription() {
-    Prescription prescription = customerService.createPrescription(customer.getId());
-    return "/prescription/details.xhtml?faces-redirect=true&id=" + prescription.getId();
-  }
-
-  private String toCustomerPage() {
-    return "/customer/details.xhtml?faces-redirect=true&id=" + id;
+    return "/customer/details.xhtprescription.getId(ml?faces-redirect=true&id=" + id;
   }
 
   public Customer getCustomer() {
