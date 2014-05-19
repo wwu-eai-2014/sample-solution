@@ -49,7 +49,7 @@ public class CustomerPage implements Serializable {
 
   public String submit() {
     customer = customerService.update(customer.getId(), customer.getTelephoneNumber(), customer.getAddress());
-    return "/customer/details.xhtprescription.getId(ml?faces-redirect=true&id=" + id;
+    return "details.xhtml?faces-redirect=true&id=" + id;
   }
 
   public Customer getCustomer() {
