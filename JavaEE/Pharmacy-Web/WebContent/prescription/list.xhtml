@@ -28,6 +28,13 @@
         #{cur.id}
       </h:column>
       <h:column>
+        <f:facet name="header">Customer</f:facet>
+        <h:link outcome="/customer/details.xhtml"
+          value="#{cur.customer.name}">
+          <f:param name="id" value="#{cur.customer.id}" />
+        </h:link>
+      </h:column>
+      <h:column>
         <f:facet name="header">Issuer</f:facet>
         #{cur.issuer}
       </h:column>
@@ -36,7 +43,7 @@
         #{cur.state}
       </h:column>
       <h:column>
-        <h:link outcome="/prescription/details.xhtml" value="Details">
+        <h:link outcome="details.xhtml" value="Details">
         <f:param name="id" value="#{cur.id}"></f:param>
       </h:link>
     </h:column>
