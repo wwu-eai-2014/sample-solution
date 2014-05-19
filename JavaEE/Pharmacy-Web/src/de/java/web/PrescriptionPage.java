@@ -3,7 +3,6 @@ package de.java.web;
 import static de.java.web.util.Util.errorMessage;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,7 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 
 import de.java.domain.Drug;
-import de.java.domain.prescription.Fulfillable;
 import de.java.domain.prescription.Item;
 import de.java.domain.prescription.Prescription;
 import de.java.domain.prescription.PrescriptionState;
@@ -90,9 +88,7 @@ public class PrescriptionPage implements Serializable {
   }
 
   public boolean isProceedable() {
-    Collection<Fulfillable> fulfillables = new ArrayList<>();
-    fulfillables.addAll(getPrescription().getItems());
-    return getPrescription().getState().isProceedable(fulfillables);
+    return getPrescription().getState().isProceedable(getPrescription().getItems());
   }
 
   public String proceed() {

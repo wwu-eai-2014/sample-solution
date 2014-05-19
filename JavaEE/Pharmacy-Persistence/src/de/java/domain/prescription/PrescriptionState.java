@@ -8,7 +8,7 @@ public enum PrescriptionState {
   ENTRY {
     public PrescriptionState getNext() { return CHECKING; }
     public boolean isCancellable() { return true; }
-    public boolean isProceedable(Collection<Fulfillable> fulfillables) { return !fulfillables.isEmpty(); }
+    public boolean isProceedable(Collection<? extends Fulfillable> fulfillables) { return !fulfillables.isEmpty(); }
   },
   CHECKING {
     public PrescriptionState getNext() { return FULFILLING; }
@@ -19,7 +19,7 @@ public enum PrescriptionState {
   FULFILLING {
     public PrescriptionState getNext() { return FULFILLED; }
     @Override
-    public boolean isProceedable(Collection<Fulfillable> fulfillables) {
+    public boolean isProceedable(Collection<? extends Fulfillable> fulfillables) {
       for (Fulfillable fulfillable : fulfillables) {
         if (!fulfillable.isFulfilled()) { return false; }
       }
@@ -28,12 +28,12 @@ public enum PrescriptionState {
   },
   FULFILLED {
     public PrescriptionState getNext() { throw new IllegalStatusTransitionException(); }
-    public boolean isProceedable(Collection<Fulfillable> fulfillables) { return false; }
+    public boolean isProceedable(Collection<? extends Fulfillable> fulfillables) { return false; }
   };
 
   public abstract PrescriptionState getNext();
 
-  public boolean isProceedable(Collection<Fulfillable> fulfillables) { return true; }
+  public boolean isProceedable(Collection<? extends Fulfillable> fulfillables) { return true; }
 
   public boolean isCancellable() { return false; }
 
