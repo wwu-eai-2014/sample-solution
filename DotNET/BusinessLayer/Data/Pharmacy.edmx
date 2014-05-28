@@ -102,7 +102,6 @@
     <Property Name="EntryDate" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FulfilmentDate" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
-    <Property Name="CustomerId1" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ItemSet">
     <Key>
@@ -208,7 +207,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Prescription">
-        <PropertyRef Name="CustomerId1" />
+        <PropertyRef Name="CustomerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -385,9 +384,8 @@
           <Property Type="String" Name="EntryDate" Nullable="false" />
           <Property Type="String" Name="FulfilmentDate" Nullable="true" />
           <NavigationProperty Name="Items" Relationship="Pharmacy.BusinessLayer.Data.PrescriptionItem" FromRole="Prescription" ToRole="Item" />
-          <Property Type="Int32" Name="CustomerId" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Pharmacy.BusinessLayer.Data.CustomerPrescription" FromRole="Prescription" ToRole="Customer" />
-          <Property Type="Int32" Name="CustomerId1" Nullable="false" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
         </EntityType>
         <EnumType Name="PrescriptionState" cg:ExternalTypeName="Pharmacy.BusinessLayer.Data.PrescriptionState" />
         <EntityType Name="Item">
@@ -444,7 +442,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Prescription">
-              <PropertyRef Name="CustomerId1" />
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -521,7 +519,6 @@
           <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
           <ScalarProperty Name="FulfilmentDate" ColumnName="FulfilmentDate" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="CustomerId1" ColumnName="CustomerId1" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

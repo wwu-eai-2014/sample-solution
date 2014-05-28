@@ -26,7 +26,6 @@ namespace Pharmacy.BusinessLayer.Data
         public string EntryDate { get; set; }
         public string FulfilmentDate { get; set; }
         public int CustomerId { get; set; }
-        public int CustomerId1 { get; set; }
     
         public virtual ICollection<Item> Items { get; set; }
         public virtual Customer Customer { get; set; }

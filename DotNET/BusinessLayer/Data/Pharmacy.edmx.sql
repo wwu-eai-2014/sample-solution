@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2014 10:56:07
+-- Date Created: 05/28/2014 16:25:30
 -- Generated from EDMX file: C:\Users\jan\Documents\GitHub\eai-workspace\DotNET\BusinessLayer\Data\Pharmacy.edmx
 -- --------------------------------------------------
 
@@ -130,8 +130,7 @@ CREATE TABLE [dbo].[PrescriptionSet] (
     [IssueDate] nvarchar(max)  NOT NULL,
     [EntryDate] nvarchar(max)  NOT NULL,
     [FulfilmentDate] nvarchar(max)  NULL,
-    [CustomerId] int  NOT NULL,
-    [CustomerId1] int  NOT NULL
+    [CustomerId] int  NOT NULL
 );
 GO
 
@@ -309,10 +308,10 @@ ON [dbo].[ItemSet]
     ([PrescriptionId]);
 GO
 
--- Creating foreign key on [CustomerId1] in table 'PrescriptionSet'
+-- Creating foreign key on [CustomerId] in table 'PrescriptionSet'
 ALTER TABLE [dbo].[PrescriptionSet]
 ADD CONSTRAINT [FK_CustomerPrescription]
-    FOREIGN KEY ([CustomerId1])
+    FOREIGN KEY ([CustomerId])
     REFERENCES [dbo].[CustomerSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -320,7 +319,7 @@ ADD CONSTRAINT [FK_CustomerPrescription]
 -- Creating non-clustered index for FOREIGN KEY 'FK_CustomerPrescription'
 CREATE INDEX [IX_FK_CustomerPrescription]
 ON [dbo].[PrescriptionSet]
-    ([CustomerId1]);
+    ([CustomerId]);
 GO
 
 -- Creating foreign key on [Id] in table 'InventoryEventSet_WithdrawEvent'
