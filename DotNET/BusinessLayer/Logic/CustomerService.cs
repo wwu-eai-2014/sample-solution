@@ -36,5 +36,42 @@ namespace Pharmacy.BusinessLayer.Logic
                 return newCustomer;
             }
         }
+
+        public static Customer GetCustomer(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                return GetCustomer(id, db);
+            }
+        }
+
+        internal static Customer GetCustomer(Int32 id, PharmacyContainer db)
+        {
+            Customer result = (from c in db.CustomerSet where c.Id == id select c).FirstOrDefault();
+            if (result == default(Customer))
+            {
+                throw new ArgumentException(String.Format("Customer with id {0} not found", id));
+            }
+            return result;
+        }
+
+        public static Customer UpdateCustomer(Customer customer)
+        {
+            return UpdateCustomer(customer, customer.TelephoneNumber, customer.Address);
+        }
+
+        public static Customer UpdateCustomer(Customer customer, string telephoneNumber, string address)
+        {
+            Util.ConvertEmptyToNull(ref address);
+
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Customer attachedCustomer = GetCustomer(customer.Id, db);
+                attachedCustomer.TelephoneNumber = telephoneNumber;
+                attachedCustomer.Address = address;
+                db.SaveChanges();
+                return attachedCustomer;
+            }
+        }
     }
 }

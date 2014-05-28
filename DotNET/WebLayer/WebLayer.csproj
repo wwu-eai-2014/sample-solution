@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Customer\Create.aspx" />
+    <Content Include="Customer\Details.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Drug\Create.aspx" />
     <Content Include="Drug\Details.aspx" />
@@ -76,6 +77,13 @@
     </Compile>
     <Compile Include="Customer\Create.aspx.designer.cs">
       <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
