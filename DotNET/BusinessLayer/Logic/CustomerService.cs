@@ -73,5 +73,23 @@ namespace Pharmacy.BusinessLayer.Logic
                 return attachedCustomer;
             }
         }
+
+        public static Prescription CreatePrescription(int customerId, string issuer)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Customer currentCustomer = GetCustomer(customerId, db);
+                Prescription newPrescription = new Prescription
+                {
+                    Customer = currentCustomer,
+                    IssuingPhysician = issuer,
+                    IssueDate = DateTime.Now,
+                    EntryDate = DateTime.Now
+                };
+                currentCustomer.Prescriptions.Add(newPrescription);
+                db.SaveChanges();
+                return newPrescription;
+            }
+        }
     }
 }

@@ -26,8 +26,9 @@ namespace WebLayer.Prescription
             if (!Page.IsValid)
                 return;
 
-            return;
-            // Pharmacy.BusinessLayer.Logic.CustomerService.CreatePrescription(GetCustomerId(), IssuerBox.Text);   
+            Pharmacy.BusinessLayer.Data.Prescription p = Pharmacy.BusinessLayer.Logic.CustomerService.CreatePrescription(GetCustomerId(), IssuerBox.Text);
+            // TODO redirect to prescription
+            Server.Transfer(String.Format("Details.aspx?id={0}", p.Id));
         }
 
         private Int32 GetCustomerId()
