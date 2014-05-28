@@ -14,6 +14,13 @@ namespace WebLayer.Prescription
 
         }
 
+        private void Page_Error(object sender, EventArgs e)
+        {
+            Session["LastError"] = Server.GetLastError();
+            Server.ClearError();
+            Server.Transfer("~/Error.aspx");
+        }
+
         protected void SubmitBtn_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
