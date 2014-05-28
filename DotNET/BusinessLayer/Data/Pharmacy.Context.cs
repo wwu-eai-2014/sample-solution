@@ -29,5 +29,8 @@ namespace Pharmacy.BusinessLayer.Data
         public DbSet<InventoryEvent> InventoryEventSet { get; set; }
         public DbSet<Position> PositionSet { get; set; }
         public DbSet<ReplenishmentOrder> ReplenishmentOrderSet { get; set; }
+        public DbSet<Prescription> PrescriptionSet { get; set; }
+        public DbSet<Item> ItemSet { get; set; }
+        public DbSet<Customer> CustomerSet { get; set; }
     }
 }

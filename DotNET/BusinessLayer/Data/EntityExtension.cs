@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.BusinessLayer.Data
 {
+    public partial class Item : Fulfillable
+    {
+        public Boolean Fulfilled()
+        {
+            return this.State == FulfilmentState.Fulfilled;
+        }
+    }
+
     public partial class Drug
     {
         internal void Apply(InventoryEvent inventoryEvent)

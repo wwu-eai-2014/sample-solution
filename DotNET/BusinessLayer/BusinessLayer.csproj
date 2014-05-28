@@ -48,11 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Customer.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Drug.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\EntityExtension.cs" />
+    <Compile Include="Data\Fulfillable.cs" />
     <Compile Include="Data\InventoryEvent.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Item.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\OrderState.cs" />
@@ -74,6 +81,10 @@
     <Compile Include="Data\Position.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Prescription.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PrescriptionState.cs" />
     <Compile Include="Data\ReplenishEvent.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
@@ -100,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Data\FulfilmentState.cs" />
     <None Include="Data\Pharmacy.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Pharmacy.edmx</DependentUpon>
@@ -108,6 +120,7 @@
     </None>
     <None Include="Data\Pharmacy.edmx.diagram">
       <DependentUpon>Pharmacy.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\Pharmacy.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

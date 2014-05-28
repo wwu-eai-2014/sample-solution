@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 06/06/2013 13:14:13
--- Generated from EDMX file: C:\Users\jan\documents\visual studio 2012\Projects\Pharmacy\BusinessLayer\Data\Pharmacy.edmx
+-- Date Created: 05/28/2014 10:56:07
+-- Generated from EDMX file: C:\Users\jan\Documents\GitHub\eai-workspace\DotNET\BusinessLayer\Data\Pharmacy.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -25,6 +25,15 @@ IF OBJECT_ID(N'[dbo].[FK_DrugPosition]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ReplenishmentOrderPosition]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PositionSet] DROP CONSTRAINT [FK_ReplenishmentOrderPosition];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ItemPrescribedDrug]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ItemSet] DROP CONSTRAINT [FK_ItemPrescribedDrug];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PrescriptionItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ItemSet] DROP CONSTRAINT [FK_PrescriptionItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerPrescription]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PrescriptionSet] DROP CONSTRAINT [FK_CustomerPrescription];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WithdrawEvent_inherits_InventoryEvent]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InventoryEventSet_WithdrawEvent] DROP CONSTRAINT [FK_WithdrawEvent_inherits_InventoryEvent];
@@ -51,6 +60,15 @@ IF OBJECT_ID(N'[dbo].[PositionSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ReplenishmentOrderSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ReplenishmentOrderSet];
+GO
+IF OBJECT_ID(N'[dbo].[PrescriptionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PrescriptionSet];
+GO
+IF OBJECT_ID(N'[dbo].[ItemSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ItemSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerSet];
 GO
 IF OBJECT_ID(N'[dbo].[InventoryEventSet_WithdrawEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InventoryEventSet_WithdrawEvent];
@@ -104,6 +122,37 @@ CREATE TABLE [dbo].[ReplenishmentOrderSet] (
 );
 GO
 
+-- Creating table 'PrescriptionSet'
+CREATE TABLE [dbo].[PrescriptionSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [State] int  NOT NULL,
+    [IssuingPhysician] nvarchar(max)  NOT NULL,
+    [IssueDate] nvarchar(max)  NOT NULL,
+    [EntryDate] nvarchar(max)  NOT NULL,
+    [FulfilmentDate] nvarchar(max)  NULL,
+    [CustomerId] int  NOT NULL,
+    [CustomerId1] int  NOT NULL
+);
+GO
+
+-- Creating table 'ItemSet'
+CREATE TABLE [dbo].[ItemSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [State] int  NOT NULL,
+    [DrugPZN] int  NOT NULL,
+    [PrescriptionId] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustomerSet'
+CREATE TABLE [dbo].[CustomerSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [TelephoneNumber] nvarchar(max)  NOT NULL,
+    [Address] nvarchar(max)  NULL
+);
+GO
+
 -- Creating table 'InventoryEventSet_WithdrawEvent'
 CREATE TABLE [dbo].[InventoryEventSet_WithdrawEvent] (
     [Id] int  NOT NULL
@@ -147,6 +196,24 @@ GO
 -- Creating primary key on [Id] in table 'ReplenishmentOrderSet'
 ALTER TABLE [dbo].[ReplenishmentOrderSet]
 ADD CONSTRAINT [PK_ReplenishmentOrderSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PrescriptionSet'
+ALTER TABLE [dbo].[PrescriptionSet]
+ADD CONSTRAINT [PK_PrescriptionSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ItemSet'
+ALTER TABLE [dbo].[ItemSet]
+ADD CONSTRAINT [PK_ItemSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustomerSet'
+ALTER TABLE [dbo].[CustomerSet]
+ADD CONSTRAINT [PK_CustomerSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -212,6 +279,48 @@ ADD CONSTRAINT [FK_ReplenishmentOrderPosition]
 CREATE INDEX [IX_FK_ReplenishmentOrderPosition]
 ON [dbo].[PositionSet]
     ([ReplenishmentOrderId]);
+GO
+
+-- Creating foreign key on [DrugPZN] in table 'ItemSet'
+ALTER TABLE [dbo].[ItemSet]
+ADD CONSTRAINT [FK_ItemPrescribedDrug]
+    FOREIGN KEY ([DrugPZN])
+    REFERENCES [dbo].[DrugSet]
+        ([PZN])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ItemPrescribedDrug'
+CREATE INDEX [IX_FK_ItemPrescribedDrug]
+ON [dbo].[ItemSet]
+    ([DrugPZN]);
+GO
+
+-- Creating foreign key on [PrescriptionId] in table 'ItemSet'
+ALTER TABLE [dbo].[ItemSet]
+ADD CONSTRAINT [FK_PrescriptionItem]
+    FOREIGN KEY ([PrescriptionId])
+    REFERENCES [dbo].[PrescriptionSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PrescriptionItem'
+CREATE INDEX [IX_FK_PrescriptionItem]
+ON [dbo].[ItemSet]
+    ([PrescriptionId]);
+GO
+
+-- Creating foreign key on [CustomerId1] in table 'PrescriptionSet'
+ALTER TABLE [dbo].[PrescriptionSet]
+ADD CONSTRAINT [FK_CustomerPrescription]
+    FOREIGN KEY ([CustomerId1])
+    REFERENCES [dbo].[CustomerSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerPrescription'
+CREATE INDEX [IX_FK_CustomerPrescription]
+ON [dbo].[PrescriptionSet]
+    ([CustomerId1]);
 GO
 
 -- Creating foreign key on [Id] in table 'InventoryEventSet_WithdrawEvent'

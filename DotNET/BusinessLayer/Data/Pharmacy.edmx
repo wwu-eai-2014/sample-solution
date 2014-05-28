@@ -10,6 +10,9 @@
     <EntitySet Name="InventoryEventSet" EntityType="Pharmacy.BusinessLayer.Data.Store.InventoryEventSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PositionSet" EntityType="Pharmacy.BusinessLayer.Data.Store.PositionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ReplenishmentOrderSet" EntityType="Pharmacy.BusinessLayer.Data.Store.ReplenishmentOrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PrescriptionSet" EntityType="Pharmacy.BusinessLayer.Data.Store.PrescriptionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemSet" EntityType="Pharmacy.BusinessLayer.Data.Store.ItemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerSet" EntityType="Pharmacy.BusinessLayer.Data.Store.CustomerSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InventoryEventSet_WithdrawEvent" EntityType="Pharmacy.BusinessLayer.Data.Store.InventoryEventSet_WithdrawEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InventoryEventSet_RestockEvent" EntityType="Pharmacy.BusinessLayer.Data.Store.InventoryEventSet_RestockEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InventoryEventSet_ReplenishEvent" EntityType="Pharmacy.BusinessLayer.Data.Store.InventoryEventSet_ReplenishEvent" store:Type="Tables" Schema="dbo" />
@@ -24,6 +27,18 @@
     <AssociationSet Name="ReplenishmentOrderPosition" Association="Pharmacy.BusinessLayer.Data.Store.ReplenishmentOrderPosition">
       <End Role="ReplenishmentOrder" EntitySet="ReplenishmentOrderSet" />
       <End Role="Position" EntitySet="PositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ItemPrescribedDrug" Association="Pharmacy.BusinessLayer.Data.Store.ItemPrescribedDrug">
+      <End Role="Item" EntitySet="ItemSet" />
+      <End Role="Drug" EntitySet="DrugSet" />
+    </AssociationSet>
+    <AssociationSet Name="PrescriptionItem" Association="Pharmacy.BusinessLayer.Data.Store.PrescriptionItem">
+      <End Role="Prescription" EntitySet="PrescriptionSet" />
+      <End Role="Item" EntitySet="ItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerPrescription" Association="Pharmacy.BusinessLayer.Data.Store.CustomerPrescription">
+      <End Role="Customer" EntitySet="CustomerSet" />
+      <End Role="Prescription" EntitySet="PrescriptionSet" />
     </AssociationSet>
     <AssociationSet Name="FK_WithdrawEvent_inherits_InventoryEvent" Association="Pharmacy.BusinessLayer.Data.Store.FK_WithdrawEvent_inherits_InventoryEvent">
       <End Role="InventoryEvent" EntitySet="InventoryEventSet" />
@@ -76,6 +91,37 @@
     <Property Name="ExpectedDelivery" Type="datetime" Nullable="true" />
     <Property Name="ActualDelivery" Type="datetime" Nullable="true" />
   </EntityType>
+  <EntityType Name="PrescriptionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="IssuingPhysician" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IssueDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EntryDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FulfilmentDate" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CustomerId1" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="DrugPZN" Type="int" Nullable="false" />
+    <Property Name="PrescriptionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TelephoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
   <EntityType Name="InventoryEventSet_WithdrawEvent">
     <Key>
       <PropertyRef Name="Id" />
@@ -127,6 +173,42 @@
       </Principal>
       <Dependent Role="Position">
         <PropertyRef Name="ReplenishmentOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ItemPrescribedDrug">
+    <End Role="Item" Type="Pharmacy.BusinessLayer.Data.Store.ItemSet" Multiplicity="*" />
+    <End Role="Drug" Type="Pharmacy.BusinessLayer.Data.Store.DrugSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Drug">
+        <PropertyRef Name="PZN" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="DrugPZN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PrescriptionItem">
+    <End Role="Prescription" Type="Pharmacy.BusinessLayer.Data.Store.PrescriptionSet" Multiplicity="1" />
+    <End Role="Item" Type="Pharmacy.BusinessLayer.Data.Store.ItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prescription">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="PrescriptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerPrescription">
+    <End Role="Customer" Type="Pharmacy.BusinessLayer.Data.Store.CustomerSet" Multiplicity="1" />
+    <End Role="Prescription" Type="Pharmacy.BusinessLayer.Data.Store.PrescriptionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Prescription">
+        <PropertyRef Name="CustomerId1" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -192,6 +274,21 @@
           <AssociationSet Name="ReplenishmentOrderPosition" Association="Pharmacy.BusinessLayer.Data.ReplenishmentOrderPosition">
             <End Role="ReplenishmentOrder" EntitySet="ReplenishmentOrderSet" />
             <End Role="Position" EntitySet="PositionSet" />
+          </AssociationSet>
+          <EntitySet Name="PrescriptionSet" EntityType="Pharmacy.BusinessLayer.Data.Prescription" />
+          <EntitySet Name="ItemSet" EntityType="Pharmacy.BusinessLayer.Data.Item" />
+          <AssociationSet Name="ItemPrescribedDrug" Association="Pharmacy.BusinessLayer.Data.ItemPrescribedDrug">
+            <End Role="Item" EntitySet="ItemSet" />
+            <End Role="Drug" EntitySet="DrugSet" />
+          </AssociationSet>
+          <AssociationSet Name="PrescriptionItem" Association="Pharmacy.BusinessLayer.Data.PrescriptionItem">
+            <End Role="Prescription" EntitySet="PrescriptionSet" />
+            <End Role="Item" EntitySet="ItemSet" />
+          </AssociationSet>
+          <EntitySet Name="CustomerSet" EntityType="Pharmacy.BusinessLayer.Data.Customer" />
+          <AssociationSet Name="CustomerPrescription" Association="Pharmacy.BusinessLayer.Data.CustomerPrescription">
+            <End Role="Customer" EntitySet="CustomerSet" />
+            <End Role="Prescription" EntitySet="PrescriptionSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Drug">
@@ -277,6 +374,80 @@
           </ReferentialConstraint>
         </Association>
         <EnumType Name="OrderState" cg:ExternalTypeName="Pharmacy.BusinessLayer.Data.OrderState" />
+        <EntityType Name="Prescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Pharmacy.BusinessLayer.Data.PrescriptionState" Name="State" Nullable="false" />
+          <Property Type="String" Name="IssuingPhysician" Nullable="false" />
+          <Property Type="String" Name="IssueDate" Nullable="false" />
+          <Property Type="String" Name="EntryDate" Nullable="false" />
+          <Property Type="String" Name="FulfilmentDate" Nullable="true" />
+          <NavigationProperty Name="Items" Relationship="Pharmacy.BusinessLayer.Data.PrescriptionItem" FromRole="Prescription" ToRole="Item" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Pharmacy.BusinessLayer.Data.CustomerPrescription" FromRole="Prescription" ToRole="Customer" />
+          <Property Type="Int32" Name="CustomerId1" Nullable="false" />
+        </EntityType>
+        <EnumType Name="PrescriptionState" cg:ExternalTypeName="Pharmacy.BusinessLayer.Data.PrescriptionState" />
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Pharmacy.BusinessLayer.Data.FulfilmentState" Name="State" Nullable="false" />
+          <NavigationProperty Name="PrescribedDrug" Relationship="Pharmacy.BusinessLayer.Data.ItemPrescribedDrug" FromRole="Item" ToRole="Drug" />
+          <Property Type="Int32" Name="DrugPZN" Nullable="false" />
+          <NavigationProperty Name="Prescription" Relationship="Pharmacy.BusinessLayer.Data.PrescriptionItem" FromRole="Item" ToRole="Prescription" />
+          <Property Type="Int32" Name="PrescriptionId" Nullable="false" />
+        </EntityType>
+        <EnumType Name="FulfilmentState" cg:ExternalTypeName="Pharmacy.BusinessLayer.Data.FulfilmentState" />
+        <Association Name="ItemPrescribedDrug">
+          <End Type="Pharmacy.BusinessLayer.Data.Item" Role="Item" Multiplicity="*" />
+          <End Type="Pharmacy.BusinessLayer.Data.Drug" Role="Drug" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Drug">
+              <PropertyRef Name="PZN" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="DrugPZN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PrescriptionItem">
+          <End Type="Pharmacy.BusinessLayer.Data.Prescription" Role="Prescription" Multiplicity="1" />
+          <End Type="Pharmacy.BusinessLayer.Data.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prescription">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="PrescriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="TelephoneNumber" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <NavigationProperty Name="Prescriptions" Relationship="Pharmacy.BusinessLayer.Data.CustomerPrescription" FromRole="Customer" ToRole="Prescription" />
+        </EntityType>
+        <Association Name="CustomerPrescription">
+          <End Type="Pharmacy.BusinessLayer.Data.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Pharmacy.BusinessLayer.Data.Prescription" Role="Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="CustomerId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -337,6 +508,40 @@
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="ExpectedDelivery" ColumnName="ExpectedDelivery" />
           <ScalarProperty Name="ActualDelivery" ColumnName="ActualDelivery" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PrescriptionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Pharmacy.BusinessLayer.Data.Prescription)">
+        <MappingFragment StoreEntitySet="PrescriptionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="IssuingPhysician" ColumnName="IssuingPhysician" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="FulfilmentDate" ColumnName="FulfilmentDate" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustomerId1" ColumnName="CustomerId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Pharmacy.BusinessLayer.Data.Item)">
+        <MappingFragment StoreEntitySet="ItemSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="DrugPZN" ColumnName="DrugPZN" />
+          <ScalarProperty Name="PrescriptionId" ColumnName="PrescriptionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Pharmacy.BusinessLayer.Data.Customer)">
+        <MappingFragment StoreEntitySet="CustomerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

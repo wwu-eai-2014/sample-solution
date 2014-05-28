@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="00315bf55d2b48c8a5047b2185e9a941" Name="Diagram1" >
+      <Diagram DiagramId="00315bf55d2b48c8a5047b2185e9a941" Name="Diagram1" ZoomLevel="101" >
         <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.Drug" Width="2" PointX="5.75" PointY="0.5" />
         <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.InventoryEvent" Width="1.5" PointX="2.5" PointY="0.5" />
         <AssociationConnector Association="Pharmacy.BusinessLayer.Data.DrugInventoryEvent" />
@@ -20,6 +20,12 @@
         <AssociationConnector Association="Pharmacy.BusinessLayer.Data.DrugPosition" />
         <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.ReplenishmentOrder" Width="1.5" PointX="12.25" PointY="0.5" />
         <AssociationConnector Association="Pharmacy.BusinessLayer.Data.ReplenishmentOrderPosition" />
+        <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.Prescription" Width="1.5" PointX="12.25" PointY="2.875" />
+        <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.Item" Width="1.5" PointX="10" PointY="2.875" />
+        <AssociationConnector Association="Pharmacy.BusinessLayer.Data.ItemPrescribedDrug" />
+        <AssociationConnector Association="Pharmacy.BusinessLayer.Data.PrescriptionItem" />
+        <EntityTypeShape EntityType="Pharmacy.BusinessLayer.Data.Customer" Width="1.5" PointX="14.625" PointY="2.875" />
+        <AssociationConnector Association="Pharmacy.BusinessLayer.Data.CustomerPrescription" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
