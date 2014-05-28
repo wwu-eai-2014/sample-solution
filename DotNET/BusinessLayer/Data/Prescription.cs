@@ -22,9 +22,9 @@ namespace Pharmacy.BusinessLayer.Data
         public int Id { get; set; }
         public Pharmacy.BusinessLayer.Data.PrescriptionState State { get; set; }
         public string IssuingPhysician { get; set; }
-        public string IssueDate { get; set; }
-        public string EntryDate { get; set; }
-        public string FulfilmentDate { get; set; }
+        public System.DateTime IssueDate { get; set; }
+        public System.DateTime EntryDate { get; set; }
+        public Nullable<System.DateTime> FulfilmentDate { get; set; }
         public int CustomerId { get; set; }
     
         public virtual ICollection<Item> Items { get; set; }

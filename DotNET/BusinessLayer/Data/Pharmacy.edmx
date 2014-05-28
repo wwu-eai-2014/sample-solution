@@ -98,9 +98,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="State" Type="int" Nullable="false" />
     <Property Name="IssuingPhysician" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IssueDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="EntryDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FulfilmentDate" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="IssueDate" Type="datetime" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="FulfilmentDate" Type="datetime" Nullable="true" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ItemSet">
@@ -380,9 +380,9 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Pharmacy.BusinessLayer.Data.PrescriptionState" Name="State" Nullable="false" />
           <Property Type="String" Name="IssuingPhysician" Nullable="false" />
-          <Property Type="String" Name="IssueDate" Nullable="false" />
-          <Property Type="String" Name="EntryDate" Nullable="false" />
-          <Property Type="String" Name="FulfilmentDate" Nullable="true" />
+          <Property Type="DateTime" Name="IssueDate" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="FulfilmentDate" Nullable="true" />
           <NavigationProperty Name="Items" Relationship="Pharmacy.BusinessLayer.Data.PrescriptionItem" FromRole="Prescription" ToRole="Item" />
           <NavigationProperty Name="Customer" Relationship="Pharmacy.BusinessLayer.Data.CustomerPrescription" FromRole="Prescription" ToRole="Customer" />
           <Property Type="Int32" Name="CustomerId" Nullable="false" />
