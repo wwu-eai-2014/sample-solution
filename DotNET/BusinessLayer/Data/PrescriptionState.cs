@@ -29,16 +29,16 @@ namespace Pharmacy.BusinessLayer.Data
             }
         }
 
-        public static Boolean Proceedable(this PrescriptionState currentState, ICollection<Fulfillable> fulfillables)
+        public static Boolean Proceedable(this PrescriptionState currentState, ICollection<Item> items)
         {
             switch (currentState)
             {
                 case PrescriptionState.Entry:
-                    return !fulfillables.Any();
+                    return items.Any();
                 case PrescriptionState.Checking:
                     return true;
                 case PrescriptionState.Fulfilling:
-                    return fulfillables.All(f => f.Fulfilled());
+                    return items.All(f => f.Fulfilled());
                 default:
                     return false;
             }
