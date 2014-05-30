@@ -26,5 +26,18 @@ namespace Pharmacy.BusinessLayer.Logic
 
             return result;
         }
+
+        public static void Cancel(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Prescription p = GetPrescription(id, db);
+                foreach (Item i in p.Items) {
+                    db.ItemSet.Remove(i);
+                }
+                db.PrescriptionSet.Remove(p);
+                db.SaveChanges();
+            }
+        }
     }
 }

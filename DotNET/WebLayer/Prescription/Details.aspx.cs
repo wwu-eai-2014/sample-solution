@@ -39,7 +39,7 @@ namespace WebLayer.Prescription
 
         protected void Cancel_Command(object sender, CommandEventArgs e)
         {
-            // PrescriptionService.Cancel(GetPrescriptionId());
+            PrescriptionService.Cancel(GetPrescriptionId());
             // redirect to prescription list
             Server.Transfer("List.aspx");
         }
