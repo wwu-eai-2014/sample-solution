@@ -32,10 +32,8 @@ namespace Pharmacy.BusinessLayer.Logic
             using (PharmacyContainer db = new PharmacyContainer())
             {
                 Prescription p = GetPrescription(id, db);
-                foreach (Item i in p.Items) {
-                    db.ItemSet.Remove(i);
-                }
-                db.PrescriptionSet.Remove(p);
+                p.Items.ToList().ForEach(i => db.ItemSet.Remove(i));
+                db.Entry(p).State = System.Data.EntityState.Deleted;
                 db.SaveChanges();
             }
         }
