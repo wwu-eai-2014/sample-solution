@@ -41,7 +41,7 @@ namespace WebLayer.Prescription
         {
             PrescriptionService.Cancel(GetPrescriptionId());
             // redirect to prescription list
-            Server.Transfer("List.aspx");
+            Response.Redirect("List.aspx");
         }
     }
 }
