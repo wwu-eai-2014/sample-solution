@@ -132,7 +132,15 @@
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Button OnCommand="RemoveDrug_Command" CommandArgument='<%# Eval("ID") %>'
-                            Text="Remove" runat="server" Visible='<%# ((PrescriptionState)Eval("Prescription.State")) == PrescriptionState.Entry %>' />
+                            Text="Remove" runat="server"
+                            Visible='<%# ((PrescriptionState)Eval("Prescription.State")) == PrescriptionState.Entry %>' />
+                        <asp:Button OnCommand="FulfilDrug_Command" CommandArgument='<%# Eval("ID") %>'
+                            Text="Fulfil" runat="server"
+                            Visible='<%# (FulfilmentState)Eval("State") == FulfilmentState.Unfulfilled && ((PrescriptionState)Eval("Prescription.State")) == PrescriptionState.Fulfilling %>'
+                            Enabled='<%# (int)Eval("PrescribedDrug.Stock") > 0 %>' />
+                        <asp:Button OnCommand="ReplenishDrug_Command" CommandArgument='<%# Eval("ID") %>'
+                            Text="Replenish" runat="server"
+                            Visible='<%# GetQuantityRequired(Eval("PrescribedDrug.PZN")) > 0 && ((PrescriptionState)Eval("Prescription.State")) == PrescriptionState.Fulfilling %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

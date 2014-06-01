@@ -92,10 +92,30 @@ namespace WebLayer.Prescription
 
         protected void RemoveDrug_Command(object sender, CommandEventArgs e)
         {
-            Int32 itemId = Int32.Parse(e.CommandArgument.ToString());
+            Int32 itemId = ExtractIntegerArgument(e);
             PrescriptionService.RemoveItem(itemId);
             ItemsGridView.DataBind();
             PrescriptionDetailsView.DataBind();
+        }
+
+        private static int ExtractIntegerArgument(CommandEventArgs e)
+        {
+            return Int32.Parse(e.CommandArgument.ToString());
+        }
+
+        protected void FulfilDrug_Command(object sender, CommandEventArgs e)
+        {
+            Int32 itemId = ExtractIntegerArgument(e);
+            PrescriptionService.Fulfil(itemId);
+            PrescriptionDetailsView.DataBind();
+            ItemsGridView.DataBind();
+        }
+
+        protected void ReplenishDrug_Command(object sender, CommandEventArgs e)
+        {
+            Int32 itemId = ExtractIntegerArgument(e);
+            PrescriptionService.Replenish(itemId);
+            ItemsGridView.DataBind();
         }
     }
 }

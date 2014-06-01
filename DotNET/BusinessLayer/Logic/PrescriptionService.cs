@@ -41,19 +41,24 @@ namespace Pharmacy.BusinessLayer.Logic
         {
             using (PharmacyContainer db = new PharmacyContainer())
             {
-                Drug d = DrugService.GetDrug(pzn, db);
-                int optimalInventoryLevel = d.OptimalInventoryLevel;
-                int quantityUnfulfilled = (from i in db.ItemSet
-                                           where i.PrescribedDrug.PZN == pzn
-                                           && i.State == FulfilmentState.Unfulfilled
-                                           && (i.Prescription.State == PrescriptionState.Checking
-                                                || i.Prescription.State == PrescriptionState.Fulfilling)
-                                           select i).Count();
-                int currentStock = d.Stock;
-                int quantityPending = GetQuantityPendingForDrug(pzn);
-                int quantityRequired = (optimalInventoryLevel + quantityUnfulfilled) - (currentStock + quantityPending);
-                return Math.Max(0, quantityRequired);
+                return GetQuantityRequiredForDrug(pzn, db);
             }
+        }
+        
+        internal static int GetQuantityRequiredForDrug(Int32 pzn, PharmacyContainer db)
+        {
+            Drug d = DrugService.GetDrug(pzn, db);
+            int optimalInventoryLevel = d.OptimalInventoryLevel;
+            int quantityUnfulfilled = (from i in db.ItemSet
+                                        where i.PrescribedDrug.PZN == pzn
+                                        && i.State == FulfilmentState.Unfulfilled
+                                        && (i.Prescription.State == PrescriptionState.Checking
+                                            || i.Prescription.State == PrescriptionState.Fulfilling)
+                                        select i).Count();
+            int currentStock = d.Stock;
+            int quantityPending = GetQuantityPendingForDrug(pzn);
+            int quantityRequired = (optimalInventoryLevel + quantityUnfulfilled) - (currentStock + quantityPending);
+            return Math.Max(0, quantityRequired);
         }
 
         public static int GetQuantityPendingForDrug(int pzn)
@@ -130,6 +135,33 @@ namespace Pharmacy.BusinessLayer.Logic
 
                 db.ItemSet.Remove(item);
                 db.SaveChanges();
+            }
+        }
+
+        public static void Fulfil(Int32 itemId)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Item i = GetItem(itemId, db);
+                Int32 pzn = i.PrescribedDrug.PZN;
+                DrugService.Withdraw(pzn, 1, DateTime.Now);
+                i.State = FulfilmentState.Fulfilled;
+                db.SaveChanges();
+            }
+        }
+
+        internal static Item GetItem(Int32 itemId, PharmacyContainer db)
+        {
+            return (from i in db.ItemSet.Include("PrescribedDrug") where i.Id == itemId select i).Single();
+        }
+
+        public static void Replenish(Int32 itemId)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Item i = GetItem(itemId, db);
+                Int32 pzn = i.PrescribedDrug.PZN;
+                OrderService.InitiateReplenishment(pzn, GetQuantityRequiredForDrug(pzn), db);
             }
         }
     }
