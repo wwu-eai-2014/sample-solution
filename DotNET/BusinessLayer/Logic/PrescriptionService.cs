@@ -49,5 +49,25 @@ namespace Pharmacy.BusinessLayer.Logic
                 db.SaveChanges();
             }
         }
+
+        public static void ProceedToNextStage(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Prescription p = GetPrescription(id, db);
+                p.State = p.State.Next();
+                db.SaveChanges();
+            }
+        }
+
+        public static void ReturnToPreviousState(Int32 id)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Prescription p = GetPrescription(id, db);
+                p.State = p.State.Previous();
+                db.SaveChanges();
+            }
+        }
     }
 }

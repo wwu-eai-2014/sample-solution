@@ -81,11 +81,14 @@
                     <ItemTemplate>
                         <asp:Button ID="UpdatePrescriptionButton" runat="server" OnCommand="UpdatePrescription_Command"
                             Text="Update prescription" Visible='<%# ((PrescriptionState)Eval("State")) == PrescriptionState.Entry %>' />
+                        <asp:Button ID="PreviousStateButton" runat="server" OnCommand="PreviousState_Command"
+                            Text='<%# "Return to " + ((PrescriptionState)Eval("State")).Previous() %>'
+                            Enabled='<%# ((PrescriptionState)Eval("State")).Reversible() %>'
+                            Visible='<%# ((PrescriptionState)Eval("State")).Reversible() %>' />
                         <asp:Button ID="NextStateButton" runat="server" OnCommand="NextState_Command"
                             Text='<%# "Proceed to " + ((PrescriptionState)Eval("State")).Next() %>'
                             Enabled='<%# ((PrescriptionState)Eval("State")).Proceedable((ICollection<Item>)Eval("Items")) %>'
-                            Visible='<%# ((PrescriptionState)Eval("State")).Proceedable((ICollection<Item>)Eval("Items")) %>'
-                        />
+                            Visible='<%# ((PrescriptionState)Eval("State")).Proceedable((ICollection<Item>)Eval("Items")) %>' />
                         <asp:Button ID="CancelButton" runat="server" OnCommand="Cancel_Command" Text="Cancel"
                             Enabled='<%# ((PrescriptionState)Eval("State")).Cancellable() %>'
                             Visible='<%# ((PrescriptionState)Eval("State")).Cancellable() %>' />

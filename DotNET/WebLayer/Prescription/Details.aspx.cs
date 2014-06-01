@@ -25,10 +25,13 @@ namespace WebLayer.Prescription
 
         protected void NextState_Command(object sender, CommandEventArgs e)
         {
-            if (!Page.IsValid)
-                return;
+            PrescriptionService.ProceedToNextStage(GetPrescriptionId());
+            RedirectToSelf();
+        }
 
-            PrescriptionDetailsView.DataBind();
+        private void RedirectToSelf()
+        {
+            Response.Redirect("Details.aspx?id=" + GetPrescriptionId());
         }
 
         private Int32 GetPrescriptionId()
@@ -36,11 +39,15 @@ namespace WebLayer.Prescription
             return Int32.Parse(Request.Params["id"]);
         }
 
+        protected void PreviousState_Command(object sender, CommandEventArgs e)
+        {
+            PrescriptionService.ReturnToPreviousState(GetPrescriptionId());
+            RedirectToSelf();
+        }
 
         protected void Cancel_Command(object sender, CommandEventArgs e)
         {
             PrescriptionService.Cancel(GetPrescriptionId());
-            // redirect to prescription list
             Response.Redirect("List.aspx");
         }
 
