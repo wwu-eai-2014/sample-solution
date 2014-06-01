@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page Title="C.Sharpe - Prescription Details" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="Details.aspx.cs" Inherits="WebLayer.Prescription.Details" %>
 <%@ Import Namespace="Pharmacy.BusinessLayer.Data" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentHolder" runat="server">
