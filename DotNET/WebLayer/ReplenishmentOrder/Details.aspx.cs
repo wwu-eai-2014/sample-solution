@@ -53,7 +53,7 @@ namespace WebLayer.ReplenishmentOrder
 
         private static DateTime parseDateTime(string dateAsString)
         {
-            return DateTime.ParseExact(dateAsString, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+            return Util.ParseDateTime(dateAsString);
         }
 
         protected void Cancel_Command(object sender, CommandEventArgs e)
