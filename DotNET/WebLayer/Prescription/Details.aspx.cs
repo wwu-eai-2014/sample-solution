@@ -23,7 +23,7 @@ namespace WebLayer.Prescription
             Server.Transfer("~/Error.aspx");
         }
 
-        protected void NextStateButton_Command(object sender, CommandEventArgs e)
+        protected void NextState_Command(object sender, CommandEventArgs e)
         {
             if (!Page.IsValid)
                 return;
@@ -42,6 +42,18 @@ namespace WebLayer.Prescription
             PrescriptionService.Cancel(GetPrescriptionId());
             // redirect to prescription list
             Response.Redirect("List.aspx");
+        }
+
+        protected void UpdatePrescription_Command(object sender, CommandEventArgs e)
+        {
+            if (!Page.IsValid)
+                return;
+
+            string issuer = ((TextBox)PrescriptionDetailsView.FindControl("IssuerBox")).Text;
+            string issueDate = ((TextBox)PrescriptionDetailsView.FindControl("IssuedOnBox")).Text;
+            string entryDate = ((TextBox)PrescriptionDetailsView.FindControl("EnteredOnBox")).Text;
+            PrescriptionService.UpdatePrescription(GetPrescriptionId(), issuer, Util.ParseDate(issueDate), Util.ParseDateTime(entryDate));
+            PrescriptionDetailsView.DataBind();
         }
     }
 }

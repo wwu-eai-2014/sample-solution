@@ -37,5 +37,17 @@ namespace Pharmacy.BusinessLayer.Logic
                 db.SaveChanges();
             }
         }
+
+        public static void UpdatePrescription(Int32 id, string issuer, DateTime issueDate, DateTime entryDate)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Prescription p = GetPrescription(id, db);
+                p.IssuingPhysician = issuer;
+                p.IssueDate = issueDate;
+                p.EntryDate = entryDate;
+                db.SaveChanges();
+            }
+        }
     }
 }
