@@ -13,7 +13,12 @@ namespace WebLayer.Prescription
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Pharmacy.BusinessLayer.Data.Prescription p = PrescriptionService.GetPrescription(GetPrescriptionId());
+            if (p.State == PrescriptionState.Entry)
+            {
+                PZNBox.Visible = true;
+                AddItemButton.Visible = true;
+            }
         }
 
         private void Page_Error(object sender, EventArgs e)
@@ -60,6 +65,24 @@ namespace WebLayer.Prescription
             string issueDate = ((TextBox)PrescriptionDetailsView.FindControl("IssuedOnBox")).Text;
             string entryDate = ((TextBox)PrescriptionDetailsView.FindControl("EnteredOnBox")).Text;
             PrescriptionService.UpdatePrescription(GetPrescriptionId(), issuer, Util.ParseDate(issueDate), Util.ParseDateTime(entryDate));
+            PrescriptionDetailsView.DataBind();
+        }
+
+        protected void AddDrug_Command(object sender, CommandEventArgs e)
+        {
+            if (!Page.IsValid)
+                return;
+            PrescriptionService.AddDrug(GetPrescriptionId(), Int32.Parse(PZNBox.Text));
+            PZNBox.Text = "";
+            ItemsGridView.DataBind();
+            PrescriptionDetailsView.DataBind();
+        }
+
+        protected void RemoveDrug_Command(object sender, CommandEventArgs e)
+        {
+            Int32 itemId = Int32.Parse(e.CommandArgument.ToString());
+            PrescriptionService.RemoveItem(itemId);
+            ItemsGridView.DataBind();
             PrescriptionDetailsView.DataBind();
         }
     }

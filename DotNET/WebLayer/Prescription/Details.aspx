@@ -96,5 +96,53 @@
                 </asp:TemplateField>
             </Fields>
         </asp:DetailsView>
+        <h3>Prescribed drugs</h3>
+        <asp:ObjectDataSource ID="ItemsDataSource" runat="server"
+            SelectMethod="GetItemsForPrescription"
+            TypeName="Pharmacy.BusinessLayer.Logic.PrescriptionService"
+            DataObjectTypeName="Pharmacy.BusinessLayer.Data.Item">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="Id" QueryStringField="id" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:GridView ID="ItemsGridView" DataSourceID="ItemsDataSource" runat="server" AutoGenerateColumns="false">
+            <Columns>
+                <asp:TemplateField HeaderText="PZN">
+                    <ItemTemplate>
+                        <asp:HyperLink runat="server" ID="DrugLink" 
+                            NavigateUrl='<%# String.Format("~/Drug/Details.aspx?pzn={0}", Eval("PrescribedDrug.PZN")) %>'
+                            Text='<%# Eval("PrescribedDrug.PZN") %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="PrescribedDrug.Name" HeaderText="Name" />
+                <asp:BoundField DataField="State" HeaderText="State" />
+                <asp:BoundField DataField="PrescribedDrug.Stock" HeaderText="In Stock" />
+                <asp:TemplateField HeaderText="Pending">
+                    <ItemTemplate>
+
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Required">
+                    <ItemTemplate>
+
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button OnCommand="RemoveDrug_Command" CommandArgument='<%# Eval("ID") %>'
+                            Text="Remove" runat="server" Visible='<%# ((PrescriptionState)Eval("Prescription.State")) == PrescriptionState.Entry %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+        <asp:TextBox ID="PZNBox" runat="server" TextMode="Number" Visible="false" />
+        <asp:RangeValidator ID="PZNNumberValidator" runat="server"
+            ControlToValidate="PZNBox" ErrorMessage="RangeValidator"
+            Type="Integer" MinimumValue="1" MaximumValue="99999999"
+            EnableClientScript="false">
+            <span class="error">Enter valid PZN (8 digits)</span>
+        </asp:RangeValidator>
+        <asp:Button ID="AddItemButton" runat="server" Text="Add Drug" Visible="false"
+            OnCommand="AddDrug_Command" />
     </form>
 </asp:Content>
