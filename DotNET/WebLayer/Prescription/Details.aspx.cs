@@ -44,6 +44,18 @@ namespace WebLayer.Prescription
             return Int32.Parse(Request.Params["id"]);
         }
 
+        protected Int32 GetQuantityPending(object pznAsObject)
+        {
+            Int32 pzn = (Int32)pznAsObject;
+            return PrescriptionService.GetQuantityPendingForDrug(pzn);
+        }
+
+        protected Int32 GetQuantityRequired(object pznAsObject)
+        {
+            Int32 pzn = (Int32)pznAsObject;
+            return PrescriptionService.GetQuantityRequiredForDrug(pzn);
+        }
+
         protected void PreviousState_Command(object sender, CommandEventArgs e)
         {
             PrescriptionService.ReturnToPreviousState(GetPrescriptionId());

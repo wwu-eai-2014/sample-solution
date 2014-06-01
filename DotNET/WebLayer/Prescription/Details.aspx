@@ -119,12 +119,14 @@
                 <asp:BoundField DataField="PrescribedDrug.Stock" HeaderText="In Stock" />
                 <asp:TemplateField HeaderText="Pending">
                     <ItemTemplate>
-
+                        <asp:Label runat="server"
+                            Text='<%# GetQuantityPending(Eval("PrescribedDrug.PZN")) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Required">
                     <ItemTemplate>
-
+                        <asp:Label runat="server"
+                            Text='<%# GetQuantityRequired(Eval("PrescribedDrug.PZN")) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>

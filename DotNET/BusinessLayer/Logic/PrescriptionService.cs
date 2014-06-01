@@ -37,6 +37,30 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
+        public static int GetQuantityRequiredForDrug(int pzn)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Drug d = DrugService.GetDrug(pzn, db);
+                int optimalInventoryLevel = d.OptimalInventoryLevel;
+                int quantityUnfulfilled = (from i in db.ItemSet
+                                           where i.PrescribedDrug.PZN == pzn
+                                           && i.State == FulfilmentState.Unfulfilled
+                                           && (i.Prescription.State == PrescriptionState.Checking
+                                                || i.Prescription.State == PrescriptionState.Fulfilling)
+                                           select i).Count();
+                int currentStock = d.Stock;
+                int quantityPending = GetQuantityPendingForDrug(pzn);
+                int quantityRequired = (optimalInventoryLevel + quantityUnfulfilled) - (currentStock + quantityPending);
+                return Math.Max(0, quantityRequired);
+            }
+        }
+
+        public static int GetQuantityPendingForDrug(int pzn)
+        {
+            return OrderService.GetPendingPositionsForDrug(pzn).Aggregate(0, (sum, p) => sum + p.Quantity);
+        }
+
         public static void Cancel(Int32 id)
         {
             using (PharmacyContainer db = new PharmacyContainer())
