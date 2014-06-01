@@ -1,4 +1,4 @@
-﻿<%@ Page Title="C.Sharpe - Replenishment Order List" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="WebLayer.ReplenishmentOrder.Details" %>
+﻿<%@ Page Title="C.Sharpe - Replenishment Order Details" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Details.aspx.cs" Inherits="WebLayer.ReplenishmentOrder.Details" %>
 <%@ Import Namespace="Pharmacy.BusinessLayer.Data" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHolder" runat="server">
 <form id="OrderDetailsForm" runat="server">
