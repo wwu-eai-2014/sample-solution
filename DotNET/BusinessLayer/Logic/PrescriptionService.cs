@@ -164,5 +164,15 @@ namespace Pharmacy.BusinessLayer.Logic
                 OrderService.InitiateReplenishment(pzn, GetQuantityRequiredForDrug(pzn), db);
             }
         }
+
+        public static void UpdateFulfilmentDate(int id, DateTime fulfilmentDate)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                Prescription p = GetPrescription(id, db);
+                p.FulfilmentDate = fulfilmentDate;
+                db.SaveChanges();
+            }
+        }
     }
 }

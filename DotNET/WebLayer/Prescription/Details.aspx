@@ -77,6 +77,31 @@
                         </asp:RegularExpressionValidator>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Fulfilled on">
+                    <ItemTemplate>
+                        <asp:Label runat="server"
+                            Text="Not fulfilled yet." 
+                            Visible='<%# ((PrescriptionState)Eval("State")) != PrescriptionState.Fulfilled &&
+                                        !(((PrescriptionState)Eval("State")) == PrescriptionState.Fulfilling &&
+                                           ((PrescriptionState)Eval("State")).Proceedable((ICollection<Item>)Eval("Items"))) %>' />
+                        <asp:Label ID="FulfilledOnLabel" runat="server"
+                            Text='<%# Eval("FulfilmentDate", "{0:dd.MM.yyyy HH:mm}") %>' 
+                            Visible='<%# ((PrescriptionState)Eval("State")) == PrescriptionState.Fulfilled %>' />
+                        <asp:TextBox ID="FulfilledOnBox" TextMode="DateTime" runat="server"
+                            Text='<%# String.Format("{0:dd.MM.yyyy HH:mm}", DateTime.Now) %>'
+                            Visible='<%# ((PrescriptionState)Eval("State")) == PrescriptionState.Fulfilling && 
+                                        ((PrescriptionState)Eval("State")).Proceedable((ICollection<Item>)Eval("Items")) %>' />
+                        <asp:RequiredFieldValidator ID="RequiredFulfilledOn" ControlToValidate="FulfilledOnBox"
+                            EnableClientScript="false" runat="server">
+                            Fulfilled on required
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="ValidFulfilledOn" ControlToValidate="FulfilledOnBox"
+                            EnableClientScript="false" runat="server"
+                            ValidationExpression="\d{2}.\d{2}.\d{4} \d{2}:\d{2}">
+                            Invalid date (e.g. 24.12.2013 18:32)
+                        </asp:RegularExpressionValidator>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Button ID="UpdatePrescriptionButton" runat="server" OnCommand="UpdatePrescription_Command"

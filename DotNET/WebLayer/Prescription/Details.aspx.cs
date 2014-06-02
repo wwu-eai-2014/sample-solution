@@ -30,6 +30,15 @@ namespace WebLayer.Prescription
 
         protected void NextState_Command(object sender, CommandEventArgs e)
         {
+            if (!Page.IsValid)
+                return;
+
+            Int32 id = GetPrescriptionId();
+            if (PrescriptionService.GetPrescription(id).State == PrescriptionState.Fulfilling)
+            {
+                DateTime fulfilmentDate = Util.ParseDateTime(((TextBox)PrescriptionDetailsView.FindControl("FulfilledOnBox")).Text);
+                PrescriptionService.UpdateFulfilmentDate(id, fulfilmentDate);
+            }
             PrescriptionService.ProceedToNextStage(GetPrescriptionId());
             RedirectToSelf();
         }
