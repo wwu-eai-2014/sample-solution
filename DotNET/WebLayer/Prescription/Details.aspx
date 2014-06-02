@@ -169,6 +169,9 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+            <EmptyDataTemplate>
+                No prescribed drugs added yet.
+            </EmptyDataTemplate>
         </asp:GridView>
         <asp:TextBox ID="PZNBox" runat="server" TextMode="Number" Visible="false" />
         <asp:RangeValidator ID="PZNNumberValidator" runat="server"
