@@ -4,6 +4,7 @@
     <form id="DrugListForm" runat="server">
         <asp:TextBox ID="SearchBox" runat="server" />
         <asp:Button ID="SearchButton" Text="search" runat="server" OnClick="SearchButton_Click" />
+        <asp:HyperLink NavigateUrl="Create.aspx" Text="Create/add new drug" runat="server" />
         <asp:EntityDataSource ID="AllDrugsDatasource" runat="server" ConnectionString="name=PharmacyContainer"
             DefaultContainerName="PharmacyContainer" EnableFlattening="False" EntitySetName="DrugSet"
             EntityTypeFilter="Drug" Select="it.[PZN], it.[Name], it.[Description], it.[Stock]">
