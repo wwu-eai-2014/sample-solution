@@ -40,6 +40,9 @@
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:CommandField ButtonType="Button" ShowEditButton="true" CancelText="Cancel" EditText="Edit" UpdateText="Update" />
+                <asp:HyperLinkField DataNavigateUrlFields="Id"
+                    DataNavigateUrlFormatString="~/Prescription/Create.aspx?id={0}"
+                    Text="Enter new prescription" />
             </Fields>
             <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
             <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
