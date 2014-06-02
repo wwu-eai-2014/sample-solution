@@ -16,12 +16,10 @@ namespace WebLayer.Customer
 
         protected void SubmitBtn_Click(object sender, EventArgs e)
         {
-            // because validation still invoke this method
             if (!Page.IsValid)
                 return;
             try
             {
-                // pzn is validated in form
                 Pharmacy.BusinessLayer.Data.Customer result =
                     Pharmacy.BusinessLayer.Logic.CustomerService.CreateCustomer(NameBox.Text, TelephoneNumberBox.Text, AddressBox.Text);
                 ResultLabel.Text = String.Format("Customer '{0}' created.", result.Name);
