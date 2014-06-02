@@ -144,6 +144,10 @@ namespace Pharmacy.BusinessLayer.Logic
             {
                 Item i = GetItem(itemId, db);
                 Int32 pzn = i.PrescribedDrug.PZN;
+
+                if (i.Fulfilled())
+                    throw new ArgumentException(String.Format("Item for drug with {0} already fulfilled", pzn));
+
                 DrugService.Withdraw(pzn, 1, DateTime.Now);
                 i.State = FulfilmentState.Fulfilled;
                 db.SaveChanges();
