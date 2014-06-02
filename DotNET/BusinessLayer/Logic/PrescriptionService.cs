@@ -47,6 +47,16 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
+        public static ICollection<Prescription> GetAllPrescriptionsForCustomer(Int32 customerId)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                return (from p in db.PrescriptionSet
+                        where p.CustomerId == customerId
+                        select p).ToList();
+            }
+        }
+
         public static ICollection<Item> GetItemsForPrescription(Int32 id)
         {
             using (PharmacyContainer db = new PharmacyContainer())

@@ -45,5 +45,24 @@
             <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
             <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
         </asp:DetailsView>
+        <h3>Prescriptions</h3>
+        <asp:ObjectDataSource ID="PrescriptionDataSource" runat="server"
+            SelectMethod="GetAllPrescriptionsForCustomer" TypeName="Pharmacy.BusinessLayer.Logic.PrescriptionService"
+            DataObjectTypeName="Pharmacy.BusinessLayer.Data.Prescription">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="customerId" QueryStringField="id" Type="String" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:GridView ID="PrescriptionsGridView" DataSourceID="PrescriptionDataSource" runat="server" AutoGenerateColumns="false">
+            <Columns>
+                <asp:BoundField DataField="ID" HeaderText="ID" />
+                <asp:BoundField DataField="IssuingPhysician" HeaderText="Issuer" />
+                <asp:BoundField DataField="State" HeaderText="State" />
+                <asp:HyperLinkField DataNavigateUrlFields="ID" DataNavigateUrlFormatString="~/Prescription/Details.aspx?id={0}" Text="Details" />
+            </Columns>
+            <EmptyDataTemplate>
+                No prescriptions yet.
+            </EmptyDataTemplate>
+        </asp:GridView>
     </form>
 </asp:Content>
