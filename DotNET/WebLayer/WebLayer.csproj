@@ -67,6 +67,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Prescription\Create.aspx" />
     <Content Include="Prescription\Details.aspx" />
+    <Content Include="Prescription\List.aspx" />
     <Content Include="ReplenishmentOrder\Details.aspx" />
     <Content Include="ReplenishmentOrder\List.aspx" />
     <Content Include="Resources\default.css" />
@@ -142,6 +143,13 @@
     </Compile>
     <Compile Include="Prescription\Details.aspx.designer.cs">
       <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prescription\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prescription\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReplenishmentOrder\Details.aspx.cs">

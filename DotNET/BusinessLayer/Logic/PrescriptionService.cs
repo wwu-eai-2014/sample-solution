@@ -27,6 +27,26 @@ namespace Pharmacy.BusinessLayer.Logic
             return result;
         }
 
+        public static ICollection<Prescription> GetAllPrescriptionsInState(String filter)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                PrescriptionState? filteredState;
+                try {
+                    filteredState = (PrescriptionState)Enum.Parse(typeof(PrescriptionState), filter);
+                } catch (ArgumentException) {
+                    filteredState = null;
+                }
+
+                var all = db.PrescriptionSet.Include("Customer");
+                if (String.IsNullOrEmpty(filter) || filteredState == null) { 
+                    return all.ToList();
+                } else {
+                    return all.Where(p => p.State == filteredState).ToList();
+                }
+            }
+        }
+
         public static ICollection<Item> GetItemsForPrescription(Int32 id)
         {
             using (PharmacyContainer db = new PharmacyContainer())
