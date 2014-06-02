@@ -31,19 +31,23 @@ namespace Pharmacy.BusinessLayer.Logic
         {
             using (PharmacyContainer db = new PharmacyContainer())
             {
-                PrescriptionState? filteredState;
-                try {
-                    filteredState = (PrescriptionState)Enum.Parse(typeof(PrescriptionState), filter);
-                } catch (ArgumentException) {
-                    filteredState = null;
-                }
+                PrescriptionState? filteredState = ParseFromString(filter);
 
                 var all = db.PrescriptionSet.Include("Customer");
-                if (String.IsNullOrEmpty(filter) || filteredState == null) { 
+                if (filteredState == null) { 
                     return all.ToList();
                 } else {
                     return all.Where(p => p.State == filteredState).ToList();
                 }
+            }
+        }
+
+        public static PrescriptionState? ParseFromString(String state)
+        {
+            try {
+                return (PrescriptionState)Enum.Parse(typeof(PrescriptionState), state);
+            } catch (ArgumentException) {
+                return null;
             }
         }
 
