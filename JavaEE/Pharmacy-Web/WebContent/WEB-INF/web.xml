@@ -25,4 +25,12 @@
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
+  <servlet> 
+    <servlet-name>javax.ws.rs.core.Application</servlet-name> 
+    <load-on-startup>1</load-on-startup> 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>javax.ws.rs.core.Application</servlet-name>
+    <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
 </web-app>
