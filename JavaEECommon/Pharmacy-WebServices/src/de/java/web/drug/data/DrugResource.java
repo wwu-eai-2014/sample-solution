@@ -11,7 +11,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 @Path("drug")
 public interface DrugResource {
@@ -20,13 +19,18 @@ public interface DrugResource {
   @Produces(APPLICATION_JSON)
   Collection<DrugDto> allDrugs();
 
+  @GET
+  @Path("{pzn}")
+  @Produces(APPLICATION_JSON)
+  DrugDto getDrug(@PathParam("pzn") int pzn);
+
   @POST
   @Consumes(APPLICATION_JSON)
-  Response createDrug(DrugDto newDrug);
+  DrugDto createDrug(DrugDto newDrug);
 
   @PUT
   @Path("{pzn}")
   @Consumes(APPLICATION_JSON)
-  Response updateDrug(@PathParam("pzn") int pzn, DrugDto drug);
+  DrugDto updateDrug(@PathParam("pzn") int pzn, DrugDto drug);
 
 }

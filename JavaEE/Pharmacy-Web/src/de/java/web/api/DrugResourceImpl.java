@@ -1,14 +1,15 @@
 package de.java.web.api;
 
-import static javax.ws.rs.core.Response.*;
 import static javax.ws.rs.core.Response.Status.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.EJB;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.WebApplicationException;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
@@ -32,32 +33,41 @@ public class DrugResourceImpl implements DrugResource {
     return result;
   }
 
-  // TODO get for single drug (check for existence first)
+  @Override
+  public DrugDto getDrug(int pzn) {
+    Drug d = service.getDrug(pzn);
+    if (d == null) {
+      throw new NotFoundException();
+    }
+    return new DrugDto(d.getPzn(), d.getName(), d.getDescription());
+  };
 
   @Override
-  public Response createDrug(DrugDto newDrugDto) {
+  public DrugDto createDrug(DrugDto newDrugDto) {
     Drug newDrug = new Drug();
     newDrug.setPzn(newDrugDto.getPzn());
     newDrug.setName(newDrugDto.getName());
     newDrug.setDescription(newDrugDto.getDescription());
     try {
       service.createDrug(newDrug);
-      return ok(newDrugDto).build();
+      return newDrugDto;
     } catch (KeyConstraintViolation e) {
-      return status(CONFLICT).build();
+      throw new WebApplicationException(CONFLICT);
     }
   }
 
   @Override
-  public Response updateDrug(int pzn, DrugDto drugDto) {
+  public DrugDto updateDrug(int pzn, DrugDto drugDto) {
     if (pzn != drugDto.getPzn()) {
-      return status(BAD_REQUEST).build();
+      throw new BadRequestException();
     }
     
-    // TODO what if it does not exist?
+    // invoke get drug to check for its existence
+    getDrug(pzn);
+    
     service.updateMasterData(drugDto.getPzn(), drugDto.getName(),
         drugDto.getDescription());
-    return ok(drugDto).build();
+    return drugDto;
   }
 
 }
