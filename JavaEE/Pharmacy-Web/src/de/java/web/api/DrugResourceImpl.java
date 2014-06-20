@@ -32,6 +32,8 @@ public class DrugResourceImpl implements DrugResource {
     return result;
   }
 
+  // TODO get for single drug (check for existence first)
+
   @Override
   public Response createDrug(DrugDto newDrugDto) {
     Drug newDrug = new Drug();
