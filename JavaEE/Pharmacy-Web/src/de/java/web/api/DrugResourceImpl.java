@@ -35,11 +35,19 @@ public class DrugResourceImpl implements DrugResource {
 
   @Override
   public DrugDto getDrug(int pzn) {
+    validateDrugExists(pzn);
     Drug d = service.getDrug(pzn);
     if (d == null) {
       throw new NotFoundException();
     }
     return new DrugDto(d.getPzn(), d.getName(), d.getDescription());
+  }
+
+  private void validateDrugExists(int pzn) {
+    Drug drug = service.getDrug(pzn);
+    if (drug == null) {
+      throw new NotFoundException();
+    }
   };
 
   @Override
@@ -58,16 +66,18 @@ public class DrugResourceImpl implements DrugResource {
 
   @Override
   public DrugDto updateDrug(int pzn, DrugDto drugDto) {
-    if (pzn != drugDto.getPzn()) {
-      throw new BadRequestException();
-    }
-    
-    // invoke get drug to check for its existence
-    getDrug(pzn);
+    validatePznCorrespondence(pzn, drugDto);
+    validateDrugExists(pzn);
     
     service.updateMasterData(drugDto.getPzn(), drugDto.getName(),
         drugDto.getDescription());
     return drugDto;
+  }
+
+  private void validatePznCorrespondence(int pzn, DrugDto drugDto) {
+    if (pzn != drugDto.getPzn()) {
+      throw new BadRequestException();
+    }
   }
 
 }
