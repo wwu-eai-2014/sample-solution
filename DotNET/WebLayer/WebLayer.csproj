@@ -61,7 +61,6 @@
     <Content Include="Customer\Details.aspx" />
     <Content Include="Customer\List.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Drug\Create.aspx" />
     <Content Include="Drug\Details.aspx" />
     <Content Include="Drug\History.aspx" />
     <Content Include="Drug\List.aspx" />
@@ -102,13 +101,6 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Drug\Create.aspx.cs">
-      <DependentUpon>Create.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Drug\Create.aspx.designer.cs">
-      <DependentUpon>Create.aspx</DependentUpon>
     </Compile>
     <Compile Include="Drug\Details.aspx.cs">
       <DependentUpon>Details.aspx</DependentUpon>
