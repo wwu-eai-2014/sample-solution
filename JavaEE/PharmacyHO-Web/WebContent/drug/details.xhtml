@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/master.xhtml">
+  <ui:define name="metadata">
+    <f:metadata>
+      <f:viewParam name="pzn" value="#{drugPage.pzn}"></f:viewParam>
+      <f:event listener="#{drugPage.ensureInitialized}" type="preRenderView"></f:event>
+    </f:metadata>
+  </ui:define>
+  <ui:define name="title">Drug Details - #{drugPage.drug.name}</ui:define>
+  <ui:define name="content">
+    <h:form>
+      <h3>#{drugPage.drug.name} (PZN: #{drugPage.drug.pzn})</h3>
+      <h:panelGrid columns="2" columnClasses="label, value form-input"
+        footerClass="form-footer" styleClass="details-table">
+        PZN
+        <h:outputText value="#{drugPage.drug.pzn}" />
+        Name
+        <h:inputText tabindex="1" id="name" value="#{drugPage.drug.name}" />
+        Description
+        <h:inputTextarea tabindex="2" id="description" value="#{drugPage.drug.description}" />
+        <f:facet name="footer">
+          <h:commandButton tabindex="3" value="Submit changes" action="#{drugPage.submitMasterDataChanges}" />
+        </f:facet>
+      </h:panelGrid>
+      <h:messages for="name" styleClass="error" />
+    </h:form>
+  </ui:define>
+</ui:composition>
+</html>
