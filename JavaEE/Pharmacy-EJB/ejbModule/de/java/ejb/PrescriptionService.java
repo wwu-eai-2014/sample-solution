@@ -42,4 +42,6 @@ public interface PrescriptionService {
 
   void updateFulfilmentDate(long id, Date fulfilmentDate);
 
+  long getQuantityUnfulfilledForDrug(int pzn);
+
 }

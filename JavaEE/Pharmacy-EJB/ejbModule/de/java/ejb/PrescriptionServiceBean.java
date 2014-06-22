@@ -156,7 +156,8 @@ public class PrescriptionServiceBean implements PrescriptionService {
     return Math.max(0, quantityRequired);
   }
 
-  private long getQuantityUnfulfilledForDrug(int pzn) {
+  @Override
+  public long getQuantityUnfulfilledForDrug(int pzn) {
     String query = "SELECT COUNT(i)"
         + " FROM Item i"
         + " JOIN i.prescription p"
