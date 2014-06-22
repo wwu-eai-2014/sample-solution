@@ -17,27 +17,8 @@
         <EditRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
         <Fields>
             <asp:BoundField DataField="PZN" HeaderText="PZN" ReadOnly="True" SortExpression="PZN" />
-            <asp:TemplateField HeaderText="Name">
-                <ItemTemplate>
-                    <asp:Label ID="Name" runat="server" Text='<%# Eval("Name") %>' />
-                    </ItemTemplate>
-                <EditItemTemplate>
-                    <asp:TextBox ID="Name" runat="server" Text='<%# Bind("Name") %>' TextMode="SingleLine" ReadOnly="false" />
-                    <asp:RequiredFieldValidator ID="NameBoxValidator" runat="server" 
-                        ControlToValidate="Name" ErrorMessage="RequiredFieldValidator"
-                        EnableClientScript="false">
-                        <span class="error">Name required</span>
-                    </asp:RequiredFieldValidator>
-                </EditItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Description">
-                <ItemTemplate>
-                    <asp:Label ID="Description" runat="server" Text='<%# Eval("Description") %>' />
-                </ItemTemplate>
-                <EditItemTemplate>
-                    <asp:TextBox ID="Description" runat="server" Text='<%# Bind("Description") %>' TextMode="MultiLine" ReadOnly="false" />
-                </EditItemTemplate>
-            </asp:TemplateField>
+            <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="true" SortExpression="Name" />
+            <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="true" SortExpression="Description" />
             <asp:BoundField DataField="Stock" HeaderText="In Stock" ReadOnly="True" SortExpression="Stock" />
             <asp:TemplateField HeaderText="Minimum Inventory Level">
                 <ItemTemplate>
