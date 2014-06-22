@@ -47,8 +47,8 @@ namespace WebService
         {
             try
             {
-            DrugService.CreateDrug(newDrug.pzn, newDrug.name, newDrug.description);
-            return newDrug;
+                DrugService.CreateDrug(newDrug.pzn, newDrug.name, newDrug.description);
+                return newDrug;
             }
             catch
             {
@@ -56,7 +56,28 @@ namespace WebService
             }
         }
 
-        // TODO add update method
+        [WebInvoke(UriTemplate = "{pznAsString}", Method="PUT",
+            RequestFormat=WebMessageFormat.Json, ResponseFormat=WebMessageFormat.Json)]
+        public DrugDto update(String pznAsString, DrugDto drugDto)
+        {
+            Int32 pzn = Int32.Parse(pznAsString);
+            ValidateDrugExists(pzn);
+            ValidatePznCorrespondence(pzn, drugDto);
+
+            var d = DrugService.GetDrug(pzn);
+            d.Name = drugDto.name;
+            d.Description = drugDto.description;
+            DrugService.UpdateDrug(d);
+            return drugDto;
+        }
+
+        private void ValidatePznCorrespondence(int pzn, DrugDto drug)
+        {
+            if (pzn != drug.pzn)
+            {
+                throw new WebFaultException(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
 
     }
 
