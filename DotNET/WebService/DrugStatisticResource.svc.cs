@@ -8,14 +8,38 @@ using System.Text;
 
 namespace WebService
 {
+    [ServiceContract]
     public class DrugStatisticResource
     {
-        [ServiceContract]
-        public interface IDrugResource
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        public ICollection<DrugStatisticDto> getAll()
         {
-
-
-
+            return new List<DrugStatisticDto>();
         }
+
+        [WebGet(UriTemplate = "{pznAsString}", ResponseFormat = WebMessageFormat.Json)]
+        public DrugStatisticDto get(String pznAsString)
+        {
+            Int32 pzn = Int32.Parse(pznAsString);
+            DrugResource.ValidateDrugExists(pzn);
+            return new DrugStatisticDto { pzn = pzn };
+        }
+    }
+
+    [DataContract]
+    public class DrugStatisticDto
+    {
+        [DataMember]
+        public Int32 pzn;
+        [DataMember]
+        public Int32 stock;
+        [DataMember]
+        public Int32 minimumInventoryLevel;
+        [DataMember]
+        public Int32 optimalInventoryLevel;
+        [DataMember]
+        public Int32 pendingPositions;
+        [DataMember]
+        public Int32 unfulfilledItems;
     }
 }

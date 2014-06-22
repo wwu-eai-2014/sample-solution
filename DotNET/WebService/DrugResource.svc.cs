@@ -30,7 +30,7 @@ namespace WebService
             return new DrugDto(d);
         }
 
-        private static void ValidateDrugExists(Int32 pzn)
+        public static void ValidateDrugExists(Int32 pzn)
         {
             try
             {
