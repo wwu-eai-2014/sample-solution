@@ -13,10 +13,14 @@ namespace WebService
     [ServiceContract]
     public class DrugStatisticResource
     {
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<DrugStatisticDto> getAll()
         {
-            return new List<DrugStatisticDto>();
+            return DrugService.GetAllDrugs()
+                .Select(d => new DrugStatisticDto(d,
+                    PrescriptionService.GetQuantityPendingForDrug(d.PZN),
+                    PrescriptionService.GetQuantityUnfulfilledForDrug(d.PZN)))
+                .ToList();;
         }
 
         [WebGet(UriTemplate = "{pznAsString}", ResponseFormat = WebMessageFormat.Json)]
