@@ -1,6 +1,5 @@
 package de.java.web.api;
 
-import static javax.ws.rs.core.Response.Status.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +8,6 @@ import javax.ejb.EJB;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
@@ -60,7 +58,7 @@ public class DrugResourceImpl implements DrugResource {
       service.createDrug(newDrug);
       return newDrugDto;
     } catch (KeyConstraintViolation e) {
-      throw new WebApplicationException(CONFLICT);
+      throw new BadRequestException();
     }
   }
 
