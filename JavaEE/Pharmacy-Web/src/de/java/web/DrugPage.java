@@ -64,18 +64,13 @@ public class DrugPage implements Serializable {
     Util.redirectToRoot();
   }
 
-  public String submitMasterDataChanges() {
-    drug = drugService.updateMasterData(drug.getPzn(), drug.getName(), drug.getDescription());
+  public String submitReplenishmentConfigChanges() {
+    drug = drugService.updateReplenishmentConfig(drug.getPzn(), drug.getMinimumInventoryLevel(), drug.getOptimalInventoryLevel());
     return toDrugPage();
   }
 
   private String toDrugPage() {
     return "/drug/details.xhtml?faces-redirect=true&pzn=" + pzn;
-  }
-
-  public String submitReplenishmentConfigChanges() {
-    drug = drugService.updateReplenishmentConfig(drug.getPzn(), drug.getMinimumInventoryLevel(), drug.getOptimalInventoryLevel());
-    return toDrugPage();
   }
 
   public String withdraw() {

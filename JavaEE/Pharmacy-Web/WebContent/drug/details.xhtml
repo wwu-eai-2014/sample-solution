@@ -20,16 +20,12 @@
         PZN
         <h:outputText value="#{drugPage.drug.pzn}" />
         Name
-        <h:inputText tabindex="1" id="name" value="#{drugPage.drug.name}" />
+        <h:outputText id="name" value="#{drugPage.drug.name}" />
         Description
-        <h:inputTextarea tabindex="2" id="description" value="#{drugPage.drug.description}" />
+        <h:outputText id="description" value="#{drugPage.drug.description}" />
         In Stock
         <h:outputText value="#{drugPage.drug.stock}" />
-        <f:facet name="footer">
-          <h:commandButton tabindex="3" value="Submit changes" action="#{drugPage.submitMasterDataChanges}" />
-        </f:facet>
       </h:panelGrid>
-      <h:messages for="name" styleClass="error" />
       <h3>Replenishment configuration</h3>
       <h:panelGrid columns="2" columnClasses="label, value form-input"
         footerClass="form-footer" styleClass="details-table">
