@@ -11,7 +11,7 @@ public class DrugStatisticDto implements Serializable {
   private long minimumInventoryLevel;
   private long optimalInventoryLevel;
   private long pendingPositions;
-  private long unfilledItems;
+  private long unfulfilledItems;
 
   public DrugStatisticDto(int pzn, long stock,
       long minimumInventoryLevel, long optimalInventoryLevel,
@@ -21,7 +21,7 @@ public class DrugStatisticDto implements Serializable {
     this.minimumInventoryLevel = minimumInventoryLevel;
     this.optimalInventoryLevel = optimalInventoryLevel;
     this.pendingPositions = pendingPositions;
-    this.unfilledItems = unfulfilledItems;
+    this.unfulfilledItems = unfulfilledItems;
   }
 
   DrugStatisticDto() {
@@ -48,8 +48,8 @@ public class DrugStatisticDto implements Serializable {
     return pendingPositions;
   }
 
-  public long getUnfilledItems() {
-    return unfilledItems;
+  public long getUnfulfilledItems() {
+    return unfulfilledItems;
   }
 
 }
