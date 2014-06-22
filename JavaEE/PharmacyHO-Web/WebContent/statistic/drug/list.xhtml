@@ -22,9 +22,26 @@
       <h:column>
         <f:facet name="header">Stock</f:facet>
         #{cur.stock}
+        <f:facet name="footer">
+          #{drugStatisticList.totalStock}
+        </f:facet>
       </h:column>
       <h:column>
-        <h:link outcome="/drug/details.xhtml" value="Details">
+        <f:facet name="header">#Pending Positions</f:facet>
+        #{cur.pendingPositions}
+        <f:facet name="footer">
+          #{drugStatisticList.totalPendingPositions}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">#Unfulfilled Items</f:facet>
+        #{cur.unfulfilledItems}
+        <f:facet name="footer">
+          #{drugStatisticList.totalUnfulfilledItems}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <h:link outcome="/statistic/drug/details.xhtml" value="Details">
           <f:param name="pzn" value="#{cur.pzn}"></f:param>
         </h:link>
       </h:column>
