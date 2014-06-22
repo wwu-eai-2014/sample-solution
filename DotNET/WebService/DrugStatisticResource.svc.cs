@@ -29,10 +29,9 @@ namespace WebService
             Int32 pzn = Int32.Parse(pznAsString);
             DrugResource.ValidateDrugExists(pzn);
 
-            var d = DrugService.GetDrug(pzn);
             Int32 pendingPositions = PrescriptionService.GetQuantityPendingForDrug(pzn);
             Int32 unfilledItems = PrescriptionService.GetQuantityUnfulfilledForDrug(pzn);
-            return new DrugStatisticDto(d, pendingPositions, unfilledItems);
+            return new DrugStatisticDto(DrugService.GetDrug(pzn), pendingPositions, unfilledItems);
         }
     }
 
