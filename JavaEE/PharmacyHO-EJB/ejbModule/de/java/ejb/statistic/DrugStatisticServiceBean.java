@@ -34,21 +34,22 @@ public class DrugStatisticServiceBean implements DrugStatisticService {
 
   @Override
   public Collection<AggregatedDrugStatistic> getAllStatistics() {
-    Map<Integer, AggregatedDrugStatistic> pznToAggregatedDrugStatistic = createPznToAggredgatedStatisticMap();
+    Map<Integer, AggregatedDrugStatistic> statistics = createPznToAggredgatedStatisticMap();
     
-    for (Subsidiary s : Subsidiary.values()) {
-      Collection<DrugStatisticDto> allStatistics = retrieveAllStatistics(s);
-      for (DrugStatisticDto statistic : allStatistics) {
+    for (Subsidiary subsidiary : Subsidiary.values()) {
+      for (DrugStatisticDto statistic : retrieveAllStatisticsFrom(subsidiary)) {
         int pzn = statistic.getPzn();
-        if (pznToAggregatedDrugStatistic.containsKey(pzn)) {
-          IndividualDrugStatistic individualStatistic = new IndividualDrugStatistic(s, statistic);
-          pznToAggregatedDrugStatistic.get(pzn)
+        if (statistics.containsKey(pzn)) {
+          IndividualDrugStatistic individualStatistic = new IndividualDrugStatistic(
+              subsidiary, statistic);
+          statistics.get(pzn)
               .addIndividualStatistic(individualStatistic);
         }
       }
     }
 
-    return new ArrayList<>(pznToAggregatedDrugStatistic.values());
+    // copy into new list because values are not serializable
+    return new ArrayList<>(statistics.values());
   }
   
   private Map<Integer, AggregatedDrugStatistic> createPznToAggredgatedStatisticMap() {
@@ -59,7 +60,7 @@ public class DrugStatisticServiceBean implements DrugStatisticService {
     return pznToAggregatedDrugStatistic;
   }
 
-  private Collection<DrugStatisticDto> retrieveAllStatistics(Subsidiary s) {
+  private Collection<DrugStatisticDto> retrieveAllStatisticsFrom(Subsidiary s) {
     ResteasyWebTarget target = new ResteasyClientBuilder().build().target(s.getBaseUri());
     DrugStatisticResource resource = target.proxy(DrugStatisticResource.class);
     Collection<DrugStatisticDto> allStatistics = resource.getAllStatistics();
