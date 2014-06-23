@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.NotFoundException;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import de.java.domain.Drug;
 import de.java.ejb.statistic.AggregatedDrugStatistic;
@@ -23,6 +26,11 @@ public class DrugStatisticServiceBean implements DrugStatisticService {
 
   @EJB
   DrugService drugService;
+
+  @PostConstruct
+  public void registerRestEasy() {
+    RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
+  }
 
   @Override
   public Collection<AggregatedDrugStatistic> getAllStatistics() {
