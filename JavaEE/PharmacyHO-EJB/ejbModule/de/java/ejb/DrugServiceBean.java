@@ -55,12 +55,23 @@ public class DrugServiceBean implements DrugService {
 
   @Override
   public Drug createDrug(Drug newDrug) {
+    validateDrugDoesNotExist(newDrug);
+    
     // TODO create at subsidiary, too
+    return createDrugLocally(newDrug);
+  }
+  
+  private void validateDrugDoesNotExist(Drug newDrug) {
     if (em.createQuery("SELECT COUNT(*) FROM Drug WHERE pzn=:pzn",
         Long.class).setParameter("pzn", newDrug.getPzn())
         .getSingleResult() > 0)
       throw new KeyConstraintViolation(String.format(
           "Drug with PZN: %s already in database", newDrug.getPzn()));
+  }
+  
+  @Override
+  public Drug createDrugLocally(Drug newDrug) {
+    validateDrugDoesNotExist(newDrug);
 
     em.persist(newDrug);
     return newDrug;

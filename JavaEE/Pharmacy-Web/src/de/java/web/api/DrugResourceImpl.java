@@ -15,7 +15,7 @@ import de.java.ejb.KeyConstraintViolation;
 import de.java.web.drug.data.DrugDto;
 import de.java.web.drug.data.DrugResource;
 
-@Path("drug") // to ensure resource is discovered
+@Path("drug/") // to ensure resource is discovered
 public class DrugResourceImpl implements DrugResource {
 
   @EJB
