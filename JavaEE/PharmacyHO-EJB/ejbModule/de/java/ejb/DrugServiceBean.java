@@ -2,17 +2,29 @@ package de.java.ejb;
 
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
+
 import de.java.domain.Drug;
+import de.java.web.drug.data.DrugDto;
+import de.java.web.drug.data.DrugResource;
 
 @Stateless
 public class DrugServiceBean implements DrugService {
 
   @PersistenceContext
   private EntityManager em;
+
+  @PostConstruct
+  public void registerRestEasy() {
+    RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
+  }
 
   @Override
   public Collection<Drug> getAllDrugs() {
@@ -56,11 +68,13 @@ public class DrugServiceBean implements DrugService {
   @Override
   public Drug createDrug(Drug newDrug) {
     validateDrugDoesNotExist(newDrug);
-    
-    // TODO create at subsidiary, too
+    for (Subsidiary s : Subsidiary.values()) {
+      DrugResource drugResource = createResourceFor(s);
+      drugResource.createDrug(createDto(newDrug));
+    }
     return createDrugLocally(newDrug);
   }
-  
+
   private void validateDrugDoesNotExist(Drug newDrug) {
     if (em.createQuery("SELECT COUNT(*) FROM Drug WHERE pzn=:pzn",
         Long.class).setParameter("pzn", newDrug.getPzn())
@@ -68,7 +82,15 @@ public class DrugServiceBean implements DrugService {
       throw new KeyConstraintViolation(String.format(
           "Drug with PZN: %s already in database", newDrug.getPzn()));
   }
-  
+
+  private DrugResource createResourceFor(Subsidiary subsidiary) {
+    return new ResteasyClientBuilder().build().target(subsidiary.getBaseUri()).proxy(DrugResource.class);
+  }
+
+  private DrugDto createDto(Drug drug) {
+    return new DrugDto(drug.getPzn(), drug.getName(), drug.getDescription());
+  }
+
   @Override
   public Drug createDrugLocally(Drug newDrug) {
     validateDrugDoesNotExist(newDrug);
@@ -79,10 +101,13 @@ public class DrugServiceBean implements DrugService {
 
   @Override
   public Drug updateMasterData(int pzn, String name, String description) {
-    // TODO update at subsidiaries
     Drug drug = getDrug(pzn);
     drug.setName(name);
     drug.setDescription(description);
+    for (Subsidiary s : Subsidiary.values()) {
+      DrugResource drugResource = createResourceFor(s);
+      drugResource.updateDrug(pzn, createDto(drug));
+    }
     return drug;
   }
 }
