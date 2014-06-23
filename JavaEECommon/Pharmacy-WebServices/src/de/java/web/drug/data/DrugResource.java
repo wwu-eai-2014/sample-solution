@@ -26,11 +26,13 @@ public interface DrugResource {
 
   @POST
   @Consumes(APPLICATION_JSON)
+  @Produces(APPLICATION_JSON)
   DrugDto createDrug(DrugDto newDrug);
 
   @PUT
   @Path("{pzn}")
   @Consumes(APPLICATION_JSON)
+  @Produces(APPLICATION_JSON)
   DrugDto updateDrug(@PathParam("pzn") int pzn, DrugDto drug);
 
 }
