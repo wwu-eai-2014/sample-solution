@@ -9,8 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
-import de.java.ejb.DrugStatisticService;
 import de.java.ejb.statistic.AggregatedDrugStatistic;
+import de.java.ejb.statistic.DrugStatisticService;
 import de.java.web.util.Util;
 
 @ManagedBean

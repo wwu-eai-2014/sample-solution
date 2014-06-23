@@ -6,8 +6,8 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-import de.java.ejb.DrugStatisticService;
 import de.java.ejb.statistic.AggregatedDrugStatistic;
+import de.java.ejb.statistic.DrugStatisticService;
 
 @ManagedBean
 public class DrugStatisticList implements Serializable {

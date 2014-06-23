@@ -1,10 +1,8 @@
-package de.java.ejb;
+package de.java.ejb.statistic;
 
 import java.util.Collection;
 
 import javax.ejb.Remote;
-
-import de.java.ejb.statistic.AggregatedDrugStatistic;
 
 @Remote
 public interface DrugStatisticService {
