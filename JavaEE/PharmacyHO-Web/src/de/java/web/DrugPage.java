@@ -9,6 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 import de.java.domain.Drug;
 import de.java.ejb.DrugService;
+import de.java.ejb.DrugStatisticService;
+import de.java.ejb.statistic.AggregatedDrugStatistic;
 import de.java.web.util.Util;
 
 @ManagedBean
@@ -19,8 +21,13 @@ public class DrugPage implements Serializable {
   @EJB
   private DrugService drugService;
 
+  @EJB
+  private DrugStatisticService statisticService;
+
   private int pzn;
   private Drug drug;
+
+  private AggregatedDrugStatistic drugStatistic;
 
   public int getPzn() {
     return pzn;
@@ -66,4 +73,10 @@ public class DrugPage implements Serializable {
     this.drug = drug;
   }
 
+  public AggregatedDrugStatistic getAggregatedDrugStatistic() {
+    if (drugStatistic == null) {
+      drugStatistic = statisticService.getStatisticFor(getPzn());
+    }
+    return drugStatistic;
+  }
 }

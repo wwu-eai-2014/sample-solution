@@ -92,6 +92,10 @@ body {
   vertical-align: bottom;
 }
 
+.footer-cell {
+  border-top: 1px solid black;
+}
+
 .data-cell {
   border-left: 1px solid black;
   padding-right: 4px;

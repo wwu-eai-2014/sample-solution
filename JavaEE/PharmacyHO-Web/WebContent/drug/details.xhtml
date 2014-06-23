@@ -29,6 +29,51 @@
       </h:panelGrid>
       <h:messages for="name" styleClass="error" />
     </h:form>
+    <h:dataTable value="#{drugPage.aggregatedDrugStatistic.individualStatistics}" var="cur"
+      styleClass="data-table" headerClass="data-cell header-cell" footerClass="data-cell footer-cell"
+      columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell,data-cell"
+      rendered="#{not empty drugPage.aggregatedDrugStatistic.individualStatistics}">
+      <h:column>
+        <f:facet name="header">Subsidiary</f:facet>
+        #{cur.source.toString()}
+        <f:facet name="footer"><i>Total</i></f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">Minimum</f:facet>
+        #{cur.minimumInventoryLevel}
+        <f:facet name="footer">
+          #{drugPage.aggregatedDrugStatistic.minimumInventoryLevel}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">Optimum</f:facet>
+        #{cur.optimalInventoryLevel}
+        <f:facet name="footer">
+          #{drugPage.aggregatedDrugStatistic.optimalInventoryLevel}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">Stock</f:facet>
+        #{cur.stock}
+        <f:facet name="footer">
+          #{drugPage.aggregatedDrugStatistic.stock}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">#Pending Positions</f:facet>
+        #{cur.pendingPositions}
+        <f:facet name="footer">
+          #{drugPage.aggregatedDrugStatistic.pendingPositions}
+        </f:facet>
+      </h:column>
+      <h:column>
+        <f:facet name="header">#Unfulfilled Items</f:facet>
+        #{cur.unfulfilledItems}
+        <f:facet name="footer">
+          #{drugPage.aggregatedDrugStatistic.unfulfilledItems}
+        </f:facet>
+      </h:column>
+    </h:dataTable>
   </ui:define>
 </ui:composition>
 </html>
