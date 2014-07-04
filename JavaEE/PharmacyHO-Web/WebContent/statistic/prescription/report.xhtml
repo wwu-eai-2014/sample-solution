@@ -45,20 +45,24 @@
       <h:column>
         <f:facet name="header">Subsidiary</f:facet>
         #{cur.subsidiary.toString()}
+        <f:facet name="footer"><i>Total</i></f:facet>
       </h:column>
       <h:column>
         <f:facet name="header">#prescriptions</f:facet>
         #{cur.totalNumberOfPrescriptions}
+        <f:facet name="footer">#{prescriptionReportPage.totalNumberOfPrescriptions}</f:facet>
       </h:column>
       <h:column>
         <f:facet name="header">&Oslash;#items/prescription</f:facet>
         <h:outputText value="#{cur.averageNumberOfItemsPerPrescription}">
           <f:convertNumber maxFractionDigits="1" />
         </h:outputText>
+        <f:facet name="footer">#{prescriptionReportPage.averageNumberOfItemsPerPrescription}</f:facet>
       </h:column>
       <h:column>
         <f:facet name="header">&Oslash;fulf.timespan</f:facet>
         #{cur.averageFulfilmentTimespan}
+        <f:facet name="footer">#{prescriptionReportPage.averageFulfilmentTimespan}</f:facet>
       </h:column>
     </h:dataTable>
   </div>

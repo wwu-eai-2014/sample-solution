@@ -21,7 +21,7 @@ public class Duration implements Serializable {
     return duration;
   }
 
-  private long getAbsoluteDuration() {
+  public long getAbsoluteDuration() {
     return Math.abs(duration);
   }
   
