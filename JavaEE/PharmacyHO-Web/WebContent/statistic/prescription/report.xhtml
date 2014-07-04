@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/master.xhtml">
+  <ui:define name="title">Prescription report</ui:define>
+  <ui:define name="content">
+  <h:form id="filter">
+    <fieldset class="filter-settings">
+      <legend>Filter settings</legend>
+      <span>
+        Start:
+        <h:inputText class="filter-box timespanStart" id="timespanStart"
+          value="#{prescriptionReportPage.timespan.start}">
+          <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Europe/Berlin"/>
+          <f:ajax render="filterActions" />
+        </h:inputText>
+      </span>
+      <span>
+        End:
+        <h:inputText class="filter-box timespanEnd" id="timespanEnd"
+          value="#{prescriptionReportPage.timespan.end}">
+          <f:convertDateTime pattern="yyyy-MM-dd" timeZone="Europe/Berlin"/>
+          <f:ajax render="filterActions" />
+        </h:inputText>
+      </span>
+      <h:panelGroup id="filterActions">
+        <span>
+          <h:commandButton id="filterButton" action="#{prescriptionReportPage.refresh}" value="Refresh" rendered="#{prescriptionReportPage.timespan.valid}" />
+        </span>
+        <span>
+          <h:outputText id="timespanError" value="Set start before end!" rendered="#{not prescriptionReportPage.timespan.valid}" />
+          <h:message for="timespanStart" />
+          <h:message for="timespanEnd" />
+        </span>
+      </h:panelGroup>
+    </fieldset>
+  </h:form>
+  <div class="data">
+    <h:dataTable value="#{prescriptionReportPage.reports}" var="cur"
+      footerClass="data-cell footer-cell" styleClass="data-table" headerClass="data-cell header-cell"
+      columnClasses="data-cell,data-cell,data-cell,data-cell,data-cell,data-cell">
+      <h:column>
+        <f:facet name="header">Subsidiary</f:facet>
+        #{cur.subsidiary.toString()}
+      </h:column>
+      <h:column>
+        <f:facet name="header">#prescriptions</f:facet>
+        #{cur.totalNumberOfPrescriptions}
+      </h:column>
+      <h:column>
+        <f:facet name="header">&Oslash;#items/prescription</f:facet>
+        <h:outputText value="#{cur.averageNumberOfItemsPerPrescription}">
+          <f:convertNumber maxFractionDigits="1" />
+        </h:outputText>
+      </h:column>
+      <h:column>
+        <f:facet name="header">&Oslash;fulf.timespan</f:facet>
+        #{cur.averageFulfilmentTimespan}
+      </h:column>
+    </h:dataTable>
+  </div>
+  </ui:define>
+</ui:composition>
+</html>
