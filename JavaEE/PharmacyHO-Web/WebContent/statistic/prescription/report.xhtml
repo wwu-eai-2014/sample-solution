@@ -57,7 +57,11 @@
         <h:outputText value="#{cur.averageNumberOfItemsPerPrescription}">
           <f:convertNumber maxFractionDigits="1" />
         </h:outputText>
-        <f:facet name="footer">#{prescriptionReportPage.averageNumberOfItemsPerPrescription}</f:facet>
+        <f:facet name="footer">
+          <h:outputText value="#{prescriptionReportPage.averageNumberOfItemsPerPrescription}">
+            <f:convertNumber maxFractionDigits="2" />
+          </h:outputText>
+        </f:facet>
       </h:column>
       <h:column>
         <f:facet name="header">&Oslash;fulf.timespan</f:facet>
