@@ -178,4 +178,15 @@ public class PrescriptionServiceBean implements PrescriptionService {
     getPrescription(id).setFulfilmentDate(fulfilmentDate);
   }
 
+  @Override
+  public Collection<Prescription> getAllPrescriptionsEnteredIn(
+      Timespan timespan) {
+    return em.createQuery("SELECT DISTINCT p" + " FROM Prescription p"
+                + " LEFT JOIN FETCH p.items"
+                + " WHERE p.entryDate BETWEEN :start AND :end", Prescription.class)
+                .setParameter("start", timespan.getStart())
+                .setParameter("end", timespan.getEnd())
+                .getResultList();
+  }
+
 }

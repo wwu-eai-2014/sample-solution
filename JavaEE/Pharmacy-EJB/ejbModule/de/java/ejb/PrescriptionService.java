@@ -44,4 +44,7 @@ public interface PrescriptionService {
 
   long getQuantityUnfulfilledForDrug(int pzn);
 
+  Collection<Prescription> getAllPrescriptionsEnteredIn(
+      Timespan timespan);
+
 }
