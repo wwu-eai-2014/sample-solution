@@ -42,6 +42,14 @@ namespace Pharmacy.BusinessLayer.Logic
             }
         }
 
+        public static ICollection<Prescription> GetAllPrescriptionsEnteredBetween(DateTime startDate, DateTime endDate)
+        {
+            using (PharmacyContainer db = new PharmacyContainer())
+            {
+                return db.PrescriptionSet.Include("Items").Where(p => p.EntryDate > startDate && p.EntryDate < endDate).ToList();
+            }
+        }
+
         public static PrescriptionState? ParseFromString(String state)
         {
             try {
@@ -225,5 +233,6 @@ namespace Pharmacy.BusinessLayer.Logic
                 db.SaveChanges();
             }
         }
+
     }
 }

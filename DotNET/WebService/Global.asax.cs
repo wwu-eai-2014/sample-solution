@@ -20,6 +20,7 @@ namespace WebService
         {
             RouteTable.Routes.Add(new ServiceRoute("drug", new WebServiceHostFactory(), typeof(DrugResource)));
             RouteTable.Routes.Add(new ServiceRoute("statistic/drug", new WebServiceHostFactory(), typeof(DrugStatisticResource)));
+            RouteTable.Routes.Add(new ServiceRoute("statistic/prescription", new WebServiceHostFactory(), typeof(PrescriptionStatisticResource)));
         }
 
     }

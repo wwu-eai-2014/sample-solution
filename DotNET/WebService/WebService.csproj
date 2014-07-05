@@ -40,6 +40,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -63,6 +65,7 @@
     <Content Include="DrugStatisticResource.svc" />
     <Content Include="Global.asax" />
     <Content Include="DrugResource.svc" />
+    <Content Include="PrescriptionStatisticResource.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +77,9 @@
     </Compile>
     <Compile Include="DrugResource.svc.cs">
       <DependentUpon>DrugResource.svc</DependentUpon>
+    </Compile>
+    <Compile Include="PrescriptionStatisticResource.svc.cs">
+      <DependentUpon>PrescriptionStatisticResource.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
