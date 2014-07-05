@@ -1,14 +1,12 @@
 package de.java.web;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Collection;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import de.java.ejb.statistic.Duration;
 import de.java.ejb.statistic.PrescriptionReport;
 import de.java.ejb.statistic.PrescriptionReportService;
 import de.java.ejb.statistic.Timespan;
@@ -54,29 +52,4 @@ public class PrescriptionReportPage implements Serializable {
     return result;
   }
 
-  public double getAverageNumberOfItemsPerPrescription() {
-    int numberOfReports = getReports().size();
-    if (numberOfReports == 0) 
-      return 0;
-    return sumOfAverages() / numberOfReports;
-  }
-
-  private double sumOfAverages() {
-    double sumOfAverages = 0;
-    for (PrescriptionReport r : getReports()) {
-      sumOfAverages += r.getAverageNumberOfItemsPerPrescription();
-    }
-    return sumOfAverages;
-  }
-  
-  public Duration getAverageFulfilmentTimespan() {
-    BigInteger sumOfDurations = BigInteger.ZERO;
-    for (PrescriptionReport r : getReports()) {
-      BigInteger cur = BigInteger.valueOf(r.getAverageFulfilmentTimespan()
-          .getAbsoluteDuration());
-      sumOfDurations = sumOfDurations.add(cur);
-    }
-    BigInteger averageDuration = sumOfDurations.divide(BigInteger.valueOf(getReports().size()));
-    return new Duration(averageDuration.longValue());
-  }
 }
