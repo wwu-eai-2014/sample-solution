@@ -22,6 +22,7 @@ import de.java.domain.replenishment.ReplenishmentOrder;
 @Startup
 public class ApplicationInitialiser {
 
+  private static final int PZN_FOR_TEN_ASPIRIN = 1715965;
   private static final int PZN_FOR_SAMPLE_DRUG = 8456716;
   @PersistenceContext
   private EntityManager em;
@@ -62,7 +63,7 @@ public class ApplicationInitialiser {
   }
 
   private void addMoreDrugs() {
-    em.persist(new Drug(1715965, "ASPIRIN PLUS C ORANGE 20St"));
+    em.persist(new Drug(PZN_FOR_TEN_ASPIRIN, "ASPIRIN PLUS C ORANGE 20St"));
     em.persist(new Drug(451122, "ACC 200 TABS 20St"));
     em.persist(new Drug(451151, "ACC 200 TABS 40St"));
     em.persist(new Drug(451139, "ACC 200 TABS 50St"));
@@ -120,9 +121,16 @@ public class ApplicationInitialiser {
     
     Prescription prescriptionInEntry = albertAmundsen.createPrescription();
     prescriptionInEntry.setIssuer("Doctor Who");
-    Drug drug = em.find(Drug.class, PZN_FOR_SAMPLE_DRUG);
-    new Item(drug, prescriptionInEntry);
-    em.persist(prescriptionInEntry);
+    {
+      Drug drug = em.find(Drug.class, PZN_FOR_SAMPLE_DRUG);
+      new Item(drug, prescriptionInEntry);
+      em.persist(prescriptionInEntry);
+    }
+    {
+      Drug drug = em.find(Drug.class, PZN_FOR_TEN_ASPIRIN);
+      new Item(drug, prescriptionInEntry);
+      em.persist(prescriptionInEntry);
+    }
   }
 
 }
