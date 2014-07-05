@@ -22,19 +22,30 @@ namespace WebService
             DateTime endDate = DateTime.Parse(String.Format("{0} 23:59:59", end));
 
             var prescriptions = PrescriptionService.GetAllPrescriptionsEnteredBetween(startDate, endDate);
+
             var totalNumberOfPrescriptions = prescriptions.Count;
+            if (totalNumberOfPrescriptions == 0)
+            {
+                return new PrescriptionStatisticDto
+                {
+                    totalNumberOfPrescriptions = totalNumberOfPrescriptions,
+                    averageNumberOfItemsPerPrescription = 0,
+                    averageFulfilmentTimespan = 0
+                };
+            }
+
             var averageNumberOfItemsPerPrescription = (from p in prescriptions
-                                                          where p.Items.Count > 0
-                                                          select p.Items.Count).Average();
-            var averageDuration = (int) (from p in prescriptions
-                                   where p.State == PrescriptionState.Fulfilled
-                                   let timespan = p.FulfilmentDate - p.EntryDate
-                                   select timespan.Value.TotalSeconds).Average();
+                                                       where p.Items.Count > 0
+                                                       select p.Items.Count).Average();
+            var averageFulfilmentTimespan = (int) (from p in prescriptions
+                                         where p.State == PrescriptionState.Fulfilled
+                                         let duration = p.FulfilmentDate - p.EntryDate
+                                         select duration.Value.TotalSeconds).Average();
             return new PrescriptionStatisticDto
             {
                 totalNumberOfPrescriptions = totalNumberOfPrescriptions,
                 averageNumberOfItemsPerPrescription = averageNumberOfItemsPerPrescription,
-                averageDuration = averageDuration
+                averageFulfilmentTimespan = averageFulfilmentTimespan
             };
         }
     }
@@ -48,7 +59,7 @@ namespace WebService
         [DataMember]
         public double averageNumberOfItemsPerPrescription;
         [DataMember]
-        public int averageDuration;
+        public int averageFulfilmentTimespan;
 
     }
 }
