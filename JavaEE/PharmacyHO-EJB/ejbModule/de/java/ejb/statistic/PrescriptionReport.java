@@ -3,6 +3,7 @@ package de.java.ejb.statistic;
 import java.io.Serializable;
 
 import de.java.ejb.Subsidiary;
+import de.java.web.prescription.stat.PrescriptionStatisticDto;
 
 public class PrescriptionReport implements Serializable {
 
@@ -21,6 +22,13 @@ public class PrescriptionReport implements Serializable {
     this.totalNumberOfPrescriptions = totalNumberOfPrescriptions;
     this.averageNumberOfItemsPerPrescription = averageNumberOfItemsPerPrescription;
     this.averageFulfilmentTimespan = averageFulfilmentTimespan;
+  }
+
+  public PrescriptionReport(Subsidiary s, PrescriptionStatisticDto statistic) {
+    subsidiary = s;
+    totalNumberOfPrescriptions = statistic.getTotalNumberOfPrescriptions();
+    averageNumberOfItemsPerPrescription = statistic.getAverageNumberOfItemsPerPrescription();
+    averageFulfilmentTimespan = new Duration(statistic.getAverageFulfilmentTimespan());
   }
 
   public Subsidiary getSubsidiary() {

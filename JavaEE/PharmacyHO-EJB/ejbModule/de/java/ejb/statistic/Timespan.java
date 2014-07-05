@@ -22,7 +22,7 @@ public class Timespan implements Serializable {
 	private Date start;
 	private Date end;
 
-	private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * Initialises a timespan with a start which is set 30 days before the
@@ -76,9 +76,13 @@ public class Timespan implements Serializable {
 
 	@Override
 	public String toString() {
-		final String start = formatter.format(getStart());
-		final String end = formatter.format(getEnd());
+		final String start = format(getStart());
+		final String end = format(getEnd());
 		return String.format("[%s,%s]", start, end);
+	}
+
+	public static String format(Date date) {
+	  return formatter.format(date);
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class Timespan implements Serializable {
 	public Date getStart() {
 		return start;
 	}
-	
+
 	public void setStart(Date start) {
 		this.start = start ;
 	}
