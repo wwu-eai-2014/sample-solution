@@ -3,6 +3,7 @@ package de.java.ejb;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,11 +13,15 @@ import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import de.java.domain.Drug;
+import de.java.ejb.jms.JmsDrugService;
 import de.java.web.drug.data.DrugDto;
 import de.java.web.drug.data.DrugResource;
 
 @Stateless
 public class DrugServiceBean implements DrugService {
+
+  @EJB
+  JmsDrugService jmsService;
 
   @PersistenceContext
   private EntityManager em;
@@ -68,10 +73,9 @@ public class DrugServiceBean implements DrugService {
   @Override
   public Drug createDrug(Drug newDrug) {
     validateDrugDoesNotExist(newDrug);
-    for (Subsidiary s : Subsidiary.values()) {
-      DrugResource drugResource = createResourceFor(s);
-      drugResource.createDrug(createDto(newDrug));
-    }
+    jmsService.createAtSubsidiaries(newDrug);
+    DrugResource drugResource = createResourceFor(Subsidiary.C_SHARPE);
+    drugResource.createDrug(createDto(newDrug));
     return createDrugLocally(newDrug);
   }
 
@@ -104,10 +108,9 @@ public class DrugServiceBean implements DrugService {
     Drug drug = getDrug(pzn);
     drug.setName(name);
     drug.setDescription(description);
-    for (Subsidiary s : Subsidiary.values()) {
-      DrugResource drugResource = createResourceFor(s);
-      drugResource.updateDrug(pzn, createDto(drug));
-    }
+    jmsService.updateMasterDataAtSubsidiaries(drug);
+    DrugResource drugResource = createResourceFor(Subsidiary.C_SHARPE);
+    drugResource.updateDrug(pzn, createDto(drug));
     return drug;
   }
 }
