@@ -21,15 +21,19 @@ public class JmsDrugServiceBean extends AbstractJmsBean implements JmsDrugServic
 
   @Override
   public void createAtSubsidiaries(Drug drug) {
+    perform(CREATE, drug);
+  }
+
+  private void perform(String operation, Drug forDrug) {
     try {
       final Session sesion = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
       
       try {
         BytesMessage message = sesion.createBytesMessage();
-        message.setStringProperty("operation", CREATE);
-        message.writeInt(drug.getPzn());
-        message.writeUTF(drug.getName());
-        message.writeUTF(drug.getDescription());
+        message.setStringProperty("operation", operation);
+        message.writeInt(forDrug.getPzn());
+        message.writeUTF(forDrug.getName());
+        message.writeUTF(forDrug.getDescription());
         sesion.createProducer(drugActionsTopic).send(message);
         log.debug("Message send");
       } finally {
@@ -42,23 +46,7 @@ public class JmsDrugServiceBean extends AbstractJmsBean implements JmsDrugServic
 
   @Override
   public void updateMasterDataAtSubsidiaries(Drug drug) {
-    try {
-      final Session sesion = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
-      
-      try {
-        BytesMessage message = sesion.createBytesMessage();
-        message.setStringProperty("operation", UPDATE);
-        message.writeInt(drug.getPzn());
-        message.writeUTF(drug.getName());
-        message.writeUTF(drug.getDescription());
-        sesion.createProducer(drugActionsTopic).send(message);
-        log.debug("Message send");
-      } finally {
-      }
-    } catch (JMSException e) {
-      log.error("Tried to send JMS message", e);
-      throw new EJBException(e);
-    }
+    perform(UPDATE, drug);
   }
 
 }
