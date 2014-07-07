@@ -37,6 +37,7 @@ public class JmsDrugServiceBean extends AbstractJmsBean implements JmsDrugServic
         session.createProducer(drugActionsTopic).send(message);
         log.debug("Message send");
       } finally {
+        session.close();
       }
     } catch (JMSException e) {
       log.error("Tried to send JMS message", e);
