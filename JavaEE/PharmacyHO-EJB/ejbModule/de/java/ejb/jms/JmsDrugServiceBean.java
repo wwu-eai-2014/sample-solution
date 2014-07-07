@@ -26,15 +26,15 @@ public class JmsDrugServiceBean extends AbstractJmsBean implements JmsDrugServic
 
   private void perform(String operation, Drug forDrug) {
     try {
-      final Session sesion = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
+      final Session session = getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
       
       try {
-        BytesMessage message = sesion.createBytesMessage();
+        BytesMessage message = session.createBytesMessage();
         message.setStringProperty("operation", operation);
         message.writeInt(forDrug.getPzn());
         message.writeUTF(forDrug.getName());
         message.writeUTF(forDrug.getDescription());
-        sesion.createProducer(drugActionsTopic).send(message);
+        session.createProducer(drugActionsTopic).send(message);
         log.debug("Message send");
       } finally {
       }
